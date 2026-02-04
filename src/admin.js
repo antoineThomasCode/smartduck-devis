@@ -346,6 +346,8 @@ function getDashboardPage() {
           <th>Source</th>
           <th>Device</th>
           <th>Durée</th>
+          <th>Scroll</th>
+          <th>Chat</th>
         </tr>
       </thead>
       <tbody id="visits-list">
@@ -376,6 +378,8 @@ function getDashboardPage() {
           <td><span class="utm-badge utm-\${v.utm_source}">\${v.utm_source}</span></td>
           <td class="device-badge">\${v.device_type}</td>
           <td class="duration">\${formatDuration(v.duration)}</td>
+          <td>\${v.max_scroll ? v.max_scroll + '%' : '-'}</td>
+          <td>\${v.chat_used ? '💬' : '-'}</td>
         </tr>
       \`).join('');
     }

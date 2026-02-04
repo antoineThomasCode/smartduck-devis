@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
 
-const { trackingMiddleware, updateDuration } = require('./tracking');
+const { trackingMiddleware } = require('./tracking');
 const adminRouter = require('./admin');
 const db = require('./db');
 
@@ -20,7 +20,9 @@ app.use(helmet({
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       scriptSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrcAttr: ["'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'"],
     },
   },
 }));
@@ -44,11 +46,31 @@ app.use(trackingMiddleware);
 // Admin routes
 app.use('/admin', adminRouter);
 
-// API: Update duration (beacon)
+// API: Update tracking data (beacon)
 app.post('/api/track', (req, res) => {
-  const { sessionId, duration } = req.body;
-  if (sessionId && duration) {
-    updateDuration(sessionId, Math.round(duration));
+  const { sessionId, duration, maxScroll, sectionsViewed, chatUsed } = req.body;
+  if (sessionId) {
+    try {
+      const stmt = db.prepare(`
+        UPDATE visits
+        SET duration = COALESCE(?, duration),
+            max_scroll = COALESCE(?, max_scroll),
+            sections_viewed = COALESCE(?, sections_viewed),
+            chat_used = COALESCE(?, chat_used)
+        WHERE session_id = ?
+        AND id = (SELECT MAX(id) FROM visits WHERE session_id = ?)
+      `);
+      stmt.run(
+        duration ? Math.round(duration) : null,
+        maxScroll || null,
+        sectionsViewed ? JSON.stringify(sectionsViewed) : null,
+        chatUsed ? 1 : 0,
+        sessionId,
+        sessionId
+      );
+    } catch (err) {
+      console.error('Track update error:', err);
+    }
   }
   res.status(204).end();
 });

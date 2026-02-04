@@ -1109,7 +1109,7 @@
     <div class="chatbot-panel" id="chatbot-panel">
       <div class="chatbot-header">
         <h3>💬 Questions sur le devis ?</h3>
-        <button class="chatbot-close" onclick="toggleChat()">×</button>
+        <button class="chatbot-close">×</button>
       </div>
       <div class="chatbot-messages" id="chatbot-messages">
         <div class="chat-message assistant">
@@ -1117,11 +1117,11 @@
         </div>
       </div>
       <div class="chatbot-input">
-        <input type="text" id="chat-input" placeholder="Posez votre question..." onkeypress="handleKeyPress(event)">
-        <button onclick="sendMessage()" id="send-btn">Envoyer</button>
+        <input type="text" id="chat-input" placeholder="Posez votre question...">
+        <button id="send-btn">Envoyer</button>
       </div>
     </div>
-    <button class="chatbot-toggle" onclick="toggleChat()">
+    <button class="chatbot-toggle">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
       </svg>
@@ -1129,34 +1129,58 @@
   </div>
 
   <script>
-    // Session ID pour le tracking
+    // ---- SESSION & UTM ----
     const sessionId = localStorage.getItem('sessionId') || crypto.randomUUID();
     localStorage.setItem('sessionId', sessionId);
-    
-    // Track page load time
+
+    // Capture UTM silencieusement puis nettoyer l'URL
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get('utm_source') || params.get('src') || params.get('v') || null;
+    if (utmSource) {
+      sessionStorage.setItem('utm_source', utmSource);
+      // Nettoyer l'URL pour que le visiteur ne voie pas le tracking
+      history.replaceState(null, '', window.location.pathname);
+    }
+    const trackedSource = sessionStorage.getItem('utm_source');
+
+    // ---- TRACKING AVANCÉ ----
     const pageLoadTime = Date.now();
-    
-    // Send duration on page unload
+    let maxScroll = 0;
+    const sectionsViewed = new Set();
+
+    // Scroll depth tracking
+    window.addEventListener('scroll', () => {
+      const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+      if (scrollPercent > maxScroll) maxScroll = scrollPercent;
+
+      // Détecter les sections visibles
+      document.querySelectorAll('section, .header, .footer').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const name = el.className.split(' ')[0] || el.tagName.toLowerCase();
+          sectionsViewed.add(name);
+        }
+      });
+    }, { passive: true });
+
+    // Envoyer les données enrichies au unload
     window.addEventListener('beforeunload', () => {
       const duration = Math.round((Date.now() - pageLoadTime) / 1000);
       navigator.sendBeacon('/api/track', JSON.stringify({
         sessionId,
-        duration
+        duration,
+        maxScroll,
+        sectionsViewed: Array.from(sectionsViewed),
+        chatUsed: document.querySelectorAll('.chat-message.user').length > 0
       }));
     });
 
-    // Chatbot functions
+    // ---- CHATBOT ----
     function toggleChat() {
       const panel = document.getElementById('chatbot-panel');
       panel.classList.toggle('open');
       if (panel.classList.contains('open')) {
         document.getElementById('chat-input').focus();
-      }
-    }
-
-    function handleKeyPress(e) {
-      if (e.key === 'Enter') {
-        sendMessage();
       }
     }
 
@@ -1168,12 +1192,10 @@
       const messagesContainer = document.getElementById('chatbot-messages');
       const sendBtn = document.getElementById('send-btn');
 
-      // Add user message
       messagesContainer.innerHTML += `<div class="chat-message user">${escapeHtml(message)}</div>`;
       input.value = '';
       sendBtn.disabled = true;
 
-      // Add typing indicator
       messagesContainer.innerHTML += `<div class="typing-indicator" id="typing"><span></span><span></span><span></span></div>`;
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
@@ -1183,13 +1205,8 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message, sessionId })
         });
-        
         const data = await res.json();
-        
-        // Remove typing indicator
         document.getElementById('typing')?.remove();
-        
-        // Add assistant message
         messagesContainer.innerHTML += `<div class="chat-message assistant">${escapeHtml(data.response)}</div>`;
       } catch (err) {
         document.getElementById('typing')?.remove();
@@ -1205,6 +1222,14 @@
       div.textContent = text;
       return div.innerHTML;
     }
+
+    // ---- EVENT LISTENERS (pas de onclick inline) ----
+    document.querySelector('.chatbot-toggle').addEventListener('click', toggleChat);
+    document.querySelector('.chatbot-close').addEventListener('click', toggleChat);
+    document.getElementById('chat-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+    document.getElementById('send-btn').addEventListener('click', sendMessage);
   </script>
 
 </body>

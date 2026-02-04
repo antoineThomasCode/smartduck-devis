@@ -35,8 +35,11 @@ function trackingMiddleware(req, res, next) {
     });
   }
 
+  // Support UTM discret : ?utm_source=x, ?src=x, ou ?v=x
+  const utmSource = req.query.utm_source || req.query.src || req.query.v || 'direct';
+
   const visit = {
-    utm_source: req.query.utm_source || 'direct',
+    utm_source: utmSource,
     ip: anonymizeIP(req.ip || req.connection?.remoteAddress),
     user_agent: req.get('User-Agent') || 'unknown',
     referrer: req.get('Referrer') || 'direct',
@@ -67,18 +70,4 @@ function trackingMiddleware(req, res, next) {
   next();
 }
 
-function updateDuration(sessionId, duration) {
-  try {
-    const stmt = db.prepare(`
-      UPDATE visits 
-      SET duration = ?
-      WHERE session_id = ? 
-      AND id = (SELECT MAX(id) FROM visits WHERE session_id = ?)
-    `);
-    stmt.run(duration, sessionId, sessionId);
-  } catch (err) {
-    console.error('Duration update error:', err);
-  }
-}
-
-module.exports = { trackingMiddleware, updateDuration };
+module.exports = { trackingMiddleware };

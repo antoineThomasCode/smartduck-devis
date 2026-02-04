@@ -16,7 +16,10 @@ db.exec(`
     page_path TEXT,
     duration INTEGER DEFAULT 0,
     device_type TEXT,
-    session_id TEXT
+    session_id TEXT,
+    max_scroll INTEGER DEFAULT 0,
+    sections_viewed TEXT,
+    chat_used INTEGER DEFAULT 0
   );
 
   CREATE TABLE IF NOT EXISTS chat_logs (
@@ -29,6 +32,18 @@ db.exec(`
 
   CREATE INDEX IF NOT EXISTS idx_visits_timestamp ON visits(timestamp);
   CREATE INDEX IF NOT EXISTS idx_visits_utm ON visits(utm_source);
+  CREATE INDEX IF NOT EXISTS idx_visits_session ON visits(session_id);
 `);
+
+// Migrations : ajouter les colonnes si elles n'existent pas
+try {
+  db.exec(`ALTER TABLE visits ADD COLUMN max_scroll INTEGER DEFAULT 0`);
+} catch (e) { /* colonne existe déjà */ }
+try {
+  db.exec(`ALTER TABLE visits ADD COLUMN sections_viewed TEXT`);
+} catch (e) { /* colonne existe déjà */ }
+try {
+  db.exec(`ALTER TABLE visits ADD COLUMN chat_used INTEGER DEFAULT 0`);
+} catch (e) { /* colonne existe déjà */ }
 
 module.exports = db;
