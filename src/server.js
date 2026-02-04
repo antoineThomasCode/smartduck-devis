@@ -76,7 +76,7 @@ app.post('/api/chat', chatLimiter, async (req, res) => {
   }
 
   try {
-    const Anthropic = require('anthropic');
+    const Anthropic = require('@anthropic-ai/sdk');
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
     const systemPrompt = `Tu es l'assistant du devis SmartDuck × Cohorte. Tu réponds aux questions sur ce devis d'intégration du système de réservation Booker.
