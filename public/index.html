@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis — Cohorte × SmartDuck</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Cohorte - Dark tech */
+      --cohorte-black: #0a0a0a;
+      --cohorte-dark: #141414;
+      --cohorte-gray: #1a1a1a;
+      --cohorte-accent: #6366f1;
+      --cohorte-accent-light: #818cf8;
+      
+      /* SmartDuck - Vraies couleurs du site */
+      --duck-red: #E63946;
+      --duck-coral: #FF6B6B;
+      --duck-orange: #F4A261;
+      --duck-yellow: #FFD166;
+      --duck-peach: #FFF0EB;
+      --duck-lavender: #EEF2FF;
+      --duck-pink-accent: #EC4899;
+      
+      /* Neutrals */
+      --white: #ffffff;
+      --gray-50: #fafafa;
+      --gray-100: #f4f4f5;
+      --gray-200: #e4e4e7;
+      --gray-300: #d4d4d8;
+      --gray-400: #a1a1aa;
+      --gray-500: #71717a;
+      --gray-600: #52525b;
+      --gray-700: #3f3f46;
+      --gray-800: #27272a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--cohorte-black);
+      line-height: 1.6;
+    }
+
+    /* HEADER - Split branding */
+    .header {
+      display: flex;
+      min-height: 140px;
+    }
+
+    .header-cohorte {
+      flex: 1;
+      background: var(--cohorte-black);
+      padding: 35px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .header-cohorte .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 4px;
+      margin-bottom: 6px;
+    }
+
+    .header-cohorte .tagline {
+      font-size: 12px;
+      color: var(--gray-400);
+      letter-spacing: 1px;
+    }
+
+    .header-smartduck {
+      flex: 1;
+      background: linear-gradient(135deg, var(--duck-peach) 0%, var(--white) 100%);
+      padding: 35px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-smartduck::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, var(--duck-orange) 0%, transparent 70%);
+      opacity: 0.15;
+    }
+
+    .header-smartduck .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-smartduck .tagline {
+      font-size: 12px;
+      color: var(--gray-600);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 70px 60px;
+      text-align: center;
+      background: var(--white);
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cohorte-black) 0%, var(--cohorte-black) 50%, var(--duck-red) 50%, var(--duck-red) 100%);
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 24px;
+      padding: 10px 20px;
+      background: var(--gray-100);
+      border-radius: 100px;
+    }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--cohorte-black);
+    }
+
+    .hero h1 .highlight {
+      color: var(--duck-red);
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--gray-600);
+      max-width: 550px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .hero-meta {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .hero-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* CONTEXT */
+    .context {
+      padding: 50px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .context-card {
+      padding: 32px;
+      border-radius: 16px;
+      position: relative;
+    }
+
+    .context-problem {
+      background: var(--gray-100);
+    }
+
+    .context-solution {
+      background: var(--duck-peach);
+    }
+
+    .context-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .context-problem .context-icon {
+      background: var(--gray-200);
+    }
+
+    .context-solution .context-icon {
+      background: var(--duck-red);
+      color: var(--white);
+    }
+
+    .context-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 10px;
+    }
+
+    .context-solution .context-label {
+      color: var(--duck-red);
+    }
+
+    .context h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--cohorte-black);
+    }
+
+    .context p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.65;
+    }
+
+    /* OPTIONS SECTION */
+    .options-section {
+      padding: 60px;
+      background: var(--cohorte-black);
+    }
+
+    .options-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .options-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 12px;
+    }
+
+    .options-header p {
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--white);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* OPTION CARD */
+    .option-card {
+      background: var(--cohorte-gray);
+      border-radius: 20px;
+      padding: 36px;
+      position: relative;
+      border: 1px solid var(--gray-800);
+    }
+
+    .option-card.recommended {
+      background: linear-gradient(145deg, #1a1a2e 0%, var(--cohorte-dark) 100%);
+      border: 2px solid var(--duck-red);
+    }
+
+    .option-badge {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--duck-red);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 100px;
+    }
+
+    .option-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .option-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--gray-500);
+      margin-bottom: 8px;
+    }
+
+    .option-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .option-card.recommended .option-title {
+      color: var(--duck-coral);
+    }
+
+    .option-features {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+
+    .option-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--gray-400);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .option-features li .check {
+      color: var(--gray-600);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .option-card.recommended .option-features li .check {
+      color: var(--duck-red);
+    }
+
+    .option-features li.highlight {
+      color: var(--gray-200);
+      font-weight: 500;
+    }
+
+    .option-divider {
+      height: 1px;
+      background: var(--gray-700);
+      margin-bottom: 20px;
+    }
+
+    .option-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .option-delay {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .option-delay span {
+      display: block;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-300);
+      margin-top: 4px;
+    }
+
+    .option-price .amount {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .option-card.recommended .option-price .amount {
+      color: var(--duck-red);
+    }
+
+    .option-price .currency {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-left: 4px;
+    }
+
+    /* PROCESS */
+    .process-section {
+      padding: 60px;
+      background: var(--white);
+    }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .process-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 12px;
+    }
+
+    .process-header p {
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--cohorte-black);
+    }
+
+    .process-timeline {
+      display: flex;
+      justify-content: space-between;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 12%;
+      right: 12%;
+      height: 2px;
+      background: var(--gray-200);
+    }
+
+    .process-timeline::after {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 12%;
+      width: 76%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cohorte-accent) 0%, var(--duck-red) 100%);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: timeline-fill 2s ease-out 0.5s forwards;
+    }
+
+    @keyframes timeline-fill {
+      to { transform: scaleX(1); }
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      flex: 1;
+    }
+
+    .step-number {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gray-400);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .process-step:last-child .step-number {
+      background: var(--duck-red);
+      border-color: var(--duck-red);
+      color: var(--white);
+    }
+
+    .step-content {
+      max-width: 120px;
+    }
+
+    .step-title {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--cohorte-black);
+      margin-bottom: 4px;
+    }
+
+    .step-actor {
+      font-size: 11px;
+      color: var(--gray-500);
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 40px 60px;
+      background: var(--gray-50);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .footer-left h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 4px;
+    }
+
+    .footer-left p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .footer-right {
+      text-align: right;
+    }
+
+    .footer-right p {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .footer-right p:first-child {
+      font-weight: 500;
+      color: var(--gray-700);
+      margin-bottom: 2px;
+    }
+
+    /* CTA Button SmartDuck style */
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--duck-red);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 16px;
+      transition: background 0.2s ease;
+    }
+
+    .cta-button:hover {
+      background: #d63340;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      
+      .process-timeline::after {
+        transform: scaleX(1);
+        animation: none;
+      }
+      
+      .chatbot-widget {
+        display: none !important;
+      }
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+      
+      .options-grid {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        min-height: auto;
+      }
+      
+      .header-cohorte,
+      .header-smartduck {
+        padding: 24px 30px;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .header-smartduck {
+        align-items: center;
+      }
+      
+      .hero {
+        padding: 50px 24px;
+      }
+      
+      .hero h1 {
+        font-size: 32px;
+      }
+      
+      .hero-subtitle {
+        font-size: 16px;
+      }
+      
+      .hero-meta {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .context {
+        grid-template-columns: 1fr;
+        padding: 30px 24px;
+        gap: 16px;
+      }
+      
+      .options-section {
+        padding: 40px 24px;
+      }
+      
+      .options-header p {
+        font-size: 22px;
+      }
+      
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .option-card {
+        padding: 28px;
+      }
+      
+      .option-title {
+        font-size: 22px;
+      }
+      
+      .option-price .amount {
+        font-size: 28px;
+      }
+      
+      .process-section {
+        padding: 40px 24px;
+      }
+      
+      .process-timeline {
+        flex-direction: column;
+        gap: 24px;
+      }
+      
+      .process-timeline::before,
+      .process-timeline::after {
+        display: none;
+      }
+      
+      .process-step {
+        flex-direction: row;
+        text-align: left;
+        gap: 16px;
+      }
+      
+      .step-number {
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+      
+      .step-content {
+        max-width: none;
+      }
+      
+      .footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 30px 24px;
+      }
+      
+      .footer-right {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 28px;
+      }
+      
+      .context-card {
+        padding: 24px;
+      }
+      
+      .option-footer {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+      
+      .option-price {
+        align-self: flex-end;
+      }
+    }
+
+    /* CHATBOT WIDGET */
+    .chatbot-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .chatbot-toggle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--duck-red);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(230, 57, 70, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .chatbot-toggle:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 24px rgba(230, 57, 70, 0.5);
+    }
+
+    .chatbot-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    .chatbot-panel {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 360px;
+      max-width: calc(100vw - 48px);
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chatbot-panel.open {
+      display: flex;
+    }
+
+    .chatbot-header {
+      background: var(--cohorte-black);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chatbot-header h3 {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .chatbot-close {
+      background: none;
+      border: none;
+      color: var(--gray-400);
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      padding: 16px;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-message {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .chat-message.assistant {
+      background: var(--gray-100);
+      color: var(--cohorte-black);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-message.user {
+      background: var(--duck-red);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chatbot-input {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .chatbot-input input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .chatbot-input input:focus {
+      border-color: var(--duck-red);
+    }
+
+    .chatbot-input button {
+      padding: 10px 16px;
+      background: var(--duck-red);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .chatbot-input button:hover {
+      background: #d63340;
+    }
+
+    .chatbot-input button:disabled {
+      background: var(--gray-300);
+      cursor: not-allowed;
+    }
+
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 10px 14px;
+      background: var(--gray-100);
+      border-radius: 12px;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .typing-indicator span {
+      width: 6px;
+      height: 6px;
+      background: var(--gray-400);
+      border-radius: 50%;
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-4px); }
+    }
+
+    @media (max-width: 480px) {
+      .chatbot-widget {
+        bottom: 16px;
+        right: 16px;
+      }
+      
+      .chatbot-panel {
+        width: calc(100vw - 32px);
+        right: -8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER SPLIT -->
+  <header class="header">
+    <div class="header-cohorte">
+      <div class="logo">COHORTE</div>
+      <div class="tagline">AI-Augmented Development</div>
+    </div>
+    <div class="header-smartduck">
+      <div class="logo">SMART DUCK</div>
+      <div class="tagline">L'épilation laser pour tous</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="hero-label">Devis N°2025-02-SD</span>
+    <h1>Intégration<br><span class="highlight">Système de Réservation</span></h1>
+    <p class="hero-subtitle">Connecter Booker directement à votre site pour une expérience client fluide et des données centralisées.</p>
+    <div class="hero-meta">
+      <span>📅 5 février 2025</span>
+      <span>👤 Hervé & Aurélien</span>
+      <span>🏢 Wellness Group</span>
+    </div>
+  </section>
+
+  <!-- CONTEXT -->
+  <section class="context">
+    <div class="context-card context-problem">
+      <div class="context-icon">😤</div>
+      <span class="context-label">Aujourd'hui</span>
+      <h3>Double système, frictions</h3>
+      <p>Vos clients passent par Planity pour réserver. Les données sont gérées dans Booker. Deux outils, parcours fragmenté.</p>
+    </div>
+    <div class="context-card context-solution">
+      <div class="context-icon">✓</div>
+      <span class="context-label">Demain</span>
+      <h3>Un parcours, tout centralisé</h3>
+      <p>Réservation directe sur SmartDuck, connectée à Booker. Vos clients réservent en quelques clics, tout arrive au bon endroit.</p>
+    </div>
+  </section>
+
+  <!-- OPTIONS -->
+  <section class="options-section">
+    <div class="options-header">
+      <h2>Deux approches</h2>
+      <p>Choisissez celle qui correspond à vos ambitions</p>
+    </div>
+
+    <div class="options-grid">
+      <!-- OPTION 1 -->
+      <div class="option-card">
+        <div class="option-header">
+          <div>
+            <div class="option-number">OPTION 01</div>
+            <h3 class="option-title">Intégration Standard</h3>
+          </div>
+        </div>
+        <ul class="option-features">
+          <li><span class="check">✓</span> Connexion sécurisée API Booker</li>
+          <li><span class="check">✓</span> Sélection du centre</li>
+          <li><span class="check">✓</span> Choix du soin par catégorie</li>
+          <li><span class="check">✓</span> Calendrier disponibilités temps réel</li>
+          <li><span class="check">✓</span> Formulaire client</li>
+          <li><span class="check">✓</span> Email de confirmation automatique</li>
+          <li><span class="check">✓</span> Synchronisation immédiate Booker</li>
+        </ul>
+        <div class="option-divider"></div>
+        <div class="option-footer">
+          <div class="option-delay">
+            Délai
+            <span>3-4 jours</span>
+          </div>
+          <div class="option-price">
+            <span class="amount">1 200 €</span>
+            <span class="currency">HT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- OPTION 2 -->
+      <div class="option-card recommended">
+        <span class="option-badge">Recommandée</span>
+        <div class="option-header">
+          <div>
+            <div class="option-number">OPTION 02</div>
+            <h3 class="option-title">Tunnel Optimisé</h3>
+          </div>
+        </div>
+        <ul class="option-features">
+          <li><span class="check">✓</span> Tout ce qui est dans l'option 1</li>
+          <li class="highlight"><span class="check">✓</span> Design UX travaillé — moins d'abandons</li>
+          <li class="highlight"><span class="check">✓</span> Barre de progression visuelle</li>
+          <li class="highlight"><span class="check">✓</span> Géolocalisation automatique</li>
+          <li class="highlight"><span class="check">✓</span> Tracking par étape — voir où ça bloque</li>
+          <li class="highlight"><span class="check">✓</span> Dashboard analytics intégré</li>
+          <li class="highlight"><span class="check">✓</span> Prêt pour A/B testing</li>
+        </ul>
+        <div class="option-divider"></div>
+        <div class="option-footer">
+          <div class="option-delay">
+            Délai
+            <span>5-6 jours</span>
+          </div>
+          <div class="option-price">
+            <span class="amount">1 800 €</span>
+            <span class="currency">HT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="process-header">
+      <h2>Process</h2>
+      <p>De la décision au go-live</p>
+    </div>
+
+    <div class="process-timeline">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Choix option</div>
+          <div class="step-actor">Vous</div>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Credentials API</div>
+          <div class="step-actor">Pure Informatique</div>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Dev & Tests</div>
+          <div class="step-actor">Cohorte</div>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Validation</div>
+          <div class="step-actor">Ensemble</div>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Production</div>
+          <div class="step-actor">Go live 🚀</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <h4>Des questions ? Discutons-en.</h4>
+      <p>Antoine · Cohorte Agency</p>
+    </div>
+    <div class="footer-right">
+      <p>Validité : 30 jours</p>
+      <p>Devis non contractuel</p>
+    </div>
+  </footer>
+
+  <!-- CHATBOT WIDGET -->
+  <div class="chatbot-widget">
+    <div class="chatbot-panel" id="chatbot-panel">
+      <div class="chatbot-header">
+        <h3>💬 Questions sur le devis ?</h3>
+        <button class="chatbot-close" onclick="toggleChat()">×</button>
+      </div>
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chat-message assistant">
+          Bonjour ! Je suis l'assistant du devis SmartDuck × Cohorte. Comment puis-je vous aider ?
+        </div>
+      </div>
+      <div class="chatbot-input">
+        <input type="text" id="chat-input" placeholder="Posez votre question..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendMessage()" id="send-btn">Envoyer</button>
+      </div>
+    </div>
+    <button class="chatbot-toggle" onclick="toggleChat()">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    // Session ID pour le tracking
+    const sessionId = localStorage.getItem('sessionId') || crypto.randomUUID();
+    localStorage.setItem('sessionId', sessionId);
+    
+    // Track page load time
+    const pageLoadTime = Date.now();
+    
+    // Send duration on page unload
+    window.addEventListener('beforeunload', () => {
+      const duration = Math.round((Date.now() - pageLoadTime) / 1000);
+      navigator.sendBeacon('/api/track', JSON.stringify({
+        sessionId,
+        duration
+      }));
+    });
+
+    // Chatbot functions
+    function toggleChat() {
+      const panel = document.getElementById('chatbot-panel');
+      panel.classList.toggle('open');
+      if (panel.classList.contains('open')) {
+        document.getElementById('chat-input').focus();
+      }
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const message = input.value.trim();
+      if (!message) return;
+
+      const messagesContainer = document.getElementById('chatbot-messages');
+      const sendBtn = document.getElementById('send-btn');
+
+      // Add user message
+      messagesContainer.innerHTML += `<div class="chat-message user">${escapeHtml(message)}</div>`;
+      input.value = '';
+      sendBtn.disabled = true;
+
+      // Add typing indicator
+      messagesContainer.innerHTML += `<div class="typing-indicator" id="typing"><span></span><span></span><span></span></div>`;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message, sessionId })
+        });
+        
+        const data = await res.json();
+        
+        // Remove typing indicator
+        document.getElementById('typing')?.remove();
+        
+        // Add assistant message
+        messagesContainer.innerHTML += `<div class="chat-message assistant">${escapeHtml(data.response)}</div>`;
+      } catch (err) {
+        document.getElementById('typing')?.remove();
+        messagesContainer.innerHTML += `<div class="chat-message assistant">Désolé, une erreur s'est produite. Contactez Antoine directement.</div>`;
+      }
+
+      sendBtn.disabled = false;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+
+</body>
+</html>

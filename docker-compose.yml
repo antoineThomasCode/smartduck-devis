@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  smartduck-devis:
+    build: .
+    container_name: smartduck-devis
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.smartduck-devis.rule=Host(`smartduck.cohorte.tech`)"
+      - "traefik.http.routers.smartduck-devis.entrypoints=websecure"
+      - "traefik.http.routers.smartduck-devis.tls.certresolver=letsencrypt"
+      - "traefik.http.services.smartduck-devis.loadbalancer.server.port=3000"
+    networks:
+      - traefik-network
+
+networks:
+  traefik-network:
+    external: true
