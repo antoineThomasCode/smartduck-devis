@@ -102,24 +102,322 @@
       }
     }
 
-    /* ROADMAP SECTION */
-    .roadmap-section {
-      padding: 30px 20px 60px;
-      background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
-      min-height: 100vh;
+    /* TIMELINE HORIZONTALE */
+    .timeline-section {
+      padding: 30px 0 40px;
+      background: linear-gradient(180deg, var(--cohorte-black) 0%, #1a1a2e 100%);
+      overflow: hidden;
     }
 
-    .roadmap-intro {
+    .timeline-header {
       text-align: center;
-      padding: 20px;
+      padding: 0 20px 20px;
+    }
+
+    .timeline-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .timeline-header p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .timeline-scroll-container {
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: 20px 0 40px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .timeline-scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .timeline-track {
+      min-width: 1200px;
+      padding: 0 40px;
+      position: relative;
+    }
+
+    /* Mois */
+    .timeline-months {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .month {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      width: calc(100% / 12);
+      text-align: center;
+    }
+
+    .month.past {
+      color: var(--gray-500);
+    }
+
+    .month.current {
+      color: var(--duck-orange);
+      position: relative;
+    }
+
+    .month.current::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--duck-orange);
+      border-radius: 50%;
+    }
+
+    /* Ligne de temps */
+    .timeline-line {
+      height: 4px;
+      background: var(--gray-800);
+      border-radius: 2px;
+      position: relative;
       margin-bottom: 30px;
     }
 
-    .roadmap-intro p {
-      font-size: 14px;
+    .timeline-progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 12%;
+      background: linear-gradient(90deg, var(--cohorte-accent) 0%, var(--duck-orange) 100%);
+      border-radius: 2px;
+    }
+
+    .timeline-now {
+      position: absolute;
+      left: 12%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      background: var(--duck-orange);
+      border-radius: 50%;
+      border: 3px solid var(--cohorte-black);
+      box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.3);
+      animation: pulse-now 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-now {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.3); }
+      50% { box-shadow: 0 0 0 8px rgba(244, 162, 97, 0); }
+    }
+
+    /* Items sur la timeline */
+    .timeline-items {
+      position: relative;
+      height: 280px;
+    }
+
+    .timeline-item {
+      position: absolute;
+      top: 0;
+      width: 280px;
+    }
+
+    .item-connector {
+      width: 2px;
+      height: 20px;
+      background: var(--duck-orange);
+      margin: 0 auto 8px;
+    }
+
+    .item-connector.dashed {
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--gray-600) 0px,
+        var(--gray-600) 4px,
+        transparent 4px,
+        transparent 8px
+      );
+    }
+
+    .item-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .item-card.placeholder {
+      background: var(--gray-800);
+      border: 2px dashed var(--gray-600);
+    }
+
+    .item-card.placeholder h4,
+    .item-card.placeholder p {
       color: var(--gray-500);
-      max-width: 400px;
-      margin: 0 auto;
+    }
+
+    .item-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .item-badge.current {
+      background: var(--duck-orange);
+      color: var(--white);
+    }
+
+    .item-badge.upcoming {
+      background: var(--gray-700);
+      color: var(--gray-400);
+    }
+
+    .item-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 6px;
+    }
+
+    .item-card p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    /* Progress steps dans la card */
+    .item-progress {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+
+    .progress-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 9px;
+      color: var(--gray-500);
+      text-align: center;
+    }
+
+    .progress-step .step-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gray-200);
+    }
+
+    .progress-step.done .step-dot {
+      background: var(--cohorte-accent);
+    }
+
+    .progress-step.active .step-dot {
+      background: var(--duck-orange);
+      animation: pulse-step 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-step {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(244, 162, 97, 0.5); }
+      50% { box-shadow: 0 0 0 4px rgba(244, 162, 97, 0); }
+    }
+
+    .progress-step.done {
+      color: var(--cohorte-accent);
+    }
+
+    .progress-step.active {
+      color: var(--duck-orange);
+      font-weight: 600;
+    }
+
+    /* Options dans la card */
+    .item-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      background: var(--gray-100);
+      border-radius: 8px;
+      font-size: 11px;
+    }
+
+    .opt.recommended {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 1px solid var(--duck-orange);
+    }
+
+    .opt-name {
+      font-weight: 600;
+      color: var(--cohorte-black);
+    }
+
+    .opt-price {
+      margin-left: auto;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--duck-red);
+    }
+
+    .opt-tag {
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--duck-orange);
+      color: var(--white);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Hint de scroll */
+    .timeline-hint {
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    .timeline-hint span {
+      font-size: 12px;
+      color: var(--gray-600);
+      background: var(--gray-800);
+      padding: 6px 16px;
+      border-radius: 100px;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-track {
+        min-width: 900px;
+      }
+
+      .timeline-item {
+        width: 240px;
+      }
     }
 
     .roadmap-timeline {
@@ -2822,85 +3120,97 @@
     </div>
   </div>
 
-  <!-- ROADMAP VERTICALE -->
-  <section class="roadmap-section">
-    <div class="roadmap-intro">
-      <p>Scrollez pour voir l'avancée de vos chantiers et découvrir nos propositions en bas de page.</p>
+  <!-- TIMELINE HORIZONTALE -->
+  <section class="timeline-section">
+    <div class="timeline-header">
+      <h2>Roadmap 2026</h2>
+      <p>Scrollez horizontalement pour voir l'avancement</p>
     </div>
 
-    <div class="roadmap-timeline">
-      <!-- CHANTIER EN COURS : Intégration Booker -->
-      <div class="roadmap-item current">
-        <div class="roadmap-status">
-          <div class="status-indicator current"></div>
-          <div class="status-line"></div>
+    <div class="timeline-scroll-container">
+      <div class="timeline-track">
+        <!-- Ligne de temps avec les mois -->
+        <div class="timeline-months">
+          <div class="month past">Jan</div>
+          <div class="month current">Fév</div>
+          <div class="month">Mar</div>
+          <div class="month">Avr</div>
+          <div class="month">Mai</div>
+          <div class="month">Juin</div>
+          <div class="month">Juil</div>
+          <div class="month">Août</div>
+          <div class="month">Sept</div>
+          <div class="month">Oct</div>
+          <div class="month">Nov</div>
+          <div class="month">Déc</div>
         </div>
-        <div class="roadmap-content">
-          <div class="roadmap-badge current">En cours</div>
-          <h3>Intégration Système de Réservation Booker</h3>
-          <p class="roadmap-desc">Connecter Booker directement à votre site pour une expérience client fluide et des données centralisées.</p>
 
-          <!-- Mini process vertical pour mobile -->
-          <div class="roadmap-process">
-            <div class="mini-step current">
-              <span class="mini-dot"></span>
-              <span class="mini-label">Choix option</span>
-              <span class="mini-actor">Vous</span>
-            </div>
-            <div class="mini-step completed">
-              <span class="mini-dot"></span>
-              <span class="mini-label">Credentials API</span>
-              <span class="mini-actor">Pure Info ✓</span>
-            </div>
-            <div class="mini-step">
-              <span class="mini-dot"></span>
-              <span class="mini-label">Dev & Tests</span>
-              <span class="mini-actor">Cohorte</span>
-            </div>
-            <div class="mini-step">
-              <span class="mini-dot"></span>
-              <span class="mini-label">Validation</span>
-              <span class="mini-actor">Ensemble</span>
-            </div>
-            <div class="mini-step">
-              <span class="mini-dot"></span>
-              <span class="mini-label">Production</span>
-              <span class="mini-actor">Go live</span>
+        <!-- Ligne de progression -->
+        <div class="timeline-line">
+          <div class="timeline-progress"></div>
+          <div class="timeline-now"></div>
+        </div>
+
+        <!-- Chantiers positionnés sur la timeline -->
+        <div class="timeline-items">
+
+          <!-- Chantier en cours : Booker (Février) -->
+          <div class="timeline-item current" style="left: calc(8.33% + 4.16%);">
+            <div class="item-connector"></div>
+            <div class="item-card">
+              <div class="item-badge current">En cours</div>
+              <h4>Intégration Booker</h4>
+              <p>Système de réservation connecté à votre site</p>
+
+              <div class="item-progress">
+                <div class="progress-step done">
+                  <span class="step-dot"></span>
+                  <span>Credentials ✓</span>
+                </div>
+                <div class="progress-step active">
+                  <span class="step-dot"></span>
+                  <span>Choix option</span>
+                </div>
+                <div class="progress-step">
+                  <span class="step-dot"></span>
+                  <span>Dev</span>
+                </div>
+                <div class="progress-step">
+                  <span class="step-dot"></span>
+                  <span>Go live</span>
+                </div>
+              </div>
+
+              <div class="item-options">
+                <div class="opt">
+                  <span class="opt-name">Standard</span>
+                  <span class="opt-price">1 200 €</span>
+                </div>
+                <div class="opt recommended">
+                  <span class="opt-name">Tunnel Optimisé</span>
+                  <span class="opt-price">1 800 €</span>
+                  <span class="opt-tag">Reco</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Options à valider -->
-          <div class="roadmap-options">
-            <div class="option-mini">
-              <div class="option-mini-header">
-                <span class="option-mini-name">Standard</span>
-                <span class="option-mini-price">1 200 € HT</span>
-              </div>
-              <p>API Booker, sélection centre/soin, calendrier temps réel, confirmation email</p>
-            </div>
-            <div class="option-mini recommended">
-              <div class="option-mini-header">
-                <span class="option-mini-name">Tunnel Optimisé</span>
-                <span class="option-mini-badge">Recommandé</span>
-                <span class="option-mini-price">1 800 € HT</span>
-              </div>
-              <p>+ UX travaillée, géolocalisation, tracking par étape, dashboard analytics, prêt A/B testing</p>
+          <!-- Placeholder futurs chantiers -->
+          <div class="timeline-item upcoming" style="left: calc(25%);">
+            <div class="item-connector dashed"></div>
+            <div class="item-card placeholder">
+              <div class="item-badge upcoming">À définir</div>
+              <h4>Prochain chantier</h4>
+              <p>Validez une proposition ci-dessous pour l'ajouter ici</p>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- CHANTIER À VENIR (exemple placeholder) -->
-      <div class="roadmap-item upcoming">
-        <div class="roadmap-status">
-          <div class="status-indicator upcoming"></div>
-        </div>
-        <div class="roadmap-content">
-          <div class="roadmap-badge upcoming">À venir</div>
-          <h3>Prochains chantiers</h3>
-          <p class="roadmap-desc">Les fonctionnalités validées en bas de page apparaîtront ici dans l'ordre de priorité.</p>
         </div>
       </div>
+    </div>
+
+    <div class="timeline-hint">
+      <span>← Swipez →</span>
     </div>
   </section>
 
