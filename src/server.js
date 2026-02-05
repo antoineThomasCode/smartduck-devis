@@ -75,6 +75,38 @@ app.post('/api/track', (req, res) => {
   res.status(204).end();
 });
 
+// API: Proposal Votes
+app.post('/api/vote', (req, res) => {
+  const { sessionId, proposalId, vote, timestamp } = req.body;
+  if (sessionId && proposalId && vote) {
+    try {
+      // Créer la table si elle n'existe pas
+      db.exec(`
+        CREATE TABLE IF NOT EXISTS proposal_votes (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          session_id TEXT NOT NULL,
+          proposal_id TEXT NOT NULL,
+          vote TEXT NOT NULL,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          UNIQUE(session_id, proposal_id)
+        )
+      `);
+
+      // Upsert le vote
+      const stmt = db.prepare(`
+        INSERT INTO proposal_votes (session_id, proposal_id, vote, created_at)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(session_id, proposal_id)
+        DO UPDATE SET vote = ?, created_at = ?
+      `);
+      stmt.run(sessionId, proposalId, vote, timestamp, vote, timestamp);
+    } catch (err) {
+      console.error('Vote error:', err);
+    }
+  }
+  res.status(204).end();
+});
+
 // API: Chatbot
 app.post('/api/chat', chatLimiter, async (req, res) => {
   const { message, sessionId } = req.body;

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Devis — Cohorte × SmartDuck</title>
+  <title>Suivi Projet — Cohorte × SmartDuck</title>
 
   <!-- Open Graph pour WhatsApp / réseaux sociaux -->
-  <meta property="og:title" content="Un peu de R&D pour SmartDuck">
-  <meta property="og:description" content="J'ai créé une Meta Ad en motion design pour t'aider sur ton lancement de campagne à Paris. Regarde ce que ça donne !">
+  <meta property="og:title" content="Votre espace projet SmartDuck">
+  <meta property="og:description" content="Suivez l'avancée des développements, découvrez nos propositions et validez les prochaines fonctionnalités.">
   <meta property="og:image" content="https://smartduck.cohorte.tech/og-preview.png">
-  <meta property="og:url" content="https://smartduck.cohorte.tech/#meta-ads">
+  <meta property="og:url" content="https://smartduck.cohorte.tech">
   <meta property="og:type" content="website">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -57,535 +57,523 @@
       line-height: 1.6;
     }
 
-    /* HEADER - Split branding */
-    .header {
+    /* HEADER COMPACT */
+    .header-compact {
+      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1a1a2e 100%);
+      padding: 30px 40px;
+      border-bottom: 3px solid var(--duck-red);
+    }
+
+    .header-compact-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .header-brands {
       display: flex;
-      min-height: 140px;
-    }
-
-    .header-cohorte {
-      flex: 1;
-      background: var(--cohorte-black);
-      padding: 35px 50px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .header-cohorte .logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: 4px;
-      margin-bottom: 6px;
-    }
-
-    .header-cohorte .tagline {
-      font-size: 12px;
-      color: var(--gray-400);
-      letter-spacing: 1px;
-    }
-
-    .header-smartduck {
-      flex: 1;
-      background: linear-gradient(135deg, var(--duck-peach) 0%, var(--white) 100%);
-      padding: 35px 50px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-end;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .header-smartduck::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, var(--duck-orange) 0%, transparent 70%);
-      opacity: 0.15;
-    }
-
-    .header-smartduck .logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--cohorte-black);
-      margin-bottom: 6px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .header-smartduck .tagline {
-      font-size: 12px;
-      color: var(--gray-600);
-      position: relative;
-      z-index: 1;
-    }
-
-    /* HERO */
-    .hero {
-      padding: 70px 60px;
-      text-align: center;
-      background: var(--white);
-      position: relative;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--cohorte-black) 0%, var(--cohorte-black) 50%, var(--duck-red) 50%, var(--duck-red) 100%);
-    }
-
-    .hero-label {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gray-500);
-      margin-bottom: 24px;
-      padding: 10px 20px;
-      background: var(--gray-100);
-      border-radius: 100px;
-    }
-
-    .hero h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      line-height: 1.15;
+      align-items: center;
+      gap: 12px;
       margin-bottom: 20px;
-      color: var(--cohorte-black);
     }
 
-    .hero h1 .highlight {
-      color: var(--duck-red);
-    }
-
-    .hero-subtitle {
-      font-size: 18px;
-      color: var(--gray-600);
-      max-width: 550px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    .hero-meta {
-      margin-top: 30px;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      font-size: 13px;
-      color: var(--gray-500);
-    }
-
-    .hero-meta span {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* CONTEXT */
-    .context {
-      padding: 50px 60px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .context-card {
-      padding: 32px;
-      border-radius: 16px;
-      position: relative;
-    }
-
-    .context-problem {
-      background: var(--gray-100);
-    }
-
-    .context-solution {
-      background: var(--duck-peach);
-    }
-
-    .context-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      margin-bottom: 16px;
-    }
-
-    .context-problem .context-icon {
-      background: var(--gray-200);
-    }
-
-    .context-solution .context-icon {
-      background: var(--duck-red);
-      color: var(--white);
-    }
-
-    .context-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--gray-500);
-      margin-bottom: 10px;
-    }
-
-    .context-solution .context-label {
-      color: var(--duck-red);
-    }
-
-    .context h3 {
+    .brand-cohorte {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--cohorte-black);
-    }
-
-    .context p {
-      font-size: 14px;
-      color: var(--gray-600);
-      line-height: 1.65;
-    }
-
-    /* OPTIONS SECTION */
-    .options-section {
-      padding: 60px;
-      background: var(--cohorte-black);
-    }
-
-    .options-header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .options-header h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gray-500);
-      margin-bottom: 12px;
-    }
-
-    .options-header p {
-      font-size: 28px;
-      font-weight: 300;
-      color: var(--white);
-    }
-
-    .options-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    /* OPTION CARD */
-    .option-card {
-      background: var(--cohorte-gray);
-      border-radius: 20px;
-      padding: 36px;
-      position: relative;
-      border: 1px solid var(--gray-800);
-    }
-
-    .option-card.recommended {
-      background: linear-gradient(145deg, #1a1a2e 0%, var(--cohorte-dark) 100%);
-      border: 2px solid var(--duck-red);
-    }
-
-    .option-badge {
-      position: absolute;
-      top: -12px;
-      right: 24px;
-      background: var(--duck-red);
-      color: var(--white);
-      font-size: 10px;
+      font-size: 18px;
       font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 8px 14px;
-      border-radius: 100px;
+      color: var(--white);
+      letter-spacing: 3px;
     }
 
-    .option-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 24px;
-    }
-
-    .option-number {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
+    .brand-separator {
       color: var(--gray-500);
+      font-size: 16px;
+    }
+
+    .brand-client {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--duck-coral);
+      letter-spacing: 2px;
+    }
+
+    .header-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .intro-main {
+      font-size: 14px;
+      color: var(--gray-300);
+      line-height: 1.6;
+      max-width: 700px;
+    }
+
+    .intro-sub {
+      font-size: 13px;
+      color: var(--gray-400);
+      line-height: 1.6;
+      max-width: 700px;
+    }
+
+    .intro-sub strong {
+      color: var(--cohorte-accent-light);
+    }
+
+    /* ROADMAP SECTION */
+    .roadmap-section {
+      padding: 50px 40px;
+      background: var(--white);
+    }
+
+    .roadmap-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .roadmap-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--cohorte-black);
       margin-bottom: 8px;
     }
 
-    .option-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--white);
-    }
-
-    .option-card.recommended .option-title {
-      color: var(--duck-coral);
-    }
-
-    .option-features {
-      list-style: none;
-      margin-bottom: 28px;
-    }
-
-    .option-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--gray-400);
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
-
-    .option-features li .check {
-      color: var(--gray-600);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .option-card.recommended .option-features li .check {
-      color: var(--duck-red);
-    }
-
-    .option-features li.highlight {
-      color: var(--gray-200);
-      font-weight: 500;
-    }
-
-    .option-divider {
-      height: 1px;
-      background: var(--gray-700);
-      margin-bottom: 20px;
-    }
-
-    .option-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-
-    .option-delay {
-      font-size: 12px;
+    .roadmap-header p {
+      font-size: 15px;
       color: var(--gray-500);
     }
 
-    .option-delay span {
-      display: block;
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--gray-300);
-      margin-top: 4px;
-    }
-
-    .option-price .amount {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--white);
-    }
-
-    .option-card.recommended .option-price .amount {
-      color: var(--duck-red);
-    }
-
-    .option-price .currency {
-      font-size: 13px;
-      color: var(--gray-500);
-      margin-left: 4px;
-    }
-
-    /* PROCESS */
-    .process-section {
-      padding: 60px;
-      background: var(--white);
-    }
-
-    .process-header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .process-header h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gray-400);
-      margin-bottom: 12px;
-    }
-
-    .process-header p {
-      font-size: 24px;
-      font-weight: 400;
-      color: var(--cohorte-black);
-    }
-
-    .process-timeline {
-      display: flex;
-      justify-content: space-between;
-      max-width: 900px;
+    .roadmap-timeline {
+      max-width: 800px;
       margin: 0 auto;
-      position: relative;
     }
 
-    .process-timeline::before {
-      content: '';
-      position: absolute;
-      top: 28px;
-      left: 12%;
-      right: 12%;
-      height: 2px;
-      background: var(--gray-200);
+    .roadmap-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 32px;
     }
 
-    .process-timeline::after {
-      display: none;
-    }
-
-    @keyframes timeline-fill {
-      to { transform: scaleX(1); }
-    }
-
-    .process-step {
+    .roadmap-status {
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      position: relative;
-      flex: 1;
+      width: 24px;
+      flex-shrink: 0;
     }
 
-    .step-number {
-      width: 56px;
-      height: 56px;
+    .status-indicator {
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: var(--white);
-      border: 2px solid var(--gray-200);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--gray-400);
-      margin-bottom: 16px;
+      background: var(--gray-200);
       position: relative;
-      z-index: 1;
-      transition: all 0.3s ease;
     }
 
-    .process-step:last-child .step-number {
-      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-      border-color: #10b981;
-      color: var(--white);
+    .status-indicator.current {
+      background: var(--duck-orange);
+      animation: pulse-roadmap 2s ease-in-out infinite;
     }
 
-    /* Étape validée */
-    .process-step.completed .step-number {
-      background: linear-gradient(135deg, var(--cohorte-accent) 0%, var(--cohorte-accent-light) 100%);
-      border-color: var(--cohorte-accent);
-      color: var(--white);
+    .status-indicator.upcoming {
+      background: var(--gray-200);
+      border: 2px dashed var(--gray-300);
     }
 
-    .process-step.completed .step-number::after {
-      content: '✓';
-      position: absolute;
-      font-size: 20px;
+    .status-indicator.completed {
+      background: var(--cohorte-accent);
+    }
+
+    @keyframes pulse-roadmap {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(244, 162, 97, 0.5); }
+      50% { box-shadow: 0 0 0 8px rgba(244, 162, 97, 0); }
+    }
+
+    .status-line {
+      width: 2px;
+      flex-grow: 1;
+      background: var(--gray-200);
+      margin-top: 8px;
+    }
+
+    .roadmap-content {
+      flex-grow: 1;
+      background: var(--gray-50);
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .roadmap-item.current .roadmap-content {
+      background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+      border-color: var(--duck-orange);
+    }
+
+    .roadmap-badge {
+      display: inline-block;
+      font-size: 10px;
       font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 12px;
     }
 
-    .process-step.completed .step-number span {
-      display: none;
+    .roadmap-badge.current {
+      background: var(--duck-orange);
+      color: var(--white);
     }
 
-    .step-content {
-      max-width: 140px;
+    .roadmap-badge.upcoming {
+      background: var(--gray-200);
+      color: var(--gray-600);
     }
 
-    .step-title {
+    .roadmap-badge.completed {
+      background: var(--cohorte-accent);
+      color: var(--white);
+    }
+
+    .roadmap-content h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
       font-weight: 600;
-      font-size: 13px;
       color: var(--cohorte-black);
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
-    .process-step.completed .step-title {
+    .roadmap-desc {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Mini process dans roadmap */
+    .roadmap-process {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .mini-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 12px;
+      background: var(--white);
+      border-radius: 10px;
+      border: 1px solid var(--gray-200);
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .mini-step.current {
+      background: var(--duck-orange);
+      border-color: var(--duck-orange);
+    }
+
+    .mini-step.current .mini-label,
+    .mini-step.current .mini-actor {
+      color: var(--white);
+    }
+
+    .mini-step.completed {
+      background: rgba(99, 102, 241, 0.1);
+      border-color: var(--cohorte-accent);
+    }
+
+    .mini-step.completed .mini-label {
       color: var(--cohorte-accent);
     }
 
-    .step-actor {
+    .mini-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gray-300);
+    }
+
+    .mini-step.current .mini-dot {
+      background: var(--white);
+    }
+
+    .mini-step.completed .mini-dot {
+      background: var(--cohorte-accent);
+    }
+
+    .mini-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+    }
+
+    .mini-actor {
+      font-size: 10px;
+      color: var(--gray-500);
+    }
+
+    /* Options mini dans roadmap */
+    .roadmap-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .option-mini {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .option-mini.recommended {
+      border: 2px solid var(--duck-red);
+      background: linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%);
+    }
+
+    .option-mini-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .option-mini-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+    }
+
+    .option-mini-badge {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--duck-red);
+      color: var(--white);
+      padding: 3px 8px;
+      border-radius: 100px;
+    }
+
+    .option-mini-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--duck-red);
+      margin-left: auto;
+    }
+
+    .option-mini p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    /* PROPOSALS SECTION */
+    .proposals-section {
+      padding: 60px 40px;
+      background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+    }
+
+    .proposals-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .proposals-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 12px;
+    }
+
+    .proposals-header p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .proposals-legend {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-size: 11px;
       color: var(--gray-500);
     }
 
-    .step-date {
-      font-size: 10px;
-      color: var(--cohorte-accent);
-      font-weight: 600;
-      margin-top: 4px;
-      background: rgba(99, 102, 241, 0.1);
-      padding: 3px 8px;
-      border-radius: 100px;
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.no { background: var(--gray-400); }
+    .legend-dot.unclear { background: var(--duck-yellow); }
+    .legend-dot.later { background: var(--cohorte-accent); }
+    .legend-dot.go { background: #10b981; }
+
+    /* Proposal Card */
+    .proposal-card {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .proposal-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .proposal-badge {
       display: inline-block;
-    }
-
-    /* Étape en cours - Orange accentué */
-    .process-step.current .step-number {
-      background: linear-gradient(135deg, var(--duck-orange) 0%, #f97316 100%);
-      border: 3px solid var(--duck-orange);
-      color: var(--white);
-      animation: pulse-current 1.5s ease-in-out infinite;
-      transform: scale(1.1);
-    }
-
-    @keyframes pulse-current {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(244, 162, 97, 0.6); }
-      50% { box-shadow: 0 0 0 12px rgba(244, 162, 97, 0); }
-    }
-
-    .process-step.current .step-title {
-      color: var(--duck-orange);
+      font-size: 10px;
       font-weight: 700;
-      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      background: linear-gradient(135deg, var(--duck-orange) 0%, var(--duck-coral) 100%);
+      color: var(--white);
+      margin-bottom: 12px;
     }
 
-    .process-step.current .step-actor {
-      color: var(--duck-orange);
+    .proposal-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
       font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .proposal-header p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Vote system */
+    .proposal-vote {
+      display: flex;
+      gap: 8px;
+      padding: 16px 24px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .vote-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 12px;
+      background: var(--white);
+      border: 2px solid var(--gray-200);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .vote-btn:hover {
+      border-color: var(--gray-400);
+      transform: translateY(-2px);
+    }
+
+    .vote-btn.active {
+      border-color: var(--cohorte-accent);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    .vote-btn.go:hover,
+    .vote-btn.go.active {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .vote-icon {
+      font-size: 18px;
+      color: var(--gray-500);
+    }
+
+    .vote-btn.go .vote-icon {
+      color: #10b981;
+    }
+
+    .vote-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+
+    .proposal-details {
+      padding: 24px;
+    }
+
+    .proposal-preview {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 30px;
+    }
+
+    .preview-text h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 10px;
+    }
+
+    .preview-text p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .proposal-preview {
+        grid-template-columns: 1fr;
+      }
+
+      .roadmap-options {
+        grid-template-columns: 1fr;
+      }
+
+      .roadmap-process {
+        flex-direction: column;
+      }
+
+      .proposal-vote {
+        flex-wrap: wrap;
+      }
+
+      .vote-btn {
+        flex: 1 1 45%;
+      }
     }
 
     /* BONUS R&D SECTION */
@@ -2734,186 +2722,158 @@
 </head>
 <body>
 
-  <!-- HEADER SPLIT -->
-  <header class="header">
-    <div class="header-cohorte">
-      <div class="logo">COHORTE</div>
-      <div class="tagline">AI-Augmented Development</div>
-    </div>
-    <div class="header-smartduck">
-      <div class="logo">SMART DUCK</div>
-      <div class="tagline">L'épilation laser pour tous</div>
+  <!-- HEADER COMPACT -->
+  <header class="header-compact">
+    <div class="header-compact-inner">
+      <div class="header-brands">
+        <span class="brand-cohorte">COHORTE</span>
+        <span class="brand-separator">×</span>
+        <span class="brand-client">SMARTDUCK</span>
+      </div>
+      <div class="header-intro">
+        <p class="intro-main">Votre espace de suivi projet. Ici, vous voyez l'avancée des développements en cours, les prochaines fonctionnalités, et vous pouvez nous faire part de vos priorités.</p>
+        <p class="intro-sub">Nous sommes des <strong>développeurs augmentés par l'IA</strong> : nos outils nous permettent d'avancer vite, d'itérer rapidement, et de vous proposer des solutions sur-mesure. On est là pour accompagner votre croissance, à votre rythme.</p>
+      </div>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <span class="hero-label">Devis N°2025-02-SD</span>
-    <h1>Intégration<br><span class="highlight">Système de Réservation</span></h1>
-    <p class="hero-subtitle">Connecter Booker directement à votre site pour une expérience client fluide et des données centralisées.</p>
-    <div class="hero-meta">
-      <span>📅 5 février 2025</span>
-      <span>👤 Hervé & Aurélien</span>
-      <span>🏢 Wellness Group</span>
-    </div>
-  </section>
-
-  <!-- CONTEXT -->
-  <section class="context">
-    <div class="context-card context-problem">
-      <div class="context-icon">😤</div>
-      <span class="context-label">Aujourd'hui</span>
-      <h3>Double système, frictions</h3>
-      <p>Vos clients passent par Planity pour réserver. Les données sont gérées dans Booker. Deux outils, parcours fragmenté.</p>
-    </div>
-    <div class="context-card context-solution">
-      <div class="context-icon">✓</div>
-      <span class="context-label">Demain</span>
-      <h3>Un parcours, tout centralisé</h3>
-      <p>Réservation directe sur SmartDuck, connectée à Booker. Vos clients réservent en quelques clics, tout arrive au bon endroit.</p>
-    </div>
-  </section>
-
-  <!-- OPTIONS -->
-  <section class="options-section">
-    <div class="options-header">
-      <h2>Deux approches</h2>
-      <p>Choisissez celle qui correspond à vos ambitions</p>
+  <!-- ROADMAP VERTICALE -->
+  <section class="roadmap-section">
+    <div class="roadmap-header">
+      <h2>Roadmap</h2>
+      <p>Les chantiers en cours et à venir</p>
     </div>
 
-    <div class="options-grid">
-      <!-- OPTION 1 -->
-      <div class="option-card">
-        <div class="option-header">
-          <div>
-            <div class="option-number">OPTION 01</div>
-            <h3 class="option-title">Intégration Standard</h3>
-          </div>
+    <div class="roadmap-timeline">
+      <!-- CHANTIER EN COURS : Intégration Booker -->
+      <div class="roadmap-item current">
+        <div class="roadmap-status">
+          <div class="status-indicator current"></div>
+          <div class="status-line"></div>
         </div>
-        <ul class="option-features">
-          <li><span class="check">✓</span> Connexion sécurisée API Booker</li>
-          <li><span class="check">✓</span> Sélection du centre</li>
-          <li><span class="check">✓</span> Choix du soin par catégorie</li>
-          <li><span class="check">✓</span> Calendrier disponibilités temps réel</li>
-          <li><span class="check">✓</span> Formulaire client</li>
-          <li><span class="check">✓</span> Email de confirmation automatique</li>
-          <li><span class="check">✓</span> Synchronisation immédiate Booker</li>
-        </ul>
-        <div class="option-divider"></div>
-        <div class="option-footer">
-          <div class="option-delay">
-            Délai
-            <span>3-4 jours</span>
+        <div class="roadmap-content">
+          <div class="roadmap-badge current">En cours</div>
+          <h3>Intégration Système de Réservation Booker</h3>
+          <p class="roadmap-desc">Connecter Booker directement à votre site pour une expérience client fluide et des données centralisées.</p>
+
+          <!-- Mini process horizontal -->
+          <div class="roadmap-process">
+            <div class="mini-step current">
+              <span class="mini-dot"></span>
+              <span class="mini-label">Choix option</span>
+              <span class="mini-actor">Vous</span>
+            </div>
+            <div class="mini-step completed">
+              <span class="mini-dot"></span>
+              <span class="mini-label">Credentials API</span>
+              <span class="mini-actor">Pure Info ✓</span>
+            </div>
+            <div class="mini-step">
+              <span class="mini-dot"></span>
+              <span class="mini-label">Dev & Tests</span>
+              <span class="mini-actor">Cohorte</span>
+            </div>
+            <div class="mini-step">
+              <span class="mini-dot"></span>
+              <span class="mini-label">Validation</span>
+              <span class="mini-actor">Ensemble</span>
+            </div>
+            <div class="mini-step">
+              <span class="mini-dot"></span>
+              <span class="mini-label">Production</span>
+              <span class="mini-actor">Go live</span>
+            </div>
           </div>
-          <div class="option-price">
-            <span class="amount">1 200 €</span>
-            <span class="currency">HT</span>
+
+          <!-- Options à valider -->
+          <div class="roadmap-options">
+            <div class="option-mini">
+              <div class="option-mini-header">
+                <span class="option-mini-name">Standard</span>
+                <span class="option-mini-price">1 200 € HT</span>
+              </div>
+              <p>API Booker, sélection centre/soin, calendrier temps réel, confirmation email</p>
+            </div>
+            <div class="option-mini recommended">
+              <div class="option-mini-header">
+                <span class="option-mini-name">Tunnel Optimisé</span>
+                <span class="option-mini-badge">Recommandé</span>
+                <span class="option-mini-price">1 800 € HT</span>
+              </div>
+              <p>+ UX travaillée, géolocalisation, tracking par étape, dashboard analytics, prêt A/B testing</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- OPTION 2 -->
-      <div class="option-card recommended">
-        <span class="option-badge">Recommandée</span>
-        <div class="option-header">
-          <div>
-            <div class="option-number">OPTION 02</div>
-            <h3 class="option-title">Tunnel Optimisé</h3>
-          </div>
+      <!-- CHANTIER À VENIR (exemple placeholder) -->
+      <div class="roadmap-item upcoming">
+        <div class="roadmap-status">
+          <div class="status-indicator upcoming"></div>
         </div>
-        <ul class="option-features">
-          <li><span class="check">✓</span> Tout ce qui est dans l'option 1</li>
-          <li class="highlight"><span class="check">✓</span> Design UX travaillé — moins d'abandons</li>
-          <li class="highlight"><span class="check">✓</span> Barre de progression visuelle</li>
-          <li class="highlight"><span class="check">✓</span> Géolocalisation automatique</li>
-          <li class="highlight"><span class="check">✓</span> Tracking par étape — voir où ça bloque</li>
-          <li class="highlight"><span class="check">✓</span> Dashboard analytics intégré</li>
-          <li class="highlight"><span class="check">✓</span> Prêt pour A/B testing</li>
-        </ul>
-        <div class="option-divider"></div>
-        <div class="option-footer">
-          <div class="option-delay">
-            Délai
-            <span>5-6 jours</span>
-          </div>
-          <div class="option-price">
-            <span class="amount">1 800 €</span>
-            <span class="currency">HT</span>
-          </div>
+        <div class="roadmap-content">
+          <div class="roadmap-badge upcoming">À venir</div>
+          <h3>Prochains chantiers</h3>
+          <p class="roadmap-desc">Les fonctionnalités validées en bas de page apparaîtront ici dans l'ordre de priorité.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PROCESS -->
-  <section class="process-section">
-    <div class="process-header">
-      <h2>Process</h2>
-      <p>De la décision au go-live</p>
-    </div>
-
-    <div class="process-timeline">
-      <div class="process-step current">
-        <div class="step-number">01</div>
-        <div class="step-content">
-          <div class="step-title">Choix option</div>
-          <div class="step-actor">Vous</div>
-        </div>
-      </div>
-      <div class="process-step completed">
-        <div class="step-number"><span>02</span></div>
-        <div class="step-content">
-          <div class="step-title">Credentials API</div>
-          <div class="step-actor">Pure Informatique</div>
-          <div class="step-date">4 fév. 2026 ✓</div>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number">03</div>
-        <div class="step-content">
-          <div class="step-title">Dev & Tests</div>
-          <div class="step-actor">Cohorte</div>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number">04</div>
-        <div class="step-content">
-          <div class="step-title">Validation</div>
-          <div class="step-actor">Ensemble</div>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number">05</div>
-        <div class="step-content">
-          <div class="step-title">Production</div>
-          <div class="step-actor">Go live 🚀</div>
-        </div>
+  <!-- PROPOSITIONS - Section avec système de vote -->
+  <section class="proposals-section">
+    <div class="proposals-header">
+      <h2>Propositions</h2>
+      <p>Des idées qu'on a explorées pour vous. Dites-nous ce qui vous intéresse, on l'ajoute à la roadmap.</p>
+      <div class="proposals-legend">
+        <span class="legend-item"><span class="legend-dot no"></span> Pas intéressé</span>
+        <span class="legend-item"><span class="legend-dot unclear"></span> Intéressant mais pas clair</span>
+        <span class="legend-item"><span class="legend-dot later"></span> Intéressant, plus tard</span>
+        <span class="legend-item"><span class="legend-dot go"></span> Go, on lance !</span>
       </div>
     </div>
-  </section>
 
-  <!-- BONUS R&D -->
-  <section class="bonus-section" id="meta-ads">
-    <div class="bonus-header">
-      <span class="bonus-badge">Bonus R&D</span>
-      <h2>On a créé ça pour vous</h2>
-      <p>En explorant les nouveaux outils d'IA générative, on a produit un premier prototype de Meta Ad pour SmartDuck.</p>
-    </div>
-
-    <div class="bonus-content">
-      <div class="bonus-text">
-        <h3>Pub vidéo Meta Ads</h3>
-        <p>Créée en quelques heures avec Kling AI et Raymotion. Prête à tourner sur Instagram et Facebook.</p>
-
-        <ul class="bonus-features">
-          <li>
-            <span class="icon">🎬</span>
-            <span>Format 1:1 · 15 sec · Feed optimisé</span>
-          </li>
-        </ul>
+    <!-- PROPOSITION 1 : Pack Ads Centre -->
+    <div class="proposal-card" id="meta-ads">
+      <div class="proposal-header">
+        <span class="proposal-badge">R&D</span>
+        <h3>Pack Ads Centre — Création Meta Ads</h3>
+        <p>On a créé des prototypes de pubs vidéo pour vos campagnes Instagram/Facebook. Un pack complet pour chaque centre.</p>
       </div>
 
-      <div class="phone-mockup-container">
+      <!-- Système de vote -->
+      <div class="proposal-vote" data-proposal="pack-ads">
+        <button class="vote-btn" data-vote="no">
+          <span class="vote-icon">✗</span>
+          <span class="vote-label">Pas intéressé</span>
+        </button>
+        <button class="vote-btn" data-vote="unclear">
+          <span class="vote-icon">?</span>
+          <span class="vote-label">Pas clair</span>
+        </button>
+        <button class="vote-btn" data-vote="later">
+          <span class="vote-icon">◷</span>
+          <span class="vote-label">Plus tard</span>
+        </button>
+        <button class="vote-btn go" data-vote="go">
+          <span class="vote-icon">→</span>
+          <span class="vote-label">Go !</span>
+        </button>
+      </div>
+
+      <div class="proposal-details">
+        <div class="proposal-preview">
+          <div class="preview-text">
+            <h4>Aperçu de ce qu'on a créé</h4>
+            <p>Pub vidéo motion design créée avec Kling AI et Raymotion. Prête à tourner sur Instagram et Facebook.</p>
+            <ul class="bonus-features">
+              <li>
+                <span class="icon">🎬</span>
+                <span>Format 1:1 · 15 sec · Feed optimisé</span>
+              </li>
+            </ul>
+          </div>
+          <div class="phone-mockup-container">
         <div class="demo-label">
           <span class="demo-label-text">Exemple créé pour vous</span>
           <span class="demo-label-arrow"></span>
@@ -3032,10 +2992,10 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+          </div>
+        </div><!-- /proposal-preview -->
 
-    <!-- SECTION PÉDAGOGIQUE -->
+        <!-- SECTION PÉDAGOGIQUE -->
     <div class="edu-section">
       <div class="edu-header">
         <h3>Pourquoi cette offre est faite pour SmartDuck</h3>
@@ -3322,20 +3282,20 @@
       </div>
     </div>
 
-    <div class="business-cta">
-      <p>Intéressé ? On en discute après la mise en prod de Booker.</p>
-    </div>
-  </section>
+      </div><!-- /proposal-details -->
+    </div><!-- /proposal-card -->
+
+  </section><!-- /proposals-section -->
 
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-left">
-      <h4>Des questions ? Discutons-en.</h4>
-      <p>Antoine · Cohorte Agency</p>
+      <h4>Une idée ? Un pain point ?</h4>
+      <p>Partagez-le, on explore et on vous propose une solution.</p>
     </div>
     <div class="footer-right">
-      <p>Validité : 30 jours</p>
-      <p>Devis non contractuel</p>
+      <p>Antoine · Cohorte Agency</p>
+      <p>Développeurs augmentés par l'IA</p>
     </div>
   </footer>
 
@@ -3343,12 +3303,12 @@
   <div class="chatbot-widget">
     <div class="chatbot-panel" id="chatbot-panel">
       <div class="chatbot-header">
-        <h3>💬 Questions sur le devis ?</h3>
+        <h3>💬 Questions ?</h3>
         <button class="chatbot-close">×</button>
       </div>
       <div class="chatbot-messages" id="chatbot-messages">
         <div class="chat-message assistant">
-          Bonjour ! Je suis l'assistant du devis SmartDuck × Cohorte. Comment puis-je vous aider ?
+          Bonjour ! Je peux répondre à vos questions sur les chantiers en cours ou les propositions. Comment puis-je vous aider ?
         </div>
       </div>
       <div class="chatbot-input">
@@ -3367,6 +3327,49 @@
     // ---- SESSION & UTM ----
     const sessionId = localStorage.getItem('sessionId') || crypto.randomUUID();
     localStorage.setItem('sessionId', sessionId);
+
+    // ---- PROPOSAL VOTING SYSTEM ----
+    document.querySelectorAll('.proposal-vote').forEach(voteContainer => {
+      const proposalId = voteContainer.dataset.proposal;
+      const buttons = voteContainer.querySelectorAll('.vote-btn');
+
+      // Charger le vote existant
+      const savedVote = localStorage.getItem(`vote-${proposalId}`);
+      if (savedVote) {
+        buttons.forEach(btn => {
+          if (btn.dataset.vote === savedVote) {
+            btn.classList.add('active');
+          }
+        });
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const vote = btn.dataset.vote;
+
+          // Retirer active de tous les boutons
+          buttons.forEach(b => b.classList.remove('active'));
+
+          // Ajouter active au bouton cliqué
+          btn.classList.add('active');
+
+          // Sauvegarder localement
+          localStorage.setItem(`vote-${proposalId}`, vote);
+
+          // Envoyer au serveur
+          fetch('/api/vote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              sessionId,
+              proposalId,
+              vote,
+              timestamp: new Date().toISOString()
+            })
+          }).catch(console.error);
+        });
+      });
+    });
 
     // Capture UTM silencieusement puis nettoyer l'URL
     const params = new URLSearchParams(window.location.search);
