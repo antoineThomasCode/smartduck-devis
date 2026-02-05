@@ -3303,6 +3303,199 @@
     }
 
     /* =========================== */
+    /* NOTE TRANSPARENCE           */
+    /* =========================== */
+
+    .transparency-section {
+      padding: 0 40px;
+      margin-top: -30px;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .transparency-card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .transparency-card.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .transparency-header {
+      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1f1f2e 100%);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .transparency-header:hover {
+      background: linear-gradient(135deg, #1a1a1a 0%, #252536 100%);
+    }
+
+    .transparency-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .transparency-header-text {
+      flex: 1;
+    }
+
+    .transparency-header-text h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .transparency-header-text p {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    .transparency-toggle {
+      color: var(--gray-400);
+      font-size: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .transparency-card.open .transparency-toggle {
+      transform: rotate(180deg);
+    }
+
+    .transparency-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .transparency-card.open .transparency-content {
+      max-height: 500px;
+    }
+
+    .transparency-body {
+      padding: 28px;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .transparency-body p {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .transparency-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .transparency-body strong {
+      color: var(--cohorte-black);
+    }
+
+    .transparency-signature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .signature-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cohorte-accent), var(--duck-orange));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .signature-text {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    .signature-text strong {
+      display: block;
+      color: var(--cohorte-black);
+      font-size: 14px;
+    }
+
+    /* Animation pulse sur l'icône quand révélé mais pas ouvert */
+    .transparency-card.revealed:not(.open) .transparency-icon {
+      animation: pulse-transparency 2s ease-in-out 1s 3;
+    }
+
+    @keyframes pulse-transparency {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+      }
+    }
+
+    /* Indicateur "cliquez pour lire" */
+    .transparency-hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--duck-orange);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .transparency-card.revealed:not(.open) .transparency-hint {
+      opacity: 1;
+      animation: hint-bounce 1s ease-in-out 2s 2;
+    }
+
+    @keyframes hint-bounce {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(4px); }
+    }
+
+    .transparency-card.open .transparency-hint {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .transparency-section {
+        padding: 0 20px;
+      }
+      .transparency-body {
+        padding: 20px;
+      }
+    }
+
+    /* =========================== */
     /* SECTION VISION / APPROCHE   */
     /* =========================== */
 
@@ -3886,6 +4079,46 @@
         <div class="hero-stat">
           <span class="hero-stat-value">24/7</span>
           <span class="hero-stat-label">Veille marché IA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTE DE TRANSPARENCE -->
+  <section class="transparency-section">
+    <div class="transparency-card" id="transparency-card">
+      <div class="transparency-header" onclick="toggleTransparency()">
+        <div class="transparency-icon">💬</div>
+        <div class="transparency-header-text">
+          <h3>Un mot sur cette dernière année</h3>
+          <p>Une note de transparence de notre part</p>
+        </div>
+        <div class="transparency-hint">
+          Lire →
+        </div>
+        <div class="transparency-toggle">↓</div>
+      </div>
+      <div class="transparency-content">
+        <div class="transparency-body">
+          <p>
+            On ne va pas tourner autour du pot : <strong>on a pris du retard</strong>. La V2 promise a mis du temps à arriver. Ce n'était pas de la négligence — c'était un choix.
+          </p>
+          <p>
+            En 18 mois, le marché de l'IA a tout bouleversé. On a vu notre métier se transformer sous nos yeux. On avait deux options : continuer comme avant et vous livrer des solutions qui seraient obsolètes dans 6 mois, ou <strong>prendre le temps de comprendre ce nouveau monde</strong>.
+          </p>
+          <p>
+            On a choisi la deuxième option. On a investi des centaines d'heures à tester les outils, comprendre ce qui marche vraiment, éliminer les fausses promesses. Aujourd'hui, on revient avec des méthodes éprouvées, une vision claire, et une seule ambition : <strong>rattraper le temps perdu — et vous donner une longueur d'avance</strong>.
+          </p>
+          <p>
+            Ce que vous voyez sur cette page, c'est notre façon de vous montrer qu'on est prêts. Transparence totale, roadmap visible, propositions concrètes. On avance ensemble.
+          </p>
+          <div class="transparency-signature">
+            <div class="signature-avatar">A</div>
+            <div class="signature-text">
+              <strong>Antoine</strong>
+              Cohorte Agency
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -5095,6 +5328,31 @@
         }, 500);
       }
     })();
+
+    // ---- NOTE TRANSPARENCE ----
+    function toggleTransparency() {
+      const card = document.getElementById('transparency-card');
+      if (card) {
+        card.classList.toggle('open');
+      }
+    }
+
+    // Observer pour révéler la note au scroll
+    const transparencyCard = document.getElementById('transparency-card');
+    if (transparencyCard) {
+      const transparencyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('revealed');
+            }, 300);
+            transparencyObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      transparencyObserver.observe(transparencyCard);
+    }
 
     // ---- ACCORDÉON / STEPPER ----
     function toggleProposal(proposalId) {
