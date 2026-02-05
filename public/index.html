@@ -289,6 +289,16 @@
       color: var(--gray-400);
     }
 
+    .item-badge.validated {
+      background: #10b981;
+      color: var(--white);
+    }
+
+    .item-card.validated {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 2px solid #10b981;
+    }
+
     .item-card h4 {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 16px;
@@ -3123,39 +3133,26 @@
   <!-- TIMELINE HORIZONTALE -->
   <section class="timeline-section">
     <div class="timeline-header">
-      <h2>Roadmap 2026</h2>
+      <h2>Roadmap <span id="timeline-year">2026</span></h2>
       <p>Scrollez horizontalement pour voir l'avancement</p>
     </div>
 
-    <div class="timeline-scroll-container">
+    <div class="timeline-scroll-container" id="timeline-scroll">
       <div class="timeline-track">
-        <!-- Ligne de temps avec les mois -->
-        <div class="timeline-months">
-          <div class="month past">Jan</div>
-          <div class="month current">Fév</div>
-          <div class="month">Mar</div>
-          <div class="month">Avr</div>
-          <div class="month">Mai</div>
-          <div class="month">Juin</div>
-          <div class="month">Juil</div>
-          <div class="month">Août</div>
-          <div class="month">Sept</div>
-          <div class="month">Oct</div>
-          <div class="month">Nov</div>
-          <div class="month">Déc</div>
-        </div>
+        <!-- Ligne de temps avec les mois (générée dynamiquement) -->
+        <div class="timeline-months" id="timeline-months"></div>
 
         <!-- Ligne de progression -->
         <div class="timeline-line">
-          <div class="timeline-progress"></div>
-          <div class="timeline-now"></div>
+          <div class="timeline-progress" id="timeline-progress"></div>
+          <div class="timeline-now" id="timeline-now"></div>
         </div>
 
         <!-- Chantiers positionnés sur la timeline -->
-        <div class="timeline-items">
+        <div class="timeline-items" id="timeline-items">
 
-          <!-- Chantier en cours : Booker (Février) -->
-          <div class="timeline-item current" style="left: calc(8.33% + 4.16%);">
+          <!-- Chantier en cours : Booker -->
+          <div class="timeline-item current" data-month="2" data-day="1" id="item-booker">
             <div class="item-connector"></div>
             <div class="item-card">
               <div class="item-badge current">En cours</div>
@@ -3195,10 +3192,10 @@
             </div>
           </div>
 
-          <!-- Placeholder futurs chantiers -->
-          <div class="timeline-item upcoming" style="left: calc(25%);">
+          <!-- Placeholder pour propositions validées -->
+          <div class="timeline-item upcoming" id="item-next" data-month="3" data-day="15">
             <div class="item-connector dashed"></div>
-            <div class="item-card placeholder">
+            <div class="item-card placeholder" id="next-card">
               <div class="item-badge upcoming">À définir</div>
               <h4>Prochain chantier</h4>
               <p>Validez une proposition ci-dessous pour l'ajouter ici</p>
@@ -3759,6 +3756,81 @@
     const sessionId = localStorage.getItem('sessionId') || crypto.randomUUID();
     localStorage.setItem('sessionId', sessionId);
 
+    // ---- TIMELINE DYNAMIQUE ----
+    (function initTimeline() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth(); // 0-11
+      const day = now.getDate();
+      const daysInYear = ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) ? 366 : 365;
+
+      // Calculer le jour de l'année (1-365)
+      const startOfYear = new Date(year, 0, 0);
+      const diff = now - startOfYear;
+      const oneDay = 1000 * 60 * 60 * 24;
+      const dayOfYear = Math.floor(diff / oneDay);
+
+      // Pourcentage de progression dans l'année
+      const yearProgress = (dayOfYear / daysInYear) * 100;
+
+      // Mettre à jour l'année dans le titre
+      document.getElementById('timeline-year').textContent = year;
+
+      // Générer les mois
+      const monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'];
+      const monthsContainer = document.getElementById('timeline-months');
+      monthsContainer.innerHTML = monthNames.map((name, i) => {
+        let cls = 'month';
+        if (i < month) cls += ' past';
+        if (i === month) cls += ' current';
+        return `<div class="${cls}">${name}</div>`;
+      }).join('');
+
+      // Mettre à jour la ligne de progression
+      const progressBar = document.getElementById('timeline-progress');
+      const nowIndicator = document.getElementById('timeline-now');
+      progressBar.style.width = yearProgress + '%';
+      nowIndicator.style.left = yearProgress + '%';
+
+      // Positionner les items de la timeline
+      function getPositionForDate(m, d) {
+        // m = mois (1-12), d = jour (1-31)
+        const targetDate = new Date(year, m - 1, d);
+        const targetDiff = targetDate - startOfYear;
+        const targetDay = Math.floor(targetDiff / oneDay);
+        return (targetDay / daysInYear) * 100;
+      }
+
+      document.querySelectorAll('.timeline-item').forEach(item => {
+        const itemMonth = parseInt(item.dataset.month);
+        const itemDay = parseInt(item.dataset.day) || 1;
+        const position = getPositionForDate(itemMonth, itemDay);
+        item.style.left = position + '%';
+      });
+
+      // S'assurer que "À définir" est toujours après le chantier en cours
+      const currentItem = document.getElementById('item-booker');
+      const nextItem = document.getElementById('item-next');
+      if (currentItem && nextItem) {
+        const currentPos = parseFloat(currentItem.style.left);
+        const nextPos = parseFloat(nextItem.style.left);
+        // Si "next" est avant ou trop proche de "current", le déplacer après
+        if (nextPos <= currentPos + 10) {
+          nextItem.style.left = (currentPos + 15) + '%';
+        }
+      }
+
+      // Scroll automatique vers la position actuelle
+      const scrollContainer = document.getElementById('timeline-scroll');
+      if (scrollContainer) {
+        const trackWidth = scrollContainer.querySelector('.timeline-track').offsetWidth;
+        const scrollTarget = (yearProgress / 100) * trackWidth - (scrollContainer.offsetWidth / 2);
+        setTimeout(() => {
+          scrollContainer.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
+        }, 500);
+      }
+    })();
+
     // ---- PROPOSAL VOTING SYSTEM ----
     document.querySelectorAll('.proposal-vote').forEach(voteContainer => {
       const proposalId = voteContainer.dataset.proposal;
@@ -3772,6 +3844,11 @@
             btn.classList.add('active');
           }
         });
+
+        // Si vote "go", mettre à jour le placeholder dans la timeline
+        if (savedVote === 'go') {
+          updateTimelineWithProposal(proposalId);
+        }
       }
 
       buttons.forEach(btn => {
@@ -3787,6 +3864,13 @@
           // Sauvegarder localement
           localStorage.setItem(`vote-${proposalId}`, vote);
 
+          // Mettre à jour la timeline si "go"
+          if (vote === 'go') {
+            updateTimelineWithProposal(proposalId);
+          } else {
+            resetTimelinePlaceholder();
+          }
+
           // Envoyer au serveur
           fetch('/api/vote', {
             method: 'POST',
@@ -3801,6 +3885,42 @@
         });
       });
     });
+
+    // Mettre à jour le placeholder de la timeline quand une proposition est validée
+    function updateTimelineWithProposal(proposalId) {
+      const nextCard = document.getElementById('next-card');
+      if (!nextCard) return;
+
+      const proposals = {
+        'pack-ads': {
+          title: 'Pack Ads Centre',
+          desc: 'Création Meta Ads pour vos campagnes'
+        }
+      };
+
+      const proposal = proposals[proposalId];
+      if (proposal) {
+        nextCard.innerHTML = `
+          <div class="item-badge validated">Validé</div>
+          <h4>${proposal.title}</h4>
+          <p>${proposal.desc}</p>
+        `;
+        nextCard.classList.remove('placeholder');
+        nextCard.classList.add('validated');
+      }
+    }
+
+    function resetTimelinePlaceholder() {
+      const nextCard = document.getElementById('next-card');
+      if (!nextCard) return;
+      nextCard.innerHTML = `
+        <div class="item-badge upcoming">À définir</div>
+        <h4>Prochain chantier</h4>
+        <p>Validez une proposition ci-dessous pour l'ajouter ici</p>
+      `;
+      nextCard.classList.add('placeholder');
+      nextCard.classList.remove('validated');
+    }
 
     // Capture UTM silencieusement puis nettoyer l'URL
     const params = new URLSearchParams(window.location.search);
