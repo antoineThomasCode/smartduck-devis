@@ -3187,11 +3187,24 @@
     /* =========================== */
 
     /* État compact de la proposition */
-    .proposal-card.collapsed .proposal-details {
+    .proposal-card.collapsed .stepper-container {
       display: none;
     }
 
-    .proposal-card.collapsed .proposal-vote {
+    /* Vote rapide visible même en mode compact */
+    .proposal-vote-quick {
+      display: flex;
+      gap: 8px;
+      padding: 16px 24px;
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .proposal-card.collapsed .proposal-vote-quick {
+      display: flex;
+    }
+
+    .proposal-card:not(.collapsed) .proposal-vote-quick {
       display: none;
     }
 
@@ -3562,6 +3575,26 @@
             En savoir plus <span class="arrow">↓</span>
           </button>
         </div>
+      </div>
+
+      <!-- Vote rapide (visible en mode compact) -->
+      <div class="proposal-vote-quick" data-proposal="pack-ads">
+        <button class="vote-btn" data-vote="no">
+          <span class="vote-icon">✗</span>
+          <span class="vote-label">Pas intéressé</span>
+        </button>
+        <button class="vote-btn" data-vote="unclear">
+          <span class="vote-icon">?</span>
+          <span class="vote-label">Pas clair</span>
+        </button>
+        <button class="vote-btn" data-vote="later">
+          <span class="vote-icon">◷</span>
+          <span class="vote-label">Plus tard</span>
+        </button>
+        <button class="vote-btn go" data-vote="go">
+          <span class="vote-icon">→</span>
+          <span class="vote-label">Go !</span>
+        </button>
       </div>
 
       <!-- Stepper Container -->
@@ -4134,6 +4167,295 @@
       </div><!-- /stepper-container -->
     </div><!-- /proposal-card -->
 
+    <!-- PROPOSITION 2 : Campagnes d'Affiliation Locale -->
+    <div class="proposal-card collapsed" id="affiliation-locale">
+      <div class="proposal-header">
+        <div class="proposal-header-compact">
+          <div class="proposal-header-content">
+            <span class="proposal-badge" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%);">Acquisition</span>
+            <h3>Campagnes d'Affiliation Locale</h3>
+            <p class="proposal-desc-short">Partenariats avec des influenceurs beauté locaux qui documentent leur expérience SmartDuck en échange d'une commission sur les leads générés.</p>
+          </div>
+          <button class="btn-expand" onclick="toggleProposal('affiliation-locale')">
+            En savoir plus <span class="arrow">↓</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Vote rapide (visible en mode compact) -->
+      <div class="proposal-vote-quick" data-proposal="affiliation-locale">
+        <button class="vote-btn" data-vote="no">
+          <span class="vote-icon">✗</span>
+          <span class="vote-label">Pas intéressé</span>
+        </button>
+        <button class="vote-btn" data-vote="unclear">
+          <span class="vote-icon">?</span>
+          <span class="vote-label">Pas clair</span>
+        </button>
+        <button class="vote-btn" data-vote="later">
+          <span class="vote-icon">◷</span>
+          <span class="vote-label">Plus tard</span>
+        </button>
+        <button class="vote-btn go" data-vote="go">
+          <span class="vote-icon">→</span>
+          <span class="vote-label">Go !</span>
+        </button>
+      </div>
+
+      <!-- Stepper Container -->
+      <div class="stepper-container">
+        <!-- Stepper Navigation -->
+        <div class="stepper-nav">
+          <div class="stepper-step active" data-step="1" onclick="goToStep('affiliation-locale', 1)">
+            <span class="step-num">1</span>
+            <span>Le concept</span>
+          </div>
+          <div class="stepper-step" data-step="2" onclick="goToStep('affiliation-locale', 2)">
+            <span class="step-num">2</span>
+            <span>Comment ça marche</span>
+          </div>
+          <div class="stepper-step" data-step="3" onclick="goToStep('affiliation-locale', 3)">
+            <span class="step-num">3</span>
+            <span>Le tracking</span>
+          </div>
+          <div class="stepper-step" data-step="4" onclick="goToStep('affiliation-locale', 4)">
+            <span class="step-num">4</span>
+            <span>Prochaines étapes</span>
+          </div>
+        </div>
+
+        <!-- Step Content -->
+        <div class="stepper-content">
+          <!-- ÉTAPE 1 : Le concept -->
+          <div class="step-panel active" data-step="1">
+            <div class="proposal-details">
+              <div class="pedagogy-section">
+                <h4>L'affiliation locale : toucher votre audience via des voix de confiance</h4>
+
+                <div class="journey-explainer">
+                  <div class="journey-step">
+                    <div class="journey-number">🎯</div>
+                    <div class="journey-content">
+                      <h5>Le problème des pubs classiques</h5>
+                      <p>Les gens scrollent les pubs. Mais quand leur influenceuse beauté préférée partage son expérience d'épilation laser, ils s'arrêtent et regardent. C'est du <strong>contenu UGC authentique</strong>, pas de la pub.</p>
+                    </div>
+                  </div>
+
+                  <div class="journey-arrow">↓</div>
+
+                  <div class="journey-step highlight">
+                    <div class="journey-number">💡</div>
+                    <div class="journey-content">
+                      <h5>La solution : des ambassadeurs locaux</h5>
+                      <p>On identifie des <strong>influenceurs beauté/bien-être locaux</strong> (Paris, Toulouse...) via MeetSponsor. Ils documentent leur parcours complet chez SmartDuck : du premier devis gratuit jusqu'aux résultats finaux.</p>
+                    </div>
+                  </div>
+
+                  <div class="journey-arrow">↓</div>
+
+                  <div class="journey-step">
+                    <div class="journey-number">📈</div>
+                    <div class="journey-content">
+                      <h5>Vous ne payez que les résultats</h5>
+                      <p>Chaque influenceur a un <strong>lien d'affiliation unique</strong>. Quand quelqu'un prend rendez-vous via ce lien, l'influenceur touche une commission. Pas de lead = pas de paiement.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pedagogy-summary">
+                  <span class="summary-icon">🤝</span>
+                  <p><strong>Gagnant-gagnant.</strong> L'influenceur gagne de l'argent en partageant une vraie expérience. Vous gagnez des clients qualifiés qui arrivent déjà convaincus. Et le contenu reste sur leurs réseaux pour générer des leads dans le temps.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-navigation">
+              <button class="btn-step prev" disabled>← Précédent</button>
+              <span class="step-indicator">Étape 1 sur 4 <span class="reading-time">⏱ ~2 min</span></span>
+              <button class="btn-step next" onclick="goToStep('affiliation-locale', 2)">Suivant →</button>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 2 : Comment ça marche -->
+          <div class="step-panel" data-step="2">
+            <div class="proposal-details">
+              <div class="offer-section" style="margin-top: 0; padding-top: 0; border-top: none;">
+                <div class="offer-header">
+                  <span class="offer-badge" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%);">Parcours Influenceur</span>
+                  <h3>Comment ça se passe concrètement</h3>
+                </div>
+
+                <div class="process-offer">
+                  <div class="process-offer-step">
+                    <div class="step-circle">1</div>
+                    <div class="step-info">
+                      <h4>Sourcing via MeetSponsor</h4>
+                      <p>On identifie les influenceurs beauté/bien-être les plus suivis dans vos zones (Paris, Toulouse). Critères : audience locale, engagement authentique, contenu lifestyle/beauté.</p>
+                      <span class="step-tag">Cohorte s'en charge</span>
+                    </div>
+                  </div>
+
+                  <div class="process-offer-step">
+                    <div class="step-circle">2</div>
+                    <div class="step-info">
+                      <h4>Offre : prestation offerte en échange de contenu</h4>
+                      <p>L'influenceur reçoit un <strong>parcours complet gratuit</strong> (devis + séances). En échange, il/elle documente tout : avant/après, sensations, résultats. Contenu authentique, pas scripté.</p>
+                      <span class="step-tag">Partenariat commercial déclaré</span>
+                    </div>
+                  </div>
+
+                  <div class="process-offer-step">
+                    <div class="step-circle">3</div>
+                    <div class="step-info">
+                      <h4>Publication sur leurs réseaux</h4>
+                      <p>Stories, Reels, posts... L'influenceur partage son expérience avec son audience. Chaque publication inclut un <strong>lien d'affiliation unique</strong> vers votre site.</p>
+                      <span class="step-tag">Leur audience devient vos prospects</span>
+                    </div>
+                  </div>
+
+                  <div class="process-offer-step">
+                    <div class="step-circle">4</div>
+                    <div class="step-info">
+                      <h4>Commission sur les leads convertis</h4>
+                      <p>Quand quelqu'un clique sur le lien et prend rendez-vous (via Booker), l'influenceur touche une commission fixe. Le montant est défini à l'avance par prestation.</p>
+                      <span class="step-tag">Vous payez uniquement au résultat</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('affiliation-locale', 1)">← Précédent</button>
+              <span class="step-indicator">Étape 2 sur 4 <span class="reading-time">⏱ ~2 min</span></span>
+              <button class="btn-step next" onclick="goToStep('affiliation-locale', 3)">Suivant →</button>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 3 : Le tracking -->
+          <div class="step-panel" data-step="3">
+            <div class="proposal-details">
+              <div class="edu-section" style="margin-top: 0;">
+                <div class="edu-header">
+                  <h3>Tracking & Attribution : savoir d'où viennent vos leads</h3>
+                  <p>Grâce à l'intégration Booker, on trace tout le parcours du clic jusqu'à la réservation.</p>
+                </div>
+
+                <div class="edu-grid">
+                  <div class="edu-card">
+                    <div class="edu-icon">🔗</div>
+                    <h4>Liens d'affiliation uniques</h4>
+                    <p>Chaque influenceur a son propre lien (ex: smartduck.fr/?ref=marie_paris). On sait exactement qui a envoyé chaque visiteur.</p>
+                  </div>
+                  <div class="edu-card">
+                    <div class="edu-icon">📅</div>
+                    <h4>Intégration Booker</h4>
+                    <p>Quand quelqu'un prend RDV via le site, on capture la source. Si le visiteur venait d'un lien affilié, c'est tracké automatiquement.</p>
+                  </div>
+                  <div class="edu-card">
+                    <div class="edu-icon">📊</div>
+                    <h4>Dashboard de suivi</h4>
+                    <p>Vous voyez en temps réel : clics par influenceur, RDV générés, taux de conversion, commissions dues. Transparence totale.</p>
+                  </div>
+                </div>
+
+                <div class="handover-note" style="margin-top: 32px;">
+                  <div class="handover-icon">🔒</div>
+                  <div class="handover-text">
+                    <strong>Cookies & attribution</strong>
+                    <p>On utilise un cookie de 30 jours. Si quelqu'un clique aujourd'hui et réserve dans 2 semaines, l'influenceur est quand même crédité. Juste et motivant pour eux.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('affiliation-locale', 2)">← Précédent</button>
+              <span class="step-indicator">Étape 3 sur 4 <span class="reading-time">⏱ ~1 min</span></span>
+              <button class="btn-step next" onclick="goToStep('affiliation-locale', 4)">Suivant →</button>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 4 : Prochaines étapes -->
+          <div class="step-panel" data-step="4">
+            <div class="proposal-details">
+              <div class="offer-section" style="margin-top: 0; padding-top: 0; border-top: none;">
+                <div class="offer-header">
+                  <span class="offer-badge" style="background: var(--cohorte-black);">Prochaines étapes</span>
+                  <h3>Comment on avance ensemble</h3>
+                  <p>Ce projet nécessite un cadrage précis. Voici comment on procède.</p>
+                </div>
+
+                <div class="process-offer">
+                  <div class="process-offer-step">
+                    <div class="step-circle">1</div>
+                    <div class="step-info">
+                      <h4>Brief via chatbot Elia</h4>
+                      <p>On vous envoie un lien vers notre chatbot de brief. En 15-20 min, on définit ensemble : zones géographiques prioritaires, type d'influenceurs cibles, budget commission, objectifs.</p>
+                      <span class="step-tag">Cadrage complet</span>
+                    </div>
+                  </div>
+
+                  <div class="process-offer-step">
+                    <div class="step-circle">2</div>
+                    <div class="step-info">
+                      <h4>Proposition détaillée</h4>
+                      <p>On vous revient avec : liste d'influenceurs potentiels, proposition de commission, estimation de ROI, et devis pour le développement du système de tracking.</p>
+                      <span class="step-tag">Devis sur-mesure</span>
+                    </div>
+                  </div>
+
+                  <div class="process-offer-step">
+                    <div class="step-circle">3</div>
+                    <div class="step-info">
+                      <h4>Développement & lancement</h4>
+                      <p>Si vous validez, on développe le système d'affiliation (liens, tracking, dashboard), on contacte les influenceurs, et on lance les premières campagnes.</p>
+                      <span class="step-tag">Go live</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="handover-note" style="margin-top: 32px;">
+                  <div class="handover-icon">💰</div>
+                  <div class="handover-text">
+                    <strong>Modèle économique</strong>
+                    <p>Le développement du système est facturé une fois. Ensuite, vous ne payez que les commissions aux influenceurs quand ils génèrent des leads. Cohorte prend un % de gestion sur les commissions versées.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Système de vote final -->
+              <div class="proposal-vote" data-proposal="affiliation-locale" style="margin-top: 40px;">
+                <button class="vote-btn" data-vote="no">
+                  <span class="vote-icon">✗</span>
+                  <span class="vote-label">Pas intéressé</span>
+                </button>
+                <button class="vote-btn" data-vote="unclear">
+                  <span class="vote-icon">?</span>
+                  <span class="vote-label">Pas clair</span>
+                </button>
+                <button class="vote-btn" data-vote="later">
+                  <span class="vote-icon">◷</span>
+                  <span class="vote-label">Plus tard</span>
+                </button>
+                <button class="vote-btn go" data-vote="go">
+                  <span class="vote-icon">→</span>
+                  <span class="vote-label">Go !</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('affiliation-locale', 3)">← Précédent</button>
+              <span class="step-indicator">Étape 4 sur 4 <span class="reading-time">⏱ ~2 min</span></span>
+              <button class="btn-step next" onclick="toggleProposal('affiliation-locale')" style="background: var(--gray-600);">Réduire ↑</button>
+            </div>
+          </div>
+
+        </div><!-- /stepper-content -->
+      </div><!-- /stepper-container -->
+    </div><!-- /proposal-card affiliation-locale -->
+
   </section><!-- /proposals-section -->
 
   <!-- FOOTER -->
@@ -4313,7 +4635,8 @@
     }
 
     // ---- PROPOSAL VOTING SYSTEM ----
-    document.querySelectorAll('.proposal-vote').forEach(voteContainer => {
+    // Sélectionner à la fois .proposal-vote et .proposal-vote-quick
+    document.querySelectorAll('.proposal-vote, .proposal-vote-quick').forEach(voteContainer => {
       const proposalId = voteContainer.dataset.proposal;
       const buttons = voteContainer.querySelectorAll('.vote-btn');
 
@@ -4336,11 +4659,15 @@
         btn.addEventListener('click', () => {
           const vote = btn.dataset.vote;
 
-          // Retirer active de tous les boutons
-          buttons.forEach(b => b.classList.remove('active'));
+          // Retirer active de tous les boutons dans TOUTES les zones de vote pour cette proposition
+          document.querySelectorAll(`[data-proposal="${proposalId}"] .vote-btn`).forEach(b => {
+            b.classList.remove('active');
+          });
 
-          // Ajouter active au bouton cliqué
-          btn.classList.add('active');
+          // Ajouter active aux boutons correspondants (synchronisation)
+          document.querySelectorAll(`[data-proposal="${proposalId}"] .vote-btn[data-vote="${vote}"]`).forEach(b => {
+            b.classList.add('active');
+          });
 
           // Sauvegarder localement
           localStorage.setItem(`vote-${proposalId}`, vote);
@@ -4377,6 +4704,10 @@
         'pack-ads': {
           title: 'Pack Ads Centre',
           desc: 'Création Meta Ads pour vos campagnes'
+        },
+        'affiliation-locale': {
+          title: 'Affiliation Locale',
+          desc: 'Partenariats influenceurs beauté locaux'
         }
       };
 
