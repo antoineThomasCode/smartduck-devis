@@ -972,146 +972,276 @@
       font-size: 20px;
     }
 
-    /* LOOK ARROW */
-    .look-arrow {
-      margin-bottom: 24px;
-      position: relative;
-    }
-
-    .arrow-text {
-      display: inline-block;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--duck-orange);
-      background: linear-gradient(135deg, rgba(244, 162, 97, 0.15) 0%, rgba(255, 107, 107, 0.1) 100%);
-      padding: 10px 16px;
-      border-radius: 100px;
-      border: 2px dashed var(--duck-orange);
-      animation: pulse-text 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-text {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-    }
-
-    .arrow-svg {
+    /* DEMO LABEL - Flèche élégante */
+    .demo-label {
       position: absolute;
-      top: 50%;
-      right: -120px;
-      width: 100px;
-      height: 60px;
-      color: var(--duck-orange);
-      animation: bounce-arrow 1.5s ease-in-out infinite;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: float-label 3s ease-in-out infinite;
     }
 
-    @keyframes bounce-arrow {
-      0%, 100% { transform: translateX(0) translateY(-50%); }
-      50% { transform: translateX(10px) translateY(-50%); }
+    @keyframes float-label {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
     }
 
-    /* BUSINESS SECTION */
+    .demo-label-text {
+      background: var(--cohorte-black);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .demo-label-arrow {
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid var(--cohorte-black);
+    }
+
+    /* BUSINESS SECTION - Refonte complète */
     .business-section {
-      margin-top: 80px;
-      padding-top: 60px;
+      margin-top: 70px;
+      padding-top: 50px;
       border-top: 1px solid var(--gray-200);
     }
 
     .business-header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
 
     .business-header h3 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
       color: var(--cohorte-black);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .business-header p {
-      font-size: 15px;
-      color: var(--gray-600);
+      font-size: 14px;
+      color: var(--gray-500);
     }
 
+    /* Layout en 3 colonnes compactes */
     .business-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      max-width: 900px;
-      margin: 0 auto;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 1000px;
+      margin: 0 auto 24px;
     }
 
     .business-card {
       background: var(--white);
       border: 1px solid var(--gray-200);
-      border-radius: 16px;
-      padding: 24px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-radius: 12px;
+      padding: 20px;
     }
 
-    .business-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    }
-
-    .business-card.highlight {
-      grid-column: span 2;
-      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1a1a2e 100%);
-      border: none;
-      color: var(--white);
-    }
-
-    .business-icon {
-      font-size: 28px;
+    .business-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       margin-bottom: 12px;
     }
 
-    .business-card h4 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--cohorte-black);
+    .business-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
     }
 
-    .business-card.highlight h4 {
-      color: var(--white);
+    .business-icon.orange { background: rgba(244, 162, 97, 0.15); }
+    .business-icon.green { background: rgba(16, 185, 129, 0.15); }
+    .business-icon.blue { background: rgba(99, 102, 241, 0.15); }
+
+    .business-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      line-height: 1.3;
     }
 
     .business-card p {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--gray-600);
-      line-height: 1.6;
+      line-height: 1.5;
+      margin-bottom: 12px;
     }
 
-    .business-card.highlight p {
+    .business-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      padding: 10px 12px;
+      background: var(--gray-50);
+      border-radius: 8px;
+      border-left: 3px solid;
+    }
+
+    .business-stat.orange { border-color: var(--duck-orange); }
+    .business-stat.green { border-color: #10b981; }
+    .business-stat.blue { border-color: var(--cohorte-accent); }
+
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--gray-500);
+    }
+
+    /* Card prix - Full width, design premium */
+    .price-card {
+      grid-column: span 3;
+      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1f1f2e 100%);
+      border: none;
+      border-radius: 16px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .price-column {
+      text-align: center;
+    }
+
+    .price-column.old .price-label {
+      color: var(--gray-500);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .price-column.old .price-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-decoration: line-through;
+    }
+
+    .price-column.old .price-delay {
+      font-size: 12px;
+      color: var(--gray-600);
+      margin-top: 4px;
+    }
+
+    .price-vs {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
       color: var(--gray-400);
     }
 
-    .comparison {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 16px;
-      margin: 16px 0;
+    .price-column.new .price-label {
+      color: var(--duck-orange);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
     }
 
-    .comparison-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
+    .price-column.new .price-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
     }
 
-    .comparison-row .label {
+    .price-column.new .price-delay {
+      font-size: 12px;
+      color: #34d399;
+      margin-top: 4px;
+    }
+
+    .price-column.new .price-note {
+      font-size: 10px;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+
+    .price-savings {
+      grid-column: span 3;
+      text-align: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 8px;
+    }
+
+    .savings-text {
       font-size: 13px;
       color: var(--gray-400);
     }
 
-    .comparison-row .value {
-      font-size: 14px;
+    .savings-text strong {
+      color: #34d399;
       font-weight: 600;
+    }
+
+    .business-cta {
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .business-cta p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    @media (max-width: 900px) {
+      .demo-label {
+        display: none;
+      }
+
+      .business-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .price-vs {
+        display: none;
+      }
+
+      .price-savings {
+        grid-column: span 1;
+      }
     }
 
     .comparison-row .value.old {
@@ -1819,34 +1949,22 @@
 
     <div class="bonus-content">
       <div class="bonus-text">
-        <div class="look-arrow">
-          <span class="arrow-text">Regardez ce qu'on peut créer pour vous</span>
-          <svg class="arrow-svg" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 30 Q 30 5, 60 25 T 90 20" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" stroke-dasharray="5,5"/>
-            <polygon points="95,20 82,12 85,25" fill="currentColor"/>
-          </svg>
-        </div>
-
-        <h3>Motion Design Meta Ads</h3>
-        <p>Une pub vidéo prête à tourner sur Instagram et Facebook, créée en quelques heures avec l'IA.</p>
+        <h3>Pub vidéo Meta Ads</h3>
+        <p>Créée en quelques heures avec Kling AI et Raymotion. Prête à tourner sur Instagram et Facebook.</p>
 
         <ul class="bonus-features">
           <li>
             <span class="icon">🎬</span>
-            <span>Format 1:1 optimisé feed mobile</span>
-          </li>
-          <li>
-            <span class="icon">⚡</span>
-            <span>15 sec — durée idéale d'attention</span>
-          </li>
-          <li>
-            <span class="icon">🎨</span>
-            <span>Kling AI + Raymotion</span>
+            <span>Format 1:1 · 15 sec · Feed optimisé</span>
           </li>
         </ul>
       </div>
 
       <div class="phone-mockup-container">
+        <div class="demo-label">
+          <span class="demo-label-text">Exemple créé pour vous</span>
+          <span class="demo-label-arrow"></span>
+        </div>
         <div class="phone-mockup">
           <div class="phone-screen">
             <div class="insta-feed">
@@ -1967,57 +2085,72 @@
     <!-- BUSINESS BENEFITS -->
     <div class="business-section">
       <div class="business-header">
-        <h3>Ce que ça change pour votre franchise</h3>
-        <p>Concrètement, voici ce que cette approche peut apporter à SmartDuck.</p>
+        <h3>Ce que ça change pour SmartDuck</h3>
+        <p>Trois leviers concrets pour accélérer votre croissance.</p>
       </div>
 
       <div class="business-grid">
+        <!-- Card 1: Pubs par centre -->
         <div class="business-card">
-          <div class="business-icon">🎯</div>
-          <h4>Une pub par centre, sur mesure</h4>
-          <p>Générez des variantes pour chaque ville — Paris, Lyon, Bordeaux... — avec le bon message et le bon visuel, sans repasser par une agence à chaque fois.</p>
-        </div>
-
-        <div class="business-card">
-          <div class="business-icon">🧪</div>
-          <h4>A/B testing rapide</h4>
-          <p>Testez 5 versions d'une pub en parallèle. Voyez laquelle performe. Coupez les autres. Optimisez votre budget pub en continu.</p>
-        </div>
-
-        <div class="business-card">
-          <div class="business-icon">⚡</div>
-          <h4>Itération en heures, pas en semaines</h4>
-          <p>Une nouvelle promo ? Un nouveau centre ? On génère la créa dans la journée. Vous lancez demain.</p>
-        </div>
-
-        <div class="business-card highlight">
-          <div class="business-icon">💰</div>
-          <h4>Le vrai calcul</h4>
-          <div class="comparison">
-            <div class="comparison-row">
-              <span class="label">Agence classique</span>
-              <span class="value old">2 000 - 5 000 € / vidéo</span>
-            </div>
-            <div class="comparison-row">
-              <span class="label">Délai</span>
-              <span class="value old">2-4 semaines</span>
-            </div>
-            <div class="comparison-divider"></div>
-            <div class="comparison-row">
-              <span class="label">AI-Augmented Dev</span>
-              <span class="value new">~200 € / vidéo</span>
-            </div>
-            <div class="comparison-row">
-              <span class="label">Délai</span>
-              <span class="value new">24-48h</span>
-            </div>
+          <div class="business-card-header">
+            <div class="business-icon orange">🎯</div>
+            <h4>Pubs locales par centre</h4>
           </div>
-          <p class="business-note">10x moins cher. 10x plus rapide. Et on peut itérer autant qu'on veut.</p>
+          <p>Nouveau centre à ouvrir ? Pubs prêtes dès le J1. Centres existants ? Campagnes géolocalisées pour chaque zone de chalandise.</p>
+          <div class="business-stat orange">
+            <span class="stat-number">1 pack</span>
+            <span class="stat-label">= toutes les variantes du centre</span>
+          </div>
+        </div>
+
+        <!-- Card 2: A/B Testing -->
+        <div class="business-card">
+          <div class="business-card-header">
+            <div class="business-icon green">🧪</div>
+            <h4>A/B testing intégré</h4>
+          </div>
+          <p>5 variantes en parallèle. On coupe ce qui ne marche pas. On garde les meilleures. Budget pub optimisé en continu.</p>
+          <div class="business-stat green">
+            <span class="stat-number">-30%</span>
+            <span class="stat-label">coût d'acquisition moyen</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Itération rapide -->
+        <div class="business-card">
+          <div class="business-card-header">
+            <div class="business-icon blue">⚡</div>
+            <h4>Itération en 24h</h4>
+          </div>
+          <p>On génère, on contrôle la qualité, on livre. Nouvelle promo, nouveau message, nouveau centre — c'est prêt demain.</p>
+          <div class="business-stat blue">
+            <span class="stat-number">10x</span>
+            <span class="stat-label">plus rapide qu'une agence</span>
+          </div>
+        </div>
+
+        <!-- Card Prix -->
+        <div class="price-card">
+          <div class="price-column old">
+            <div class="price-label">Agence classique</div>
+            <div class="price-value">2 000 – 5 000 €</div>
+            <div class="price-delay">2-4 semaines · 1 vidéo + variantes</div>
+          </div>
+          <div class="price-vs">VS</div>
+          <div class="price-column new">
+            <div class="price-label">AI-Augmented Dev</div>
+            <div class="price-value">~250 €</div>
+            <div class="price-delay">24-48h selon bande passante</div>
+            <div class="price-note">Pack complet : vidéo + toutes variantes</div>
+          </div>
+          <div class="price-savings">
+            <span class="savings-text"><strong>10x moins cher</strong> · <strong>10x plus rapide</strong> · Itérations illimitées</span>
+          </div>
         </div>
       </div>
 
       <div class="business-cta">
-        <p>Intéressé ? On peut en discuter après la mise en prod de Booker.</p>
+        <p>On en discute après la mise en prod de Booker ?</p>
       </div>
     </div>
   </section>
