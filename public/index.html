@@ -1277,6 +1277,497 @@
       font-style: italic;
     }
 
+    /* ==================== */
+    /* NOUVELLE SECTION ADS */
+    /* ==================== */
+
+    /* Section pédagogique */
+    .edu-section {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .edu-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .edu-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .edu-header p {
+      font-size: 14px;
+      color: var(--gray-600);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .edu-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .edu-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .edu-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .edu-card p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    /* Section offre */
+    .offer-section {
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .offer-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .offer-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--duck-orange) 0%, var(--duck-coral) 100%);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+
+    .offer-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .offer-header p {
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+
+    /* Process offre */
+    .process-offer {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .process-offer-step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .step-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--cohorte-black);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-info {
+      flex: 1;
+      padding-top: 4px;
+    }
+
+    .step-info h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 6px;
+    }
+
+    .step-info p {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--duck-orange);
+      background: rgba(244, 162, 97, 0.12);
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    /* Note handover */
+    .handover-note {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 32px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .handover-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .handover-text strong {
+      font-size: 14px;
+      color: var(--cohorte-black);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .handover-text p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Section livrables */
+    .deliverable-section {
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-200);
+      text-align: center;
+    }
+
+    .deliverable-section h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .deliverable-section > p {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-bottom: 32px;
+    }
+
+    .formats-grid {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .format-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .format-preview {
+      background: var(--cohorte-black);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .format-preview.feed {
+      width: 80px;
+      height: 80px;
+    }
+
+    .format-preview.story {
+      width: 50px;
+      height: 90px;
+    }
+
+    .format-preview.landscape {
+      width: 100px;
+      height: 56px;
+    }
+
+    .format-preview.square {
+      width: 64px;
+      height: 80px;
+    }
+
+    .format-name {
+      font-size: 11px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+
+    /* Section pricing */
+    .pricing-section {
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .pricing-card {
+      max-width: 500px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, #fafafa 0%, #ffffff 100%);
+      border: 2px solid var(--duck-orange);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--duck-orange), var(--duck-coral));
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .pricing-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--duck-orange);
+      margin-bottom: 12px;
+    }
+
+    .pricing-price {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .price-amount {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+    }
+
+    .price-ht {
+      font-size: 16px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+
+    .pricing-subtitle {
+      display: block;
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-top: 4px;
+    }
+
+    .pricing-includes {
+      margin-bottom: 24px;
+    }
+
+    .pricing-includes h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .pricing-includes ul {
+      list-style: none;
+    }
+
+    .pricing-includes li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--gray-700);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .pricing-includes li:last-child {
+      border-bottom: none;
+    }
+
+    .check-icon {
+      color: #10b981;
+      font-weight: 700;
+    }
+
+    .pricing-divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin: 20px 0;
+    }
+
+    .pricing-future h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .pricing-future p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    .pricing-future strong {
+      color: var(--cohorte-black);
+    }
+
+    /* Comparaison pricing */
+    .pricing-comparison {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 32px;
+      padding: 20px;
+      background: var(--gray-50);
+      border-radius: 12px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .comparison-item {
+      text-align: center;
+    }
+
+    .comparison-item .comparison-label {
+      display: block;
+      font-size: 10px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .comparison-item .comparison-price {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .comparison-item.old .comparison-price {
+      color: var(--gray-400);
+      text-decoration: line-through;
+    }
+
+    .comparison-item.new .comparison-price {
+      color: var(--duck-orange);
+    }
+
+    .comparison-item .comparison-detail {
+      display: block;
+      font-size: 11px;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+
+    .comparison-vs {
+      font-size: 20px;
+      color: var(--gray-400);
+    }
+
+    @media (max-width: 768px) {
+      .edu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-offer-step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .formats-grid {
+        gap: 16px;
+      }
+
+      .pricing-card {
+        padding: 24px;
+      }
+
+      .price-amount {
+        font-size: 40px;
+      }
+
+      .pricing-comparison {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .comparison-vs {
+        transform: rotate(90deg);
+      }
+    }
+
     @media (max-width: 900px) {
       .arrow-svg {
         display: none;
@@ -2082,76 +2573,158 @@
       </div>
     </div>
 
-    <!-- BUSINESS BENEFITS -->
-    <div class="business-section">
-      <div class="business-header">
-        <h3>Ce que ça change pour SmartDuck</h3>
-        <p>Trois leviers concrets pour accélérer votre croissance.</p>
+    <!-- SECTION PÉDAGOGIQUE -->
+    <div class="edu-section">
+      <div class="edu-header">
+        <h3>Pourquoi cette offre est faite pour SmartDuck</h3>
+        <p>Votre cible est sur Instagram et Facebook. Pour les atteindre efficacement, il faut le bon message, au bon format, au bon endroit.</p>
       </div>
 
-      <div class="business-grid">
-        <!-- Card 1: Pubs par centre -->
-        <div class="business-card">
-          <div class="business-card-header">
-            <div class="business-icon orange">🎯</div>
-            <h4>Pubs locales par centre</h4>
-          </div>
-          <p>Nouveau centre à ouvrir ? Pubs prêtes dès le J1. Centres existants ? Campagnes géolocalisées pour chaque zone de chalandise.</p>
-          <div class="business-stat orange">
-            <span class="stat-number">1 pack</span>
-            <span class="stat-label">= toutes les variantes du centre</span>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-icon">📱</div>
+          <h4>Votre cible scrolle sur Instagram</h4>
+          <p>Les 25-45 ans intéressés par l'épilation laser passent en moyenne 30 min/jour sur Instagram. C'est là qu'il faut être visible.</p>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">🎞️</div>
+          <h4>Qu'est-ce qu'un Ad Set ?</h4>
+          <p>Un ensemble de publicités déclinées dans tous les formats nécessaires : Feed carré, Story verticale, Reels... Une seule création, tous les placements couverts.</p>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">🎯</div>
+          <h4>Pourquoi tous ces formats ?</h4>
+          <p>Chaque emplacement a ses dimensions. Sans les bons formats, vos pubs sont coupées ou mal affichées. Avec un pack complet, vous êtes pro partout.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS -->
+    <div class="offer-section">
+      <div class="offer-header">
+        <span class="offer-badge">Pack Ads Centre</span>
+        <h3>Comment ça marche</h3>
+        <p>Un process simple en 3 étapes pour créer vos campagnes.</p>
+      </div>
+
+      <div class="process-offer">
+        <div class="process-offer-step">
+          <div class="step-circle">1</div>
+          <div class="step-info">
+            <h4>Brief avec Elia</h4>
+            <p>Notre chatbot utilise la méthode BMAD pour extraire votre message, votre cible, et le ton de votre campagne. En 15 minutes, on a tout ce qu'il faut.</p>
+            <span class="step-tag">Vous gardez le contrôle sur le message</span>
           </div>
         </div>
-
-        <!-- Card 2: A/B Testing -->
-        <div class="business-card">
-          <div class="business-card-header">
-            <div class="business-icon green">🧪</div>
-            <h4>A/B testing intégré</h4>
-          </div>
-          <p>5 variantes en parallèle. On coupe ce qui ne marche pas. On garde les meilleures. Budget pub optimisé en continu.</p>
-          <div class="business-stat green">
-            <span class="stat-number">-30%</span>
-            <span class="stat-label">coût d'acquisition moyen</span>
+        <div class="process-offer-step">
+          <div class="step-circle">2</div>
+          <div class="step-info">
+            <h4>Création des Ads</h4>
+            <p>On génère votre pack complet : vidéo motion design + toutes les déclinaisons (Feed, Story, Reels). Livraison sous 48h.</p>
+            <span class="step-tag">Tous les formats pour Meta Ads</span>
           </div>
         </div>
-
-        <!-- Card 3: Itération rapide -->
-        <div class="business-card">
-          <div class="business-card-header">
-            <div class="business-icon blue">⚡</div>
-            <h4>Itération en 24h</h4>
-          </div>
-          <p>On génère, on contrôle la qualité, on livre. Nouvelle promo, nouveau message, nouveau centre — c'est prêt demain.</p>
-          <div class="business-stat blue">
-            <span class="stat-number">10x</span>
-            <span class="stat-label">plus rapide qu'une agence</span>
-          </div>
-        </div>
-
-        <!-- Card Prix -->
-        <div class="price-card">
-          <div class="price-column old">
-            <div class="price-label">Agence classique</div>
-            <div class="price-value">2 000 – 5 000 €</div>
-            <div class="price-delay">2-4 semaines · 1 vidéo + variantes</div>
-          </div>
-          <div class="price-vs">VS</div>
-          <div class="price-column new">
-            <div class="price-label">AI-Augmented Dev</div>
-            <div class="price-value">~250 €</div>
-            <div class="price-delay">24-48h selon bande passante</div>
-            <div class="price-note">Pack complet : vidéo + toutes variantes</div>
-          </div>
-          <div class="price-savings">
-            <span class="savings-text"><strong>10x moins cher</strong> · <strong>10x plus rapide</strong> · Itérations illimitées</span>
+        <div class="process-offer-step">
+          <div class="step-circle">3</div>
+          <div class="step-info">
+            <h4>2 allers-retours</h4>
+            <p>Vous validez, on ajuste. Deux rounds d'amélioration inclus pour que le rendu soit exactement ce que vous voulez.</p>
+            <span class="step-tag">Livraison finale prête à diffuser</span>
           </div>
         </div>
       </div>
 
-      <div class="business-cta">
-        <p>On en discute après la mise en prod de Booker ?</p>
+      <div class="handover-note">
+        <div class="handover-icon">📦</div>
+        <div class="handover-text">
+          <strong>On livre, Aurélien diffuse.</strong>
+          <p>Vous recevez tous les fichiers. Aurélien garde la main sur Meta Ads, le ciblage et le budget. On fournit la matière créative, vous gérez la diffusion.</p>
+        </div>
       </div>
+    </div>
+
+    <!-- CE QUE VOUS RECEVEZ -->
+    <div class="deliverable-section">
+      <h3>Ce que vous recevez</h3>
+      <p>Un pack complet prêt à être uploadé dans Meta Ads Manager.</p>
+
+      <div class="formats-grid">
+        <div class="format-item">
+          <div class="format-preview feed">
+            <span>1:1</span>
+          </div>
+          <span class="format-name">Feed Instagram</span>
+        </div>
+        <div class="format-item">
+          <div class="format-preview story">
+            <span>9:16</span>
+          </div>
+          <span class="format-name">Story / Reels</span>
+        </div>
+        <div class="format-item">
+          <div class="format-preview landscape">
+            <span>16:9</span>
+          </div>
+          <span class="format-name">Feed Facebook</span>
+        </div>
+        <div class="format-item">
+          <div class="format-preview square">
+            <span>4:5</span>
+          </div>
+          <span class="format-name">Portrait Feed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="pricing-section">
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <span class="pricing-label">Pack Ads Centre</span>
+          <div class="pricing-price">
+            <span class="price-amount">290 €</span>
+            <span class="price-ht">HT</span>
+          </div>
+          <span class="pricing-subtitle">par centre / par campagne</span>
+        </div>
+
+        <div class="pricing-includes">
+          <h4>Ce qui est inclus</h4>
+          <ul>
+            <li><span class="check-icon">✓</span> Brief guidé via Elia (chatbot BMAD)</li>
+            <li><span class="check-icon">✓</span> Vidéo motion design principale</li>
+            <li><span class="check-icon">✓</span> Déclinaisons tous formats (Feed, Story, Reels, etc.)</li>
+            <li><span class="check-icon">✓</span> 2 allers-retours d'ajustement</li>
+            <li><span class="check-icon">✓</span> Fichiers sources livrés</li>
+            <li><span class="check-icon">✓</span> Livraison sous 48h</li>
+          </ul>
+        </div>
+
+        <div class="pricing-divider"></div>
+
+        <div class="pricing-future">
+          <h4>Par la suite</h4>
+          <p><strong>A/B Testing & itérations</strong> — Besoin de tester de nouvelles versions ? De nouveaux messages ? On établit un devis selon vos besoins pour optimiser vos campagnes en continu.</p>
+        </div>
+      </div>
+
+      <div class="pricing-comparison">
+        <div class="comparison-item old">
+          <span class="comparison-label">Agence classique</span>
+          <span class="comparison-price">2 000 – 5 000 €</span>
+          <span class="comparison-detail">2-4 semaines</span>
+        </div>
+        <div class="comparison-vs">→</div>
+        <div class="comparison-item new">
+          <span class="comparison-label">Pack Ads Centre</span>
+          <span class="comparison-price">290 €</span>
+          <span class="comparison-detail">48h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="business-cta">
+      <p>Intéressé ? On en discute après la mise en prod de Booker.</p>
     </div>
   </section>
 
