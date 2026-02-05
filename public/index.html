@@ -509,8 +509,8 @@
     }
 
     .process-step:last-child .step-number {
-      background: var(--duck-red);
-      border-color: var(--duck-red);
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      border-color: #10b981;
       color: var(--white);
     }
 
@@ -563,22 +563,29 @@
       display: inline-block;
     }
 
-    /* Étape en cours */
+    /* Étape en cours - Orange accentué */
     .process-step.current .step-number {
-      background: var(--white);
-      border: 3px solid var(--duck-red);
-      color: var(--duck-red);
-      animation: pulse-current 2s ease-in-out infinite;
+      background: linear-gradient(135deg, var(--duck-orange) 0%, #f97316 100%);
+      border: 3px solid var(--duck-orange);
+      color: var(--white);
+      animation: pulse-current 1.5s ease-in-out infinite;
+      transform: scale(1.1);
     }
 
     @keyframes pulse-current {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.4); }
-      50% { box-shadow: 0 0 0 8px rgba(230, 57, 70, 0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(244, 162, 97, 0.6); }
+      50% { box-shadow: 0 0 0 12px rgba(244, 162, 97, 0); }
     }
 
     .process-step.current .step-title {
-      color: var(--duck-red);
+      color: var(--duck-orange);
       font-weight: 700;
+      font-size: 14px;
+    }
+
+    .process-step.current .step-actor {
+      color: var(--duck-orange);
+      font-weight: 600;
     }
 
     /* BONUS R&D SECTION */
@@ -1243,22 +1250,22 @@
     }
 
     .chatbot-toggle {
-      width: 56px;
-      height: 56px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      background: var(--duck-red);
+      background: var(--cohorte-black);
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 20px rgba(230, 57, 70, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .chatbot-toggle:hover {
       transform: scale(1.05);
-      box-shadow: 0 6px 24px rgba(230, 57, 70, 0.5);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
     }
 
     .chatbot-toggle svg {
