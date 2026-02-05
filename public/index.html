@@ -3183,6 +3183,396 @@
     }
 
     /* =========================== */
+    /* HERO SECTION COHORTE        */
+    /* =========================== */
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1a1a2e 50%, var(--cohorte-black) 100%);
+      padding: 80px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(230, 57, 70, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-300);
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(90deg, var(--duck-orange), var(--duck-coral));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--gray-400);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--white);
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-size: 12px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 60px 24px;
+      }
+      .hero-title {
+        font-size: 28px;
+      }
+      .hero-stats {
+        gap: 24px;
+      }
+    }
+
+    /* =========================== */
+    /* SECTION VISION / APPROCHE   */
+    /* =========================== */
+
+    .vision-section {
+      padding: 60px 40px;
+      background: var(--white);
+    }
+
+    .vision-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 48px;
+    }
+
+    .vision-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 12px;
+    }
+
+    .vision-header p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .vision-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s ease;
+    }
+
+    .vision-card:hover {
+      border-color: var(--cohorte-accent);
+      transform: translateY(-2px);
+    }
+
+    .vision-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--cohorte-black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .vision-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .vision-card p {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .vision-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* =========================== */
+    /* SECTION PARTENARIAT         */
+    /* =========================== */
+
+    .partnership-section {
+      padding: 70px 40px;
+      background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+    }
+
+    .partnership-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .partnership-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .partnership-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 12px;
+    }
+
+    .partnership-header p {
+      font-size: 15px;
+      color: var(--gray-600);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .partnership-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .comparison-card {
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .comparison-card.old {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+    }
+
+    .comparison-card.new {
+      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1f1f2e 100%);
+      border: 2px solid var(--cohorte-accent);
+    }
+
+    .comparison-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .comparison-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .comparison-card.old .comparison-card-icon {
+      background: var(--gray-200);
+    }
+
+    .comparison-card.new .comparison-card-icon {
+      background: var(--cohorte-accent);
+    }
+
+    .comparison-card.old h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+
+    .comparison-card.new h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .comparison-list {
+      list-style: none;
+    }
+
+    .comparison-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .comparison-card.old .comparison-list li {
+      color: var(--gray-600);
+    }
+
+    .comparison-card.new .comparison-list li {
+      color: var(--gray-300);
+    }
+
+    .comparison-list .icon {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .partnership-bottom {
+      text-align: center;
+      padding: 32px;
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .partnership-bottom p {
+      font-size: 15px;
+      color: var(--gray-700);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .partnership-bottom strong {
+      color: var(--cohorte-black);
+    }
+
+    @media (max-width: 768px) {
+      .partnership-comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =========================== */
+    /* SECTION QUOTE / PHILOSOPHY  */
+    /* =========================== */
+
+    .philosophy-section {
+      padding: 50px 40px;
+      background: var(--cohorte-black);
+      text-align: center;
+    }
+
+    .philosophy-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .philosophy-quote {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .philosophy-quote::before {
+      content: '"';
+      color: var(--duck-orange);
+    }
+
+    .philosophy-quote::after {
+      content: '"';
+      color: var(--duck-orange);
+    }
+
+    .philosophy-author {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* =========================== */
     /* ACCORDÉON / STEPPER PROPOSAL */
     /* =========================== */
 
@@ -3468,6 +3858,39 @@
     </div>
   </div>
 
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Partenariat en cours
+      </div>
+      <h1 class="hero-title">
+        Votre <span class="highlight">longueur d'avance</span><br>
+        dans un marché qui accélère
+      </h1>
+      <p class="hero-subtitle">
+        L'IA transforme tous les métiers. Pendant que d'autres attendent de voir,
+        nous vous positionnons parmi les premiers. Pas avec des promesses —
+        avec des résultats concrets, visibles ici en temps réel.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-value">3</span>
+          <span class="hero-stat-label">Développeurs experts IA</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">2000+</span>
+          <span class="hero-stat-label">Heures sur Claude Code</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">24/7</span>
+          <span class="hero-stat-label">Veille marché IA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TIMELINE HORIZONTALE -->
   <section class="timeline-section">
     <div class="timeline-header">
@@ -3546,6 +3969,32 @@
 
     <div class="timeline-hint">
       <span>← Swipez →</span>
+    </div>
+  </section>
+
+  <!-- SECTION NOTRE APPROCHE -->
+  <section class="vision-section">
+    <div class="vision-header">
+      <h2>Comment on travaille différemment</h2>
+      <p>On ne code pas plus vite pour coder plus. On code plus vite pour réfléchir plus. Le temps gagné, on l'investit dans ce qui compte : comprendre votre métier et anticiper vos besoins.</p>
+    </div>
+
+    <div class="vision-grid">
+      <div class="vision-card">
+        <div class="vision-icon">🎯</div>
+        <h3>Des use cases ciblés, pas de l'IA partout</h3>
+        <p>On a passé 2 ans à tester l'IA dans tous les sens. Résultat : elle excelle sur des tâches précises, bien bornées, avec un humain qui valide. C'est comme ça qu'on l'utilise pour vous.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon">🔭</div>
+        <h3>Toujours un coup d'avance</h3>
+        <p>Les pubs arrivent sur ChatGPT. Le GIO (SEO pour l'IA) se met en place. On s'y prépare aujourd'hui pour que vous soyez positionné demain. Premier arrivé, premier servi.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon">🤝</div>
+        <h3>On monte en compétence ensemble</h3>
+        <p>Notre rôle n'est pas de vous rendre dépendant. C'est de vous montrer comment l'IA peut libérer vos équipes des tâches répétitives pour qu'elles se concentrent sur la valeur ajoutée.</p>
+      </div>
     </div>
   </section>
 
@@ -4457,6 +4906,64 @@
     </div><!-- /proposal-card affiliation-locale -->
 
   </section><!-- /proposals-section -->
+
+  <!-- SECTION PARTENARIAT -->
+  <section class="partnership-section">
+    <div class="partnership-container">
+      <div class="partnership-header">
+        <h2>Pourquoi un partenariat mensuel plutôt qu'un devis à chaque fois</h2>
+        <p>Deux façons de travailler. Une seule qui permet vraiment d'avancer.</p>
+      </div>
+
+      <div class="partnership-comparison">
+        <div class="comparison-card old">
+          <div class="comparison-card-header">
+            <div class="comparison-card-icon">📋</div>
+            <h3>Le modèle classique</h3>
+          </div>
+          <ul class="comparison-list">
+            <li><span class="icon">→</span> Vous avez une idée, vous demandez un devis</li>
+            <li><span class="icon">→</span> On chiffre, vous validez (ou pas), on développe</li>
+            <li><span class="icon">→</span> À chaque nouveau besoin, on recommence</li>
+            <li><span class="icon">→</span> Friction permanente, vision court-terme</li>
+            <li><span class="icon">→</span> On reste des prestataires extérieurs</li>
+          </ul>
+        </div>
+
+        <div class="comparison-card new">
+          <div class="comparison-card-header">
+            <div class="comparison-card-icon">🤝</div>
+            <h3>Notre approche</h3>
+          </div>
+          <ul class="comparison-list">
+            <li><span class="icon">✓</span> On réserve du temps chaque mois pour vous</li>
+            <li><span class="icon">✓</span> On identifie ensemble où l'IA peut vous aider</li>
+            <li><span class="icon">✓</span> On avance en continu, sans friction administrative</li>
+            <li><span class="icon">✓</span> Vision long-terme, on construit avec vous</li>
+            <li><span class="icon">✓</span> On devient une extension de votre équipe</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="partnership-bottom">
+        <p>
+          <strong>Ce que vous voyez sur cette page, c'est exactement ça.</strong><br>
+          Une roadmap claire, des propositions qu'on explore pour vous, un suivi transparent.
+          Pas de surprises, pas de devis cachés. On avance ensemble vers les mêmes objectifs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITATION -->
+  <section class="philosophy-section">
+    <div class="philosophy-content">
+      <p class="philosophy-quote">
+        L'IA ne remplace pas l'humain. Elle lui donne le temps de faire ce que lui seul sait faire : décider, créer, convaincre.
+      </p>
+      <p class="philosophy-author">— L'équipe Cohorte</p>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer class="footer">
