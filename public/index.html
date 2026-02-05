@@ -778,12 +778,14 @@
     }
 
     .insta-feed-content {
-      animation: feed-scroll 8s ease-in-out infinite;
+      animation: feed-scroll 12s ease-in-out infinite;
     }
 
     @keyframes feed-scroll {
-      0%, 10% { transform: translateY(0); }
-      25%, 100% { transform: translateY(-120px); }
+      0%, 8% { transform: translateY(0); }
+      20%, 28% { transform: translateY(-140px); }
+      45%, 55% { transform: translateY(-300px); }
+      75%, 100% { transform: translateY(-420px); }
     }
 
     .insta-post-fake {
@@ -888,13 +890,18 @@
     .insta-post-ad-video {
       width: 100%;
       aspect-ratio: 1/1;
-      background: #000;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
     .insta-post-ad-video video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .insta-post-ad-actions {
@@ -1652,7 +1659,7 @@
 
               <div class="insta-feed-scroll">
                 <div class="insta-feed-content">
-                  <!-- Fake post above -->
+                  <!-- Fake post 1 -->
                   <div class="insta-post-fake">
                     <div class="insta-post-fake-header">
                       <div class="fake-avatar"></div>
@@ -1660,6 +1667,29 @@
                     </div>
                     <div class="fake-image"></div>
                     <div class="fake-text"></div>
+                    <div class="fake-text short"></div>
+                  </div>
+
+                  <!-- Fake post 2 -->
+                  <div class="insta-post-fake">
+                    <div class="insta-post-fake-header">
+                      <div class="fake-avatar" style="background: linear-gradient(135deg, #d0d0d0, #b0b0b0);"></div>
+                      <div class="fake-username" style="width: 100px;"></div>
+                    </div>
+                    <div class="fake-image" style="height: 120px;"></div>
+                    <div class="fake-text"></div>
+                    <div class="fake-text" style="width: 75%;"></div>
+                    <div class="fake-text short"></div>
+                  </div>
+
+                  <!-- Fake post 3 -->
+                  <div class="insta-post-fake">
+                    <div class="insta-post-fake-header">
+                      <div class="fake-avatar" style="background: linear-gradient(135deg, #c8c8c8, #a8a8a8);"></div>
+                      <div class="fake-username" style="width: 70px;"></div>
+                    </div>
+                    <div class="fake-image" style="height: 90px;"></div>
+                    <div class="fake-text" style="width: 85%;"></div>
                     <div class="fake-text short"></div>
                   </div>
 
