@@ -145,43 +145,141 @@
       position: relative;
     }
 
+    /* Colonnes visuelles de la timeline */
+    .timeline-columns {
+      position: absolute;
+      top: 0;
+      left: 40px;
+      right: 40px;
+      bottom: 0;
+      display: flex;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .timeline-column {
+      flex: 1;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .timeline-column:last-child {
+      border-right: none;
+    }
+
+    .timeline-column.past {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .timeline-column.current {
+      background: rgba(244, 162, 97, 0.05);
+      border-left: 1px dashed rgba(244, 162, 97, 0.3);
+      border-right: 1px dashed rgba(244, 162, 97, 0.3);
+    }
+
     /* Mois */
     .timeline-months {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 16px;
+      margin-bottom: 0;
     }
 
     .month {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 12px;
       font-weight: 600;
-      color: var(--gray-600);
       text-transform: uppercase;
       letter-spacing: 1px;
       width: calc(100% / 12);
       text-align: center;
+      padding: 12px 8px 16px;
+      position: relative;
+      transition: all 0.3s ease;
     }
 
+    /* Fond alterné pour les colonnes */
+    .month:nth-child(odd) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .month:nth-child(even) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Bordures verticales entre les mois */
+    .month:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Mois passés - gris/foncé */
     .month.past {
-      color: var(--gray-500);
+      color: var(--gray-600);
+      background: rgba(0, 0, 0, 0.3);
     }
 
+    .month.past:nth-child(odd) {
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    /* Mois en cours - mis en évidence */
     .month.current {
       color: var(--duck-orange);
+      background: linear-gradient(180deg, rgba(244, 162, 97, 0.15) 0%, rgba(244, 162, 97, 0.05) 100%);
+      border-left: 1px solid rgba(244, 162, 97, 0.3);
+      border-right: 1px solid rgba(244, 162, 97, 0.3);
       position: relative;
     }
 
+    .month.current::before {
+      display: none;
+    }
+
+    /* Progress bar interne du mois en cours */
+    .month.current .month-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--duck-orange), var(--duck-coral));
+      border-radius: 0 2px 2px 0;
+      transition: width 0.5s ease;
+    }
+
+    .month.current .month-label {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Indicateur du jour actuel */
     .month.current::after {
       content: '';
       position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 8px;
+      right: 8px;
       width: 6px;
       height: 6px;
       background: var(--duck-orange);
       border-radius: 50%;
+      animation: pulse-month 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-month {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    /* Mois futurs - plus clairs */
+    .month.future {
+      color: var(--gray-500);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .month.future:nth-child(odd) {
+      background: rgba(255, 255, 255, 0.01);
     }
 
     /* Ligne de temps */
@@ -3084,6 +3182,233 @@
       }
     }
 
+    /* =========================== */
+    /* ACCORDÉON / STEPPER PROPOSAL */
+    /* =========================== */
+
+    /* État compact de la proposition */
+    .proposal-card.collapsed .proposal-details {
+      display: none;
+    }
+
+    .proposal-card.collapsed .proposal-vote {
+      display: none;
+    }
+
+    /* Header compact avec bouton "En savoir plus" */
+    .proposal-header-compact {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .proposal-header-content {
+      flex: 1;
+    }
+
+    .proposal-header-compact .proposal-desc-short {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-top: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .btn-expand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--cohorte-black);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-expand:hover {
+      background: var(--gray-800);
+      transform: translateY(-1px);
+    }
+
+    .btn-expand .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .proposal-card:not(.collapsed) .btn-expand .arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Stepper navigation */
+    .stepper-container {
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .stepper-nav {
+      display: flex;
+      justify-content: center;
+      padding: 20px 24px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-100);
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stepper-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .stepper-step:hover {
+      border-color: var(--gray-400);
+    }
+
+    .stepper-step.active {
+      background: var(--cohorte-black);
+      border-color: var(--cohorte-black);
+      color: var(--white);
+    }
+
+    .stepper-step.completed {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: #10b981;
+      color: #10b981;
+    }
+
+    .stepper-step .step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      color: var(--gray-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .stepper-step.active .step-num {
+      background: var(--white);
+      color: var(--cohorte-black);
+    }
+
+    .stepper-step.completed .step-num {
+      background: #10b981;
+      color: var(--white);
+    }
+
+    /* Contenu des étapes */
+    .stepper-content {
+      padding: 0;
+    }
+
+    .step-panel {
+      display: none;
+      padding: 24px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .step-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Navigation bas de step */
+    .step-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-top: 1px solid var(--gray-100);
+      background: var(--gray-50);
+    }
+
+    .btn-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-step.prev {
+      background: var(--white);
+      color: var(--gray-700);
+      border: 1px solid var(--gray-200);
+    }
+
+    .btn-step.prev:hover {
+      background: var(--gray-50);
+      border-color: var(--gray-400);
+    }
+
+    .btn-step.next {
+      background: var(--cohorte-black);
+      color: var(--white);
+    }
+
+    .btn-step.next:hover {
+      background: var(--gray-800);
+    }
+
+    .btn-step:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .step-indicator {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    /* Temps de lecture estimé */
+    .reading-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--gray-500);
+      padding: 4px 10px;
+      background: var(--gray-100);
+      border-radius: 100px;
+      margin-left: 12px;
+    }
+
+    /* Vote final dans le stepper */
+    .step-panel .proposal-vote {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin-top: 24px;
+    }
+
     /* Markdown dans le chatbot */
     .chat-message.assistant p {
       margin: 0 0 8px 0;
@@ -3225,34 +3550,51 @@
     </div>
 
     <!-- PROPOSITION 1 : Pack Ads Centre -->
-    <div class="proposal-card" id="meta-ads">
+    <div class="proposal-card collapsed" id="meta-ads">
       <div class="proposal-header">
-        <span class="proposal-badge">R&D</span>
-        <h3>Pack Ads Centre — Création Meta Ads</h3>
-        <p>On a créé des prototypes de pubs vidéo pour vos campagnes Instagram/Facebook. Un pack complet pour chaque centre.</p>
+        <div class="proposal-header-compact">
+          <div class="proposal-header-content">
+            <span class="proposal-badge">R&D</span>
+            <h3>Pack Ads Centre — Création Meta Ads</h3>
+            <p class="proposal-desc-short">On a créé des prototypes de pubs vidéo pour vos campagnes Instagram/Facebook. Un pack complet pour chaque centre.</p>
+          </div>
+          <button class="btn-expand" onclick="toggleProposal('meta-ads')">
+            En savoir plus <span class="arrow">↓</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Système de vote -->
-      <div class="proposal-vote" data-proposal="pack-ads">
-        <button class="vote-btn" data-vote="no">
-          <span class="vote-icon">✗</span>
-          <span class="vote-label">Pas intéressé</span>
-        </button>
-        <button class="vote-btn" data-vote="unclear">
-          <span class="vote-icon">?</span>
-          <span class="vote-label">Pas clair</span>
-        </button>
-        <button class="vote-btn" data-vote="later">
-          <span class="vote-icon">◷</span>
-          <span class="vote-label">Plus tard</span>
-        </button>
-        <button class="vote-btn go" data-vote="go">
-          <span class="vote-icon">→</span>
-          <span class="vote-label">Go !</span>
-        </button>
-      </div>
+      <!-- Stepper Container -->
+      <div class="stepper-container">
+        <!-- Stepper Navigation -->
+        <div class="stepper-nav">
+          <div class="stepper-step active" data-step="1" onclick="goToStep('meta-ads', 1)">
+            <span class="step-num">1</span>
+            <span>Pourquoi maintenant</span>
+          </div>
+          <div class="stepper-step" data-step="2" onclick="goToStep('meta-ads', 2)">
+            <span class="step-num">2</span>
+            <span>Exemples créés</span>
+          </div>
+          <div class="stepper-step" data-step="3" onclick="goToStep('meta-ads', 3)">
+            <span class="step-num">3</span>
+            <span>Pourquoi SmartDuck</span>
+          </div>
+          <div class="stepper-step" data-step="4" onclick="goToStep('meta-ads', 4)">
+            <span class="step-num">4</span>
+            <span>A/B Testing</span>
+          </div>
+          <div class="stepper-step" data-step="5" onclick="goToStep('meta-ads', 5)">
+            <span class="step-num">5</span>
+            <span>Prix & Livrables</span>
+          </div>
+        </div>
 
-      <div class="proposal-details">
+        <!-- Step Content -->
+        <div class="stepper-content">
+          <!-- ÉTAPE 1 : Pourquoi maintenant -->
+          <div class="step-panel active" data-step="1">
+            <div class="proposal-details">
 
         <!-- EXPLICATION PÉDAGOGIQUE : Pourquoi vous aurez besoin de ça -->
         <div class="pedagogy-section">
@@ -3293,7 +3635,19 @@
             <p><strong>On prépare l'après.</strong> Pendant que vous êtes sur Google Search, on crée les assets vidéo dont vous aurez besoin pour Performance Max. Comme ça, le jour où vous voulez scaler, tout est prêt.</p>
           </div>
         </div>
+            </div><!-- /proposal-details -->
 
+            <!-- Navigation étape 1 -->
+            <div class="step-navigation">
+              <button class="btn-step prev" disabled>← Précédent</button>
+              <span class="step-indicator">Étape 1 sur 5 <span class="reading-time">⏱ ~2 min</span></span>
+              <button class="btn-step next" onclick="goToStep('meta-ads', 2)">Suivant →</button>
+            </div>
+          </div><!-- /step-panel 1 -->
+
+          <!-- ÉTAPE 2 : Exemples créés -->
+          <div class="step-panel" data-step="2">
+            <div class="proposal-details">
         <!-- Exemples créés -->
         <div class="examples-section">
           <h4>Exemples qu'on a créés pour SmartDuck</h4>
@@ -3422,7 +3776,19 @@
         </div>
           </div>
         </div><!-- /proposal-preview -->
+            </div><!-- /proposal-details -->
 
+            <!-- Navigation étape 2 -->
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('meta-ads', 1)">← Précédent</button>
+              <span class="step-indicator">Étape 2 sur 5 <span class="reading-time">⏱ ~1 min</span></span>
+              <button class="btn-step next" onclick="goToStep('meta-ads', 3)">Suivant →</button>
+            </div>
+          </div><!-- /step-panel 2 -->
+
+          <!-- ÉTAPE 3 : Pourquoi SmartDuck -->
+          <div class="step-panel" data-step="3">
+            <div class="proposal-details">
         <!-- SECTION PÉDAGOGIQUE -->
     <div class="edu-section">
       <div class="edu-header">
@@ -3448,7 +3814,19 @@
         </div>
       </div>
     </div>
+            </div><!-- /proposal-details -->
 
+            <!-- Navigation étape 3 -->
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('meta-ads', 2)">← Précédent</button>
+              <span class="step-indicator">Étape 3 sur 5 <span class="reading-time">⏱ ~1 min</span></span>
+              <button class="btn-step next" onclick="goToStep('meta-ads', 4)">Suivant →</button>
+            </div>
+          </div><!-- /step-panel 3 -->
+
+          <!-- ÉTAPE 4 : A/B Testing -->
+          <div class="step-panel" data-step="4">
+            <div class="proposal-details">
     <!-- A/B TESTING EXPLAINER -->
     <div class="ab-section">
       <div class="ab-header">
@@ -3585,7 +3963,19 @@
         </div>
       </div>
     </div>
+            </div><!-- /proposal-details -->
 
+            <!-- Navigation étape 4 -->
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('meta-ads', 3)">← Précédent</button>
+              <span class="step-indicator">Étape 4 sur 5 <span class="reading-time">⏱ ~2 min</span></span>
+              <button class="btn-step next" onclick="goToStep('meta-ads', 5)">Suivant →</button>
+            </div>
+          </div><!-- /step-panel 4 -->
+
+          <!-- ÉTAPE 5 : Prix & Livrables -->
+          <div class="step-panel" data-step="5">
+            <div class="proposal-details">
     <!-- PROCESS -->
     <div class="offer-section">
       <div class="offer-header">
@@ -3710,7 +4100,38 @@
       </div>
     </div>
 
-      </div><!-- /proposal-details -->
+    <!-- Système de vote final -->
+    <div class="proposal-vote" data-proposal="pack-ads">
+      <button class="vote-btn" data-vote="no">
+        <span class="vote-icon">✗</span>
+        <span class="vote-label">Pas intéressé</span>
+      </button>
+      <button class="vote-btn" data-vote="unclear">
+        <span class="vote-icon">?</span>
+        <span class="vote-label">Pas clair</span>
+      </button>
+      <button class="vote-btn" data-vote="later">
+        <span class="vote-icon">◷</span>
+        <span class="vote-label">Plus tard</span>
+      </button>
+      <button class="vote-btn go" data-vote="go">
+        <span class="vote-icon">→</span>
+        <span class="vote-label">Go !</span>
+      </button>
+    </div>
+
+            </div><!-- /proposal-details -->
+
+            <!-- Navigation étape 5 -->
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('meta-ads', 4)">← Précédent</button>
+              <span class="step-indicator">Étape 5 sur 5 <span class="reading-time">⏱ ~1 min</span></span>
+              <button class="btn-step next" onclick="toggleProposal('meta-ads')" style="background: var(--gray-600);">Réduire ↑</button>
+            </div>
+          </div><!-- /step-panel 5 -->
+
+        </div><!-- /stepper-content -->
+      </div><!-- /stepper-container -->
     </div><!-- /proposal-card -->
 
   </section><!-- /proposals-section -->
@@ -3776,13 +4197,26 @@
       // Mettre à jour l'année dans le titre
       document.getElementById('timeline-year').textContent = year;
 
+      // Calculer le nombre de jours dans le mois en cours
+      const daysInCurrentMonth = new Date(year, month + 1, 0).getDate();
+      const monthProgress = (day / daysInCurrentMonth) * 100;
+
       // Générer les mois
       const monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'];
       const monthsContainer = document.getElementById('timeline-months');
       monthsContainer.innerHTML = monthNames.map((name, i) => {
         let cls = 'month';
         if (i < month) cls += ' past';
-        if (i === month) cls += ' current';
+        else if (i === month) cls += ' current';
+        else cls += ' future';
+
+        // Pour le mois en cours, ajouter la progress bar interne
+        if (i === month) {
+          return `<div class="${cls}">
+            <span class="month-label">${name}</span>
+            <div class="month-progress" style="width: ${monthProgress}%"></div>
+          </div>`;
+        }
         return `<div class="${cls}">${name}</div>`;
       }).join('');
 
@@ -3808,16 +4242,18 @@
         item.style.left = position + '%';
       });
 
-      // S'assurer que "À définir" est toujours après le chantier en cours
+      // S'assurer que "À définir" est TOUJOURS positionné après le chantier en cours
       const currentItem = document.getElementById('item-booker');
       const nextItem = document.getElementById('item-next');
       if (currentItem && nextItem) {
         const currentPos = parseFloat(currentItem.style.left);
-        const nextPos = parseFloat(nextItem.style.left);
-        // Si "next" est avant ou trop proche de "current", le déplacer après
-        if (nextPos <= currentPos + 10) {
-          nextItem.style.left = (currentPos + 15) + '%';
-        }
+        // Toujours positionner "next" à droite du chantier en cours (décalage de 20%)
+        // Minimum : 20% après le chantier actuel, mais pas plus de 85% (pour rester visible)
+        const nextPosition = Math.min(currentPos + 20, 85);
+        nextItem.style.left = nextPosition + '%';
+
+        // Décaler aussi verticalement pour éviter le chevauchement visuel
+        nextItem.style.top = '10px';
       }
 
       // Scroll automatique vers la position actuelle
@@ -3830,6 +4266,51 @@
         }, 500);
       }
     })();
+
+    // ---- ACCORDÉON / STEPPER ----
+    function toggleProposal(proposalId) {
+      const card = document.getElementById(proposalId);
+      if (!card) return;
+
+      card.classList.toggle('collapsed');
+
+      // Scroll vers la carte si elle s'ouvre
+      if (!card.classList.contains('collapsed')) {
+        setTimeout(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+
+    function goToStep(proposalId, stepNum) {
+      const card = document.getElementById(proposalId);
+      if (!card) return;
+
+      // S'assurer que la carte est ouverte
+      card.classList.remove('collapsed');
+
+      // Mettre à jour les steps dans la nav
+      const steps = card.querySelectorAll('.stepper-step');
+      steps.forEach((step, i) => {
+        const num = i + 1;
+        step.classList.remove('active', 'completed');
+        if (num < stepNum) step.classList.add('completed');
+        if (num === stepNum) step.classList.add('active');
+      });
+
+      // Afficher le bon panel
+      const panels = card.querySelectorAll('.step-panel');
+      panels.forEach((panel, i) => {
+        const num = i + 1;
+        panel.classList.remove('active');
+        if (num === stepNum) panel.classList.add('active');
+      });
+
+      // Scroll vers le haut de la carte
+      setTimeout(() => {
+        card.querySelector('.stepper-nav').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
 
     // ---- PROPOSAL VOTING SYSTEM ----
     document.querySelectorAll('.proposal-vote').forEach(voteContainer => {
@@ -3889,6 +4370,7 @@
     // Mettre à jour le placeholder de la timeline quand une proposition est validée
     function updateTimelineWithProposal(proposalId) {
       const nextCard = document.getElementById('next-card');
+      const nextItem = document.getElementById('item-next');
       if (!nextCard) return;
 
       const proposals = {
@@ -3900,26 +4382,69 @@
 
       const proposal = proposals[proposalId];
       if (proposal) {
-        nextCard.innerHTML = `
-          <div class="item-badge validated">Validé</div>
-          <h4>${proposal.title}</h4>
-          <p>${proposal.desc}</p>
-        `;
-        nextCard.classList.remove('placeholder');
-        nextCard.classList.add('validated');
+        // Animation de transition
+        nextCard.style.opacity = '0';
+        nextCard.style.transform = 'scale(0.95)';
+
+        setTimeout(() => {
+          nextCard.innerHTML = `
+            <div class="item-badge validated">✓ Validé</div>
+            <h4>${proposal.title}</h4>
+            <p>${proposal.desc}</p>
+          `;
+          nextCard.classList.remove('placeholder');
+          nextCard.classList.add('validated');
+
+          // S'assurer que le connector n'est plus en pointillés
+          if (nextItem) {
+            const connector = nextItem.querySelector('.item-connector');
+            if (connector) {
+              connector.classList.remove('dashed');
+              connector.style.background = '#10b981';
+            }
+          }
+
+          // Animation d'apparition
+          nextCard.style.transition = 'all 0.3s ease';
+          nextCard.style.opacity = '1';
+          nextCard.style.transform = 'scale(1)';
+        }, 150);
+
+        // Scroll vers la timeline pour montrer le changement
+        setTimeout(() => {
+          document.querySelector('.timeline-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 500);
       }
     }
 
     function resetTimelinePlaceholder() {
       const nextCard = document.getElementById('next-card');
+      const nextItem = document.getElementById('item-next');
       if (!nextCard) return;
-      nextCard.innerHTML = `
-        <div class="item-badge upcoming">À définir</div>
-        <h4>Prochain chantier</h4>
-        <p>Validez une proposition ci-dessous pour l'ajouter ici</p>
-      `;
-      nextCard.classList.add('placeholder');
-      nextCard.classList.remove('validated');
+
+      nextCard.style.opacity = '0';
+
+      setTimeout(() => {
+        nextCard.innerHTML = `
+          <div class="item-badge upcoming">À définir</div>
+          <h4>Prochain chantier</h4>
+          <p>Validez une proposition ci-dessous pour l'ajouter ici</p>
+        `;
+        nextCard.classList.add('placeholder');
+        nextCard.classList.remove('validated');
+
+        // Remettre le connector en pointillés
+        if (nextItem) {
+          const connector = nextItem.querySelector('.item-connector');
+          if (connector) {
+            connector.classList.add('dashed');
+            connector.style.background = '';
+          }
+        }
+
+        nextCard.style.transition = 'all 0.3s ease';
+        nextCard.style.opacity = '1';
+      }, 150);
     }
 
     // Capture UTM silencieusement puis nettoyer l'URL
