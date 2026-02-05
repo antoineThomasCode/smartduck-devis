@@ -3,28 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cohorte × SmartDuck — Quelque chose arrive...</title>
+  <title>Suivi Projet — Cohorte × SmartDuck</title>
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Cohorte × SmartDuck">
-  <meta property="og:description" content="On prépare quelque chose pour vous...">
+  <!-- Open Graph pour WhatsApp / réseaux sociaux -->
+  <meta property="og:title" content="Votre espace projet SmartDuck">
+  <meta property="og:description" content="Suivez l'avancée des développements, découvrez nos propositions et validez les prochaines fonctionnalités.">
   <meta property="og:image" content="https://smartduck.cohorte.tech/og-preview.png">
   <meta property="og:url" content="https://smartduck.cohorte.tech">
   <meta property="og:type" content="website">
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root {
+      /* Cohorte - Dark tech */
       --cohorte-black: #0a0a0a;
       --cohorte-dark: #141414;
+      --cohorte-gray: #1a1a1a;
+      --cohorte-accent: #6366f1;
+      --cohorte-accent-light: #818cf8;
+      
+      /* SmartDuck - Vraies couleurs du site */
       --duck-red: #E63946;
-      --duck-orange: #F4A261;
       --duck-coral: #FF6B6B;
+      --duck-orange: #F4A261;
+      --duck-yellow: #FFD166;
+      --duck-peach: #FFF0EB;
+      --duck-lavender: #EEF2FF;
+      --duck-pink-accent: #EC4899;
+      
+      /* Neutrals */
       --white: #ffffff;
+      --gray-50: #fafafa;
+      --gray-100: #f4f4f5;
+      --gray-200: #e4e4e7;
+      --gray-300: #d4d4d8;
       --gray-400: #a1a1aa;
       --gray-500: #71717a;
       --gray-600: #52525b;
+      --gray-700: #3f3f46;
+      --gray-800: #27272a;
     }
 
     * {
@@ -35,241 +52,5657 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--cohorte-black);
+      line-height: 1.6;
+    }
+
+    /* TOP BANNER */
+    .top-banner {
       background: var(--cohorte-black);
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid var(--duck-red);
+    }
+
+    .banner-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .banner-brands {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
       color: var(--white);
-      min-height: 100vh;
+      letter-spacing: 1px;
+    }
+
+    .banner-brands strong {
+      letter-spacing: 2px;
+    }
+
+    .banner-separator {
+      color: var(--gray-600);
+    }
+
+    .banner-text {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    @media (max-width: 600px) {
+      .banner-separator,
+      .banner-text {
+        display: none;
+      }
+    }
+
+    /* TIMELINE HORIZONTALE */
+    .timeline-section {
+      padding: 30px 0 40px;
+      background: linear-gradient(180deg, var(--cohorte-black) 0%, #1a1a2e 100%);
+      overflow: hidden;
+    }
+
+    .timeline-header {
+      text-align: center;
+      padding: 0 20px 20px;
+    }
+
+    .timeline-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .timeline-header p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .timeline-scroll-container {
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: 20px 0 40px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .timeline-scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .timeline-track {
+      min-width: 1200px;
+      padding: 0 40px;
+      position: relative;
+    }
+
+    /* Colonnes visuelles de la timeline */
+    .timeline-columns {
+      position: absolute;
+      top: 0;
+      left: 40px;
+      right: 40px;
+      bottom: 0;
+      display: flex;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .timeline-column {
+      flex: 1;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .timeline-column:last-child {
+      border-right: none;
+    }
+
+    .timeline-column.past {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .timeline-column.current {
+      background: rgba(244, 162, 97, 0.05);
+      border-left: 1px dashed rgba(244, 162, 97, 0.3);
+      border-right: 1px dashed rgba(244, 162, 97, 0.3);
+    }
+
+    /* Mois */
+    .timeline-months {
+      display: flex;
+      margin-bottom: 0;
+    }
+
+    .month {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      width: calc(100% / 12);
+      text-align: center;
+      padding: 12px 8px 16px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    /* Fond alterné pour les colonnes */
+    .month:nth-child(odd) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .month:nth-child(even) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Bordures verticales entre les mois */
+    .month:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Mois passés - gris/foncé */
+    .month.past {
+      color: var(--gray-600);
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .month.past:nth-child(odd) {
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    /* Mois en cours - mis en évidence */
+    .month.current {
+      color: var(--duck-orange);
+      background: linear-gradient(180deg, rgba(244, 162, 97, 0.15) 0%, rgba(244, 162, 97, 0.05) 100%);
+      border-left: 1px solid rgba(244, 162, 97, 0.3);
+      border-right: 1px solid rgba(244, 162, 97, 0.3);
+      position: relative;
+    }
+
+    .month.current::before {
+      display: none;
+    }
+
+    /* Progress bar interne du mois en cours */
+    .month.current .month-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--duck-orange), var(--duck-coral));
+      border-radius: 0 2px 2px 0;
+      transition: width 0.5s ease;
+    }
+
+    .month.current .month-label {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Indicateur du jour actuel */
+    .month.current::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 6px;
+      height: 6px;
+      background: var(--duck-orange);
+      border-radius: 50%;
+      animation: pulse-month 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-month {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    /* Mois futurs - plus clairs */
+    .month.future {
+      color: var(--gray-500);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .month.future:nth-child(odd) {
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    /* Ligne de temps */
+    .timeline-line {
+      height: 4px;
+      background: var(--gray-800);
+      border-radius: 2px;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .timeline-progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 12%;
+      background: linear-gradient(90deg, var(--cohorte-accent) 0%, var(--duck-orange) 100%);
+      border-radius: 2px;
+    }
+
+    .timeline-now {
+      position: absolute;
+      left: 12%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      background: var(--duck-orange);
+      border-radius: 50%;
+      border: 3px solid var(--cohorte-black);
+      box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.3);
+      animation: pulse-now 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-now {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.3); }
+      50% { box-shadow: 0 0 0 8px rgba(244, 162, 97, 0); }
+    }
+
+    /* Items sur la timeline */
+    .timeline-items {
+      position: relative;
+      height: 280px;
+    }
+
+    .timeline-item {
+      position: absolute;
+      top: 0;
+      width: 280px;
+    }
+
+    .item-connector {
+      width: 2px;
+      height: 20px;
+      background: var(--duck-orange);
+      margin: 0 auto 8px;
+    }
+
+    .item-connector.dashed {
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--gray-600) 0px,
+        var(--gray-600) 4px,
+        transparent 4px,
+        transparent 8px
+      );
+    }
+
+    .item-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .item-card.placeholder {
+      background: var(--gray-800);
+      border: 2px dashed var(--gray-600);
+    }
+
+    .item-card.placeholder h4,
+    .item-card.placeholder p {
+      color: var(--gray-500);
+    }
+
+    .item-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .item-badge.current {
+      background: var(--duck-orange);
+      color: var(--white);
+    }
+
+    .item-badge.upcoming {
+      background: var(--gray-700);
+      color: var(--gray-400);
+    }
+
+    .item-badge.validated {
+      background: #10b981;
+      color: var(--white);
+    }
+
+    .item-card.validated {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 2px solid #10b981;
+    }
+
+    .item-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 6px;
+    }
+
+    .item-card p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    /* Progress steps dans la card */
+    .item-progress {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+
+    .progress-step {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 4px;
+      font-size: 9px;
+      color: var(--gray-500);
+      text-align: center;
+    }
+
+    .progress-step .step-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gray-200);
+    }
+
+    .progress-step.done .step-dot {
+      background: var(--cohorte-accent);
+    }
+
+    .progress-step.active .step-dot {
+      background: var(--duck-orange);
+      animation: pulse-step 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-step {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(244, 162, 97, 0.5); }
+      50% { box-shadow: 0 0 0 4px rgba(244, 162, 97, 0); }
+    }
+
+    .progress-step.done {
+      color: var(--cohorte-accent);
+    }
+
+    .progress-step.active {
+      color: var(--duck-orange);
+      font-weight: 600;
+    }
+
+    /* Options dans la card */
+    .item-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      background: var(--gray-100);
+      border-radius: 8px;
+      font-size: 11px;
+    }
+
+    .opt.recommended {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 1px solid var(--duck-orange);
+    }
+
+    .opt-name {
+      font-weight: 600;
+      color: var(--cohorte-black);
+    }
+
+    .opt-price {
+      margin-left: auto;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--duck-red);
+    }
+
+    .opt-tag {
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--duck-orange);
+      color: var(--white);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Hint de scroll */
+    .timeline-hint {
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    .timeline-hint span {
+      font-size: 12px;
+      color: var(--gray-600);
+      background: var(--gray-800);
+      padding: 6px 16px;
+      border-radius: 100px;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-track {
+        min-width: 900px;
+      }
+
+      .timeline-item {
+        width: 240px;
+      }
+    }
+
+    .roadmap-timeline {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .roadmap-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .roadmap-status {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 24px;
+      flex-shrink: 0;
+    }
+
+    .status-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      position: relative;
+    }
+
+    .status-indicator.current {
+      background: var(--duck-orange);
+      animation: pulse-roadmap 2s ease-in-out infinite;
+    }
+
+    .status-indicator.upcoming {
+      background: var(--gray-200);
+      border: 2px dashed var(--gray-300);
+    }
+
+    .status-indicator.completed {
+      background: var(--cohorte-accent);
+    }
+
+    @keyframes pulse-roadmap {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(244, 162, 97, 0.5); }
+      50% { box-shadow: 0 0 0 8px rgba(244, 162, 97, 0); }
+    }
+
+    .status-line {
+      width: 2px;
+      flex-grow: 1;
+      background: var(--gray-200);
+      margin-top: 8px;
+    }
+
+    .roadmap-content {
+      flex-grow: 1;
+      background: var(--gray-50);
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .roadmap-item.current .roadmap-content {
+      background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+      border-color: var(--duck-orange);
+    }
+
+    .roadmap-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+
+    .roadmap-badge.current {
+      background: var(--duck-orange);
+      color: var(--white);
+    }
+
+    .roadmap-badge.upcoming {
+      background: var(--gray-200);
+      color: var(--gray-600);
+    }
+
+    .roadmap-badge.completed {
+      background: var(--cohorte-accent);
+      color: var(--white);
+    }
+
+    .roadmap-content h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .roadmap-desc {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Mini process dans roadmap */
+    .roadmap-process {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .mini-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 12px;
+      background: var(--white);
+      border-radius: 10px;
+      border: 1px solid var(--gray-200);
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .mini-step.current {
+      background: var(--duck-orange);
+      border-color: var(--duck-orange);
+    }
+
+    .mini-step.current .mini-label,
+    .mini-step.current .mini-actor {
+      color: var(--white);
+    }
+
+    .mini-step.completed {
+      background: rgba(99, 102, 241, 0.1);
+      border-color: var(--cohorte-accent);
+    }
+
+    .mini-step.completed .mini-label {
+      color: var(--cohorte-accent);
+    }
+
+    .mini-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gray-300);
+    }
+
+    .mini-step.current .mini-dot {
+      background: var(--white);
+    }
+
+    .mini-step.completed .mini-dot {
+      background: var(--cohorte-accent);
+    }
+
+    .mini-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+    }
+
+    .mini-actor {
+      font-size: 10px;
+      color: var(--gray-500);
+    }
+
+    /* Options mini dans roadmap */
+    .roadmap-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .option-mini {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .option-mini.recommended {
+      border: 2px solid var(--duck-red);
+      background: linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%);
+    }
+
+    .option-mini-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .option-mini-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+    }
+
+    .option-mini-badge {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--duck-red);
+      color: var(--white);
+      padding: 3px 8px;
+      border-radius: 100px;
+    }
+
+    .option-mini-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--duck-red);
+      margin-left: auto;
+    }
+
+    .option-mini p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    /* PROPOSALS SECTION */
+    .proposals-section {
+      padding: 60px 40px;
+      background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+    }
+
+    .proposals-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .proposals-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 12px;
+    }
+
+    .proposals-header p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .proposals-legend {
+      display: flex;
       justify-content: center;
-      padding: 40px 24px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--gray-500);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.no { background: var(--gray-400); }
+    .legend-dot.unclear { background: var(--duck-yellow); }
+    .legend-dot.later { background: var(--cohorte-accent); }
+    .legend-dot.go { background: #10b981; }
+
+    /* Proposal Card */
+    .proposal-card {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .proposal-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .proposal-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      background: linear-gradient(135deg, var(--duck-orange) 0%, var(--duck-coral) 100%);
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .proposal-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .proposal-header p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Vote system */
+    .proposal-vote {
+      display: flex;
+      gap: 8px;
+      padding: 16px 24px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .vote-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 12px;
+      background: var(--white);
+      border: 2px solid var(--gray-200);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .vote-btn:hover {
+      border-color: var(--gray-400);
+      transform: translateY(-2px);
+    }
+
+    .vote-btn.active {
+      border-color: var(--cohorte-accent);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    .vote-btn.go:hover,
+    .vote-btn.go.active {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .vote-icon {
+      font-size: 18px;
+      color: var(--gray-500);
+    }
+
+    .vote-btn.go .vote-icon {
+      color: #10b981;
+    }
+
+    .vote-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+
+    .proposal-details {
+      padding: 24px;
+    }
+
+    /* PEDAGOGY SECTION - Explication du parcours */
+    .pedagogy-section {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 16px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .pedagogy-section h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .journey-explainer {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .journey-step {
+      display: flex;
+      gap: 16px;
+      padding: 20px;
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--gray-200);
+      margin-bottom: 8px;
+    }
+
+    .journey-step.highlight {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-color: var(--duck-orange);
+    }
+
+    .journey-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--cohorte-black);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .journey-step.highlight .journey-number {
+      background: var(--duck-orange);
+    }
+
+    .journey-content h5 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 6px;
+    }
+
+    .journey-content p {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .journey-content strong {
+      color: var(--cohorte-black);
+    }
+
+    .journey-arrow {
+      text-align: center;
+      color: var(--gray-400);
+      font-size: 20px;
+      padding: 4px 0;
+    }
+
+    .pedagogy-summary {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-top: 24px;
+      padding: 16px;
+      background: var(--cohorte-black);
+      border-radius: 12px;
+    }
+
+    .summary-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .pedagogy-summary p {
+      font-size: 13px;
+      color: var(--gray-300);
+      line-height: 1.6;
+    }
+
+    .pedagogy-summary strong {
+      color: var(--white);
+    }
+
+    /* EXAMPLES SECTION */
+    .examples-section {
+      margin-bottom: 24px;
+    }
+
+    .examples-section h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .examples-intro {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .proposal-preview {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .pedagogy-section {
+        padding: 20px;
+      }
+
+      .journey-step {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .roadmap-options {
+        grid-template-columns: 1fr;
+      }
+
+      .roadmap-process {
+        flex-direction: column;
+      }
+
+      .proposal-vote {
+        flex-wrap: wrap;
+      }
+
+      .vote-btn {
+        flex: 1 1 45%;
+      }
+    }
+
+    /* BONUS R&D SECTION */
+    .bonus-section {
+      padding: 70px 60px;
+      background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
       position: relative;
       overflow: hidden;
     }
 
-    /* Background animation */
-    body::before {
+    .bonus-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
+    }
+
+    .bonus-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--duck-orange) 0%, var(--duck-coral) 100%);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .bonus-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 50px;
+    }
+
+    .bonus-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 16px;
+    }
+
+    .bonus-header p {
+      font-size: 16px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    .bonus-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .bonus-text {
+      order: 1;
+    }
+
+    .bonus-text h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 16px;
+    }
+
+    .bonus-text p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .bonus-features {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .bonus-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--gray-700);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .bonus-features li .icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--duck-peach) 0%, var(--duck-lavender) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .bonus-note {
+      font-size: 13px;
+      color: var(--gray-500);
+      font-style: italic;
+      padding: 16px;
+      background: var(--gray-100);
+      border-radius: 12px;
+      border-left: 3px solid var(--duck-orange);
+    }
+
+    /* PHONE MOCKUP */
+    .phone-mockup-container {
+      order: 2;
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone-mockup {
+      position: relative;
+      width: 280px;
+      height: 580px;
+      background: #1a1a1a;
+      border-radius: 40px;
+      padding: 12px;
+      box-shadow:
+        0 50px 100px -20px rgba(0, 0, 0, 0.25),
+        0 30px 60px -30px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 2px #2a2a2a;
+    }
+
+    .phone-mockup::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 24px;
+      background: #1a1a1a;
+      border-radius: 20px;
+      z-index: 10;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      border-radius: 32px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* FAKE INSTAGRAM FEED */
+    .insta-feed {
+      width: 100%;
+      height: 100%;
+      background: #fafafa;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .insta-header {
+      background: #fff;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #efefef;
+    }
+
+    .insta-logo {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .insta-icons {
+      display: flex;
+      gap: 16px;
+    }
+
+    .insta-icons span {
+      font-size: 16px;
+    }
+
+    .insta-feed-scroll {
+      height: calc(100% - 90px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .insta-feed-content {
+      transform: translateY(0);
+      transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .insta-feed-content.scrolled {
+      transform: translateY(-620px);
+    }
+
+    .insta-post-fake {
+      padding: 12px;
+      background: #fff;
+      margin-bottom: 8px;
+    }
+
+    .insta-post-fake-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .fake-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e0e0e0, #c0c0c0);
+    }
+
+    .fake-username {
+      height: 10px;
+      width: 80px;
+      background: #e0e0e0;
+      border-radius: 4px;
+    }
+
+    .fake-image {
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .fake-text {
+      height: 8px;
+      background: #e8e8e8;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    .fake-text.short {
+      width: 60%;
+    }
+
+    /* ACTUAL AD POST */
+    .insta-post-ad {
+      background: #fff;
+      margin-bottom: 8px;
+    }
+
+    .insta-post-ad-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+    }
+
+    .insta-post-ad-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ad-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--duck-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .ad-user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ad-username {
+      font-size: 12px;
+      font-weight: 600;
+      color: #262626;
+    }
+
+    .ad-sponsored {
+      font-size: 10px;
+      color: #8e8e8e;
+    }
+
+    .ad-more {
+      font-size: 16px;
+      color: #262626;
+    }
+
+    .insta-post-ad-video {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .insta-post-ad-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .insta-post-ad-actions {
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ad-actions-left {
+      display: flex;
+      gap: 14px;
+    }
+
+    .ad-actions-left span,
+    .ad-action-save span {
+      font-size: 18px;
+    }
+
+    .insta-post-ad-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: linear-gradient(90deg, var(--duck-red), var(--duck-coral));
+      margin: 0 12px 10px;
+      border-radius: 8px;
+    }
+
+    .cta-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .cta-arrow {
+      color: white;
+      font-size: 12px;
+    }
+
+    .insta-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 44px;
+      background: #fff;
+      border-top: 1px solid #efefef;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 20px;
+    }
+
+    .insta-nav span {
+      font-size: 20px;
+    }
+
+    /* DEMO LABEL - Flèche élégante */
+    .demo-label {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: float-label 3s ease-in-out infinite;
+    }
+
+    @keyframes float-label {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+    }
+
+    .demo-label-text {
+      background: var(--cohorte-black);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .demo-label-arrow {
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid var(--cohorte-black);
+    }
+
+    /* BUSINESS SECTION - Refonte complète */
+    .business-section {
+      margin-top: 70px;
+      padding-top: 50px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .business-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .business-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .business-header p {
+      font-size: 14px;
+      color: var(--gray-500);
+    }
+
+    /* Layout en 3 colonnes compactes */
+    .business-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 1000px;
+      margin: 0 auto 24px;
+    }
+
+    .business-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .business-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .business-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .business-icon.orange { background: rgba(244, 162, 97, 0.15); }
+    .business-icon.green { background: rgba(16, 185, 129, 0.15); }
+    .business-icon.blue { background: rgba(99, 102, 241, 0.15); }
+
+    .business-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      line-height: 1.3;
+    }
+
+    .business-card p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .business-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      padding: 10px 12px;
+      background: var(--gray-50);
+      border-radius: 8px;
+      border-left: 3px solid;
+    }
+
+    .business-stat.orange { border-color: var(--duck-orange); }
+    .business-stat.green { border-color: #10b981; }
+    .business-stat.blue { border-color: var(--cohorte-accent); }
+
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--gray-500);
+    }
+
+    /* Card prix - Full width, design premium */
+    .price-card {
+      grid-column: span 3;
+      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1f1f2e 100%);
+      border: none;
+      border-radius: 16px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .price-column {
+      text-align: center;
+    }
+
+    .price-column.old .price-label {
+      color: var(--gray-500);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .price-column.old .price-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-decoration: line-through;
+    }
+
+    .price-column.old .price-delay {
+      font-size: 12px;
+      color: var(--gray-600);
+      margin-top: 4px;
+    }
+
+    .price-vs {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray-400);
+    }
+
+    .price-column.new .price-label {
+      color: var(--duck-orange);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .price-column.new .price-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .price-column.new .price-delay {
+      font-size: 12px;
+      color: #34d399;
+      margin-top: 4px;
+    }
+
+    .price-column.new .price-note {
+      font-size: 10px;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+
+    .price-savings {
+      grid-column: span 3;
+      text-align: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 8px;
+    }
+
+    .savings-text {
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+
+    .savings-text strong {
+      color: #34d399;
+      font-weight: 600;
+    }
+
+    .business-cta {
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .business-cta p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    @media (max-width: 900px) {
+      .demo-label {
+        display: none;
+      }
+
+      .business-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .price-vs {
+        display: none;
+      }
+
+      .price-savings {
+        grid-column: span 1;
+      }
+    }
+
+    .comparison-row .value.old {
+      color: var(--gray-500);
+      text-decoration: line-through;
+    }
+
+    .comparison-row .value.new {
+      color: #34d399;
+    }
+
+    .comparison-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 12px 0;
+    }
+
+    .business-note {
+      font-size: 14px !important;
+      font-weight: 500;
+      color: var(--duck-orange) !important;
+      margin-top: 8px;
+    }
+
+    .business-cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .business-cta p {
+      font-size: 15px;
+      color: var(--gray-500);
+      font-style: italic;
+    }
+
+    /* ==================== */
+    /* NOUVELLE SECTION ADS */
+    /* ==================== */
+
+    /* Section pédagogique */
+    .edu-section {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .edu-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .edu-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .edu-header p {
+      font-size: 14px;
+      color: var(--gray-600);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .edu-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .edu-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .edu-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .edu-card p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    /* Section offre */
+    .offer-section {
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .offer-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .offer-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--duck-orange) 0%, var(--duck-coral) 100%);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+
+    .offer-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .offer-header p {
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+
+    /* Process offre */
+    .process-offer {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .process-offer-step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .step-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--cohorte-black);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-info {
+      flex: 1;
+      padding-top: 4px;
+    }
+
+    .step-info h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 6px;
+    }
+
+    .step-info p {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--duck-orange);
+      background: rgba(244, 162, 97, 0.12);
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    /* Note handover */
+    .handover-note {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 32px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .handover-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .handover-text strong {
+      font-size: 14px;
+      color: var(--cohorte-black);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .handover-text p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Section livrables */
+    .deliverable-section {
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-200);
+      text-align: center;
+    }
+
+    .deliverable-section h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .deliverable-section > p {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-bottom: 32px;
+    }
+
+    .formats-grid {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .format-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .format-preview {
+      background: var(--cohorte-black);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .format-preview.feed {
+      width: 80px;
+      height: 80px;
+    }
+
+    .format-preview.story {
+      width: 50px;
+      height: 90px;
+    }
+
+    .format-preview.landscape {
+      width: 100px;
+      height: 56px;
+    }
+
+    .format-preview.square {
+      width: 64px;
+      height: 80px;
+    }
+
+    .format-name {
+      font-size: 11px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+
+    /* Section A/B Testing */
+    .ab-section {
+      margin-top: 50px;
+      padding: 40px;
+      background: linear-gradient(180deg, var(--cohorte-black) 0%, #1a1a2e 100%);
+      border-radius: 20px;
+    }
+
+    .ab-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .ab-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .ab-header p {
+      font-size: 14px;
+      color: var(--gray-400);
+      max-width: 450px;
+      margin: 0 auto;
+    }
+
+    .ab-demo {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      margin-bottom: 32px;
+    }
+
+    .ab-variant {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ab-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    .ab-label.a {
+      background: var(--cohorte-accent);
+    }
+
+    .ab-label.b {
+      background: var(--duck-orange);
+    }
+
+    .ab-video-container {
+      width: 160px;
+      height: 160px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .ab-variant:hover .ab-video-container {
+      transform: scale(1.03);
+    }
+
+    .ab-video-container.winner {
+      border-color: #10b981;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .ab-video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ab-message {
+      font-size: 11px;
+      color: var(--gray-500);
+      text-align: center;
+      max-width: 140px;
+    }
+
+    .ab-vs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding-top: 40px;
+    }
+
+    .ab-vs-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray-400);
+    }
+
+    /* Schéma A/B */
+    .ab-schema {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .ab-schema-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ab-schema-box {
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .ab-schema-box.budget {
+      background: var(--duck-yellow);
+      color: var(--cohorte-black);
+    }
+
+    .ab-schema-box.split {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--gray-300);
+    }
+
+    .ab-schema-box.variant-a {
+      background: var(--cohorte-accent);
+      color: var(--white);
+    }
+
+    .ab-schema-box.variant-b {
+      background: var(--duck-orange);
+      color: var(--white);
+    }
+
+    .ab-schema-box.winner-box {
+      background: #10b981;
+      color: var(--white);
+    }
+
+    .ab-schema-arrow {
+      color: var(--gray-500);
+      font-size: 16px;
+    }
+
+    .ab-schema-split {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ab-result {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .ab-result p {
+      font-size: 13px;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    .ab-result strong {
+      color: #10b981;
+    }
+
+    /* Explainer cards */
+    .ab-explainer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .ab-explainer-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .ab-explainer-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .ab-explainer-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .ab-explainer-card p {
+      font-size: 12px;
+      color: var(--gray-400);
+      line-height: 1.5;
+    }
+
+    .ab-explainer-card strong {
+      color: #10b981;
+    }
+
+    /* Angles section */
+    .ab-angles {
+      margin-bottom: 40px;
+    }
+
+    .ab-angles h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .ab-angles-subtitle {
+      font-size: 13px;
+      color: var(--gray-400);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .ab-variants-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .ab-variant-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .ab-variant-badge {
+      display: block;
+      text-align: center;
+      padding: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .ab-variant-badge.emotional {
+      background: linear-gradient(90deg, #ec4899, #f472b6);
+      color: var(--white);
+    }
+
+    .ab-variant-badge.rational {
+      background: linear-gradient(90deg, var(--cohorte-accent), var(--cohorte-accent-light));
+      color: var(--white);
+    }
+
+    .ab-variant-badge.mythbuster {
+      background: linear-gradient(90deg, var(--duck-orange), var(--duck-coral));
+      color: var(--white);
+    }
+
+    .ab-variant-video {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+    }
+
+    .ab-variant-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ab-variant-info {
+      padding: 16px;
+    }
+
+    .ab-variant-info h5 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .ab-variant-info p {
+      font-size: 12px;
+      color: var(--gray-400);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .ab-variant-audience {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      font-size: 11px;
+    }
+
+    .audience-label {
+      color: var(--gray-500);
+      font-weight: 600;
+    }
+
+    .ab-variant-audience span:last-child {
+      color: var(--gray-300);
+    }
+
+    /* Learnings section */
+    .ab-learnings {
+      margin-bottom: 32px;
+    }
+
+    .ab-learnings h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .ab-learnings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .ab-learning-item {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .learning-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .ab-learning-item strong {
+      display: block;
+      font-size: 13px;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .ab-learning-item p {
+      font-size: 11px;
+      color: var(--gray-400);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Schema simplifié */
+    .ab-schema-simple {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      flex-wrap: wrap;
+    }
+
+    .schema-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 100px;
+    }
+
+    .schema-step.winner {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+    }
+
+    .schema-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gray-700);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .schema-step.winner .schema-number {
+      background: #10b981;
+    }
+
+    .schema-step span {
+      font-size: 12px;
+      color: var(--gray-300);
+      font-weight: 500;
+    }
+
+    .schema-arrow {
+      color: var(--gray-600);
+      font-size: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .ab-explainer,
+      .ab-variants-grid,
+      .ab-learnings-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .ab-section {
+        padding: 24px;
+      }
+
+      .ab-schema-simple {
+        flex-direction: column;
+      }
+
+      .schema-arrow {
+        transform: rotate(90deg);
+      }
+    }
+
+    /* Section pricing */
+    .pricing-section {
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .pricing-card {
+      max-width: 500px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, #fafafa 0%, #ffffff 100%);
+      border: 2px solid var(--duck-orange);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--duck-orange), var(--duck-coral));
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .pricing-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--duck-orange);
+      margin-bottom: 12px;
+    }
+
+    .pricing-price {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .price-amount {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+    }
+
+    .price-ht {
+      font-size: 16px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+
+    .pricing-subtitle {
+      display: block;
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-top: 4px;
+    }
+
+    .pricing-includes {
+      margin-bottom: 24px;
+    }
+
+    .pricing-includes h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .pricing-includes ul {
+      list-style: none;
+    }
+
+    .pricing-includes li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--gray-700);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .pricing-includes li:last-child {
+      border-bottom: none;
+    }
+
+    .check-icon {
+      color: #10b981;
+      font-weight: 700;
+    }
+
+    .pricing-divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin: 20px 0;
+    }
+
+    .pricing-future h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .pricing-future p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    .pricing-future strong {
+      color: var(--cohorte-black);
+    }
+
+    /* Comparaison pricing */
+    .pricing-comparison {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 32px;
+      padding: 20px;
+      background: var(--gray-50);
+      border-radius: 12px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .comparison-item {
+      text-align: center;
+    }
+
+    .comparison-item .comparison-label {
+      display: block;
+      font-size: 10px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .comparison-item .comparison-price {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .comparison-item.old .comparison-price {
+      color: var(--gray-400);
+      text-decoration: line-through;
+    }
+
+    .comparison-item.new .comparison-price {
+      color: var(--duck-orange);
+    }
+
+    .comparison-item .comparison-detail {
+      display: block;
+      font-size: 11px;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+
+    .comparison-vs {
+      font-size: 20px;
+      color: var(--gray-400);
+    }
+
+    @media (max-width: 768px) {
+      .edu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-offer-step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .formats-grid {
+        gap: 16px;
+      }
+
+      .pricing-card {
+        padding: 24px;
+      }
+
+      .price-amount {
+        font-size: 40px;
+      }
+
+      .pricing-comparison {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .comparison-vs {
+        transform: rotate(90deg);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .arrow-svg {
+        display: none;
+      }
+
+      .business-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .business-card.highlight {
+        grid-column: span 1;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .bonus-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .phone-mockup-container {
+        order: 1;
+      }
+
+      .bonus-text {
+        order: 2;
+        text-align: center;
+      }
+
+      .bonus-features li {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .bonus-section {
+        padding: 50px 24px;
+      }
+
+      .bonus-header h2 {
+        font-size: 26px;
+      }
+
+      .phone-mockup {
+        width: 240px;
+        height: 500px;
+      }
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 40px 60px;
+      background: var(--gray-50);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .footer-left h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 4px;
+    }
+
+    .footer-left p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .footer-right {
+      text-align: right;
+    }
+
+    .footer-right p {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .footer-right p:first-child {
+      font-weight: 500;
+      color: var(--gray-700);
+      margin-bottom: 2px;
+    }
+
+    /* CTA Button SmartDuck style */
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--duck-red);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 16px;
+      transition: background 0.2s ease;
+    }
+
+    .cta-button:hover {
+      background: #d63340;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      
+      .process-timeline::after {
+        transform: scaleX(1);
+        animation: none;
+      }
+      
+      .chatbot-widget {
+        display: none !important;
+      }
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+      
+      .options-grid {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        min-height: auto;
+      }
+      
+      .header-cohorte,
+      .header-smartduck {
+        padding: 24px 30px;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .header-smartduck {
+        align-items: center;
+      }
+      
+      .hero {
+        padding: 50px 24px;
+      }
+      
+      .hero h1 {
+        font-size: 32px;
+      }
+      
+      .hero-subtitle {
+        font-size: 16px;
+      }
+      
+      .hero-meta {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .context {
+        grid-template-columns: 1fr;
+        padding: 30px 24px;
+        gap: 16px;
+      }
+      
+      .options-section {
+        padding: 40px 24px;
+      }
+      
+      .options-header p {
+        font-size: 22px;
+      }
+      
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .option-card {
+        padding: 28px;
+      }
+      
+      .option-title {
+        font-size: 22px;
+      }
+      
+      .option-price .amount {
+        font-size: 28px;
+      }
+      
+      .process-section {
+        padding: 40px 24px;
+      }
+      
+      .process-timeline {
+        flex-direction: column;
+        gap: 24px;
+      }
+      
+      .process-timeline::before,
+      .process-timeline::after {
+        display: none;
+      }
+      
+      .process-step {
+        flex-direction: row;
+        text-align: left;
+        gap: 16px;
+      }
+
+      .step-number {
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+
+      .step-content {
+        max-width: none;
+      }
+
+      .step-date {
+        margin-left: 8px;
+      }
+
+      .process-step.completed .step-content,
+      .process-step.current .step-content {
+        padding: 8px 12px;
+        background: var(--gray-50);
+        border-radius: 8px;
+        border-left: 3px solid var(--cohorte-accent);
+      }
+
+      .process-step.current .step-content {
+        border-left-color: var(--duck-red);
+        background: rgba(230, 57, 70, 0.05);
+      }
+      
+      .footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 30px 24px;
+      }
+      
+      .footer-right {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 28px;
+      }
+      
+      .context-card {
+        padding: 24px;
+      }
+      
+      .option-footer {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+      
+      .option-price {
+        align-self: flex-end;
+      }
+    }
+
+    /* CHATBOT WIDGET */
+    .chatbot-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .chatbot-toggle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--cohorte-black);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .chatbot-toggle:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .chatbot-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    .chatbot-panel {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 360px;
+      max-width: calc(100vw - 48px);
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chatbot-panel.open {
+      display: flex;
+    }
+
+    .chatbot-header {
+      background: var(--cohorte-black);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chatbot-header h3 {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .chatbot-close {
+      background: none;
+      border: none;
+      color: var(--gray-400);
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      padding: 16px;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-message {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .chat-message.assistant {
+      background: var(--gray-100);
+      color: var(--cohorte-black);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-message.user {
+      background: var(--duck-red);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chatbot-input {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .chatbot-input input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .chatbot-input input:focus {
+      border-color: var(--duck-red);
+    }
+
+    .chatbot-input button {
+      padding: 10px 16px;
+      background: var(--duck-red);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .chatbot-input button:hover {
+      background: #d63340;
+    }
+
+    .chatbot-input button:disabled {
+      background: var(--gray-300);
+      cursor: not-allowed;
+    }
+
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 10px 14px;
+      background: var(--gray-100);
+      border-radius: 12px;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .typing-indicator span {
+      width: 6px;
+      height: 6px;
+      background: var(--gray-400);
+      border-radius: 50%;
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-4px); }
+    }
+
+    @media (max-width: 480px) {
+      .chatbot-widget {
+        bottom: 16px;
+        right: 16px;
+      }
+
+      .chatbot-panel {
+        width: calc(100vw - 32px);
+        right: -8px;
+      }
+    }
+
+    /* =========================== */
+    /* HERO SECTION COHORTE        */
+    /* =========================== */
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1a1a2e 50%, var(--cohorte-black) 100%);
+      padding: 80px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(230, 57, 70, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(244, 162, 97, 0.04) 0%, transparent 70%);
-      animation: bg-pulse 8s ease-in-out infinite;
+      background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(230, 57, 70, 0.08) 0%, transparent 50%);
+      pointer-events: none;
     }
 
-    @keyframes bg-pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-
-    .container {
-      max-width: 600px;
-      text-align: center;
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
       position: relative;
       z-index: 1;
     }
 
-    /* Logos */
-    .brands {
-      display: flex;
+    .hero-badge {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fade-in 0.8s ease forwards 0.2s;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-300);
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
     }
 
-    .brand {
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 14px;
+      font-size: 42px;
       font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .brand.cohorte {
       color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 20px;
     }
 
-    .brand.smartduck {
-      color: var(--duck-red);
+    .hero-title .highlight {
+      background: linear-gradient(90deg, var(--duck-orange), var(--duck-coral));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    .brand-separator {
-      color: var(--gray-600);
-      font-size: 20px;
-    }
-
-    /* Main message */
-    .message-card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px;
-      padding: 48px 40px;
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--gray-400);
+      line-height: 1.7;
       margin-bottom: 40px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slide-up 0.8s ease forwards 0.4s;
     }
 
-    @keyframes slide-up {
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--white);
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-size: 12px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 60px 24px;
+      }
+      .hero-title {
+        font-size: 28px;
+      }
+      .hero-stats {
+        gap: 24px;
       }
     }
 
-    @keyframes fade-in {
-      to { opacity: 1; }
+    /* =========================== */
+    /* NOTE TRANSPARENCE           */
+    /* =========================== */
+
+    .transparency-section {
+      padding: 0 40px;
+      margin-top: -60px;
+      margin-bottom: 0;
+      position: relative;
+      z-index: 10;
     }
 
-    .icon-container {
-      width: 80px;
-      height: 80px;
+    .transparency-card {
+      max-width: 500px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 2px solid var(--duck-orange);
+    }
+
+    .transparency-card.revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      animation: card-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes card-pop {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+      }
+      50% {
+        transform: translateY(-5px) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .transparency-header {
+      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1f1f2e 100%);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .transparency-header:hover {
+      background: linear-gradient(135deg, #1a1a1a 0%, #252536 100%);
+    }
+
+    /* Badge "Nouveau message" */
+    .new-message-badge {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--duck-orange) 0%, var(--duck-coral) 100%);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 100px;
+      box-shadow: 0 4px 15px rgba(244, 162, 97, 0.4);
+      animation: badge-pulse 2s ease-in-out infinite;
+    }
+
+    .transparency-card.open .new-message-badge {
+      display: none;
+    }
+
+    @keyframes badge-pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(244, 162, 97, 0.4);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 25px rgba(244, 162, 97, 0.6);
+      }
+    }
+
+    .transparency-icon {
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--duck-orange) 0%, var(--duck-coral) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 28px;
-      font-size: 36px;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-
-    .subtitle {
-      font-size: 16px;
-      color: var(--gray-400);
-      line-height: 1.7;
-      margin-bottom: 32px;
-    }
-
-    /* Convention message */
-    .convention-card {
-      background: rgba(244, 162, 97, 0.1);
-      border: 1px solid rgba(244, 162, 97, 0.3);
-      border-radius: 16px;
-      padding: 24px;
-      text-align: left;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .convention-icon {
-      font-size: 28px;
+      font-size: 20px;
       flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(244, 162, 97, 0.3);
     }
 
-    .convention-text h3 {
+    .transparency-header-text {
+      flex: 1;
+    }
+
+    .transparency-header-text h3 {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 15px;
       font-weight: 600;
-      color: var(--duck-orange);
-      margin-bottom: 6px;
+      color: var(--white);
+      margin-bottom: 3px;
     }
 
-    .convention-text p {
-      font-size: 14px;
+    .transparency-header-text p {
+      font-size: 12px;
       color: var(--gray-400);
-      line-height: 1.6;
     }
 
-    /* Footer note */
-    .footer-note {
-      opacity: 0;
-      animation: fade-in 0.8s ease forwards 0.8s;
+    .transparency-toggle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--duck-orange);
+      color: var(--white);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-weight: bold;
     }
 
-    .footer-note p {
+    .transparency-card:not(.open) .transparency-toggle {
+      animation: toggle-bounce 1s ease-in-out 1.5s 3;
+    }
+
+    @keyframes toggle-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .transparency-card.open .transparency-toggle {
+      transform: rotate(180deg);
+      background: var(--gray-600);
+    }
+
+    .transparency-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .transparency-card.open .transparency-content {
+      max-height: 500px;
+    }
+
+    .transparency-body {
+      padding: 28px;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .transparency-body p {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .transparency-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .transparency-body strong {
+      color: var(--cohorte-black);
+    }
+
+    .transparency-signature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .signature-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cohorte-accent), var(--duck-orange));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .signature-text {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    .signature-text strong {
+      display: block;
+      color: var(--cohorte-black);
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .transparency-section {
+        padding: 0 20px;
+      }
+      .transparency-body {
+        padding: 20px;
+      }
+    }
+
+    /* =========================== */
+    /* SECTION VISION / APPROCHE   */
+    /* =========================== */
+
+    .vision-section {
+      padding: 60px 40px;
+      background: var(--white);
+    }
+
+    .vision-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 48px;
+    }
+
+    .vision-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 12px;
+    }
+
+    .vision-header p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .vision-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s ease;
+    }
+
+    .vision-card:hover {
+      border-color: var(--cohorte-accent);
+      transform: translateY(-2px);
+    }
+
+    .vision-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--cohorte-black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .vision-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .vision-card p {
       font-size: 13px;
       color: var(--gray-600);
       line-height: 1.6;
     }
 
-    .footer-note strong {
+    @media (max-width: 900px) {
+      .vision-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* =========================== */
+    /* SECTION PARTENARIAT         */
+    /* =========================== */
+
+    .partnership-section {
+      padding: 70px 40px;
+      background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+    }
+
+    .partnership-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .partnership-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .partnership-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 12px;
+    }
+
+    .partnership-header p {
+      font-size: 15px;
+      color: var(--gray-600);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .partnership-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .comparison-card {
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .comparison-card.old {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+    }
+
+    .comparison-card.new {
+      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1f1f2e 100%);
+      border: 2px solid var(--cohorte-accent);
+    }
+
+    .comparison-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .comparison-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .comparison-card.old .comparison-card-icon {
+      background: var(--gray-200);
+    }
+
+    .comparison-card.new .comparison-card-icon {
+      background: var(--cohorte-accent);
+    }
+
+    .comparison-card.old h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+
+    .comparison-card.new h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .comparison-list {
+      list-style: none;
+    }
+
+    .comparison-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .comparison-card.old .comparison-list li {
+      color: var(--gray-600);
+    }
+
+    .comparison-card.new .comparison-list li {
+      color: var(--gray-300);
+    }
+
+    .comparison-list .icon {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .partnership-bottom {
+      text-align: center;
+      padding: 32px;
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .partnership-bottom p {
+      font-size: 15px;
+      color: var(--gray-700);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .partnership-bottom strong {
+      color: var(--cohorte-black);
+    }
+
+    @media (max-width: 768px) {
+      .partnership-comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =========================== */
+    /* SECTION QUOTE / PHILOSOPHY  */
+    /* =========================== */
+
+    .philosophy-section {
+      padding: 50px 40px;
+      background: var(--cohorte-black);
+      text-align: center;
+    }
+
+    .philosophy-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .philosophy-quote {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .philosophy-quote::before {
+      content: '"';
+      color: var(--duck-orange);
+    }
+
+    .philosophy-quote::after {
+      content: '"';
+      color: var(--duck-orange);
+    }
+
+    .philosophy-author {
+      font-size: 13px;
       color: var(--gray-500);
     }
 
-    /* Responsive */
-    @media (max-width: 600px) {
-      .message-card {
-        padding: 36px 24px;
-      }
+    /* =========================== */
+    /* ACCORDÉON / STEPPER PROPOSAL */
+    /* =========================== */
 
-      h1 {
-        font-size: 24px;
-      }
+    /* État compact de la proposition */
+    .proposal-card.collapsed .stepper-container {
+      display: none;
+    }
 
-      .convention-card {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-      }
+    /* Vote rapide visible même en mode compact */
+    .proposal-vote-quick {
+      display: flex;
+      gap: 8px;
+      padding: 16px 24px;
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .proposal-card.collapsed .proposal-vote-quick {
+      display: flex;
+    }
+
+    .proposal-card:not(.collapsed) .proposal-vote-quick {
+      display: none;
+    }
+
+    /* Header compact avec bouton "En savoir plus" */
+    .proposal-header-compact {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .proposal-header-content {
+      flex: 1;
+    }
+
+    .proposal-header-compact .proposal-desc-short {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-top: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .btn-expand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--cohorte-black);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-expand:hover {
+      background: var(--gray-800);
+      transform: translateY(-1px);
+    }
+
+    .btn-expand .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .proposal-card:not(.collapsed) .btn-expand .arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Stepper navigation */
+    .stepper-container {
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .stepper-nav {
+      display: flex;
+      justify-content: center;
+      padding: 20px 24px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-100);
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stepper-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .stepper-step:hover {
+      border-color: var(--gray-400);
+    }
+
+    .stepper-step.active {
+      background: var(--cohorte-black);
+      border-color: var(--cohorte-black);
+      color: var(--white);
+    }
+
+    .stepper-step.completed {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: #10b981;
+      color: #10b981;
+    }
+
+    .stepper-step .step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      color: var(--gray-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .stepper-step.active .step-num {
+      background: var(--white);
+      color: var(--cohorte-black);
+    }
+
+    .stepper-step.completed .step-num {
+      background: #10b981;
+      color: var(--white);
+    }
+
+    /* Contenu des étapes */
+    .stepper-content {
+      padding: 0;
+    }
+
+    .step-panel {
+      display: none;
+      padding: 24px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .step-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Navigation bas de step */
+    .step-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-top: 1px solid var(--gray-100);
+      background: var(--gray-50);
+    }
+
+    .btn-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-step.prev {
+      background: var(--white);
+      color: var(--gray-700);
+      border: 1px solid var(--gray-200);
+    }
+
+    .btn-step.prev:hover {
+      background: var(--gray-50);
+      border-color: var(--gray-400);
+    }
+
+    .btn-step.next {
+      background: var(--cohorte-black);
+      color: var(--white);
+    }
+
+    .btn-step.next:hover {
+      background: var(--gray-800);
+    }
+
+    .btn-step:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .step-indicator {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    /* Temps de lecture estimé */
+    .reading-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--gray-500);
+      padding: 4px 10px;
+      background: var(--gray-100);
+      border-radius: 100px;
+      margin-left: 12px;
+    }
+
+    /* Vote final dans le stepper */
+    .step-panel .proposal-vote {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin-top: 24px;
+    }
+
+    /* Markdown dans le chatbot */
+    .chat-message.assistant p {
+      margin: 0 0 8px 0;
+    }
+    .chat-message.assistant p:last-child {
+      margin-bottom: 0;
+    }
+    .chat-message.assistant ul,
+    .chat-message.assistant ol {
+      margin: 8px 0;
+      padding-left: 18px;
+    }
+    .chat-message.assistant li {
+      margin-bottom: 4px;
+    }
+    .chat-message.assistant strong {
+      font-weight: 600;
+      color: var(--cohorte-black);
+    }
+    .chat-message.assistant em {
+      font-style: italic;
+    }
+    .chat-message.assistant code {
+      background: var(--gray-200);
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .chat-message.assistant hr {
+      border: none;
+      border-top: 1px solid var(--gray-200);
+      margin: 10px 0;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="brands">
-      <span class="brand cohorte">Cohorte</span>
-      <span class="brand-separator">×</span>
-      <span class="brand smartduck">SmartDuck</span>
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <div class="banner-inner">
+      <span class="banner-brands"><strong>COHORTE</strong> × <strong>SMARTDUCK</strong></span>
+      <span class="banner-separator">|</span>
+      <span class="banner-text">Espace de suivi projet — Développeurs augmentés par l'IA</span>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Partenariat en cours
+      </div>
+      <h1 class="hero-title">
+        Votre <span class="highlight">longueur d'avance</span><br>
+        dans un marché qui accélère
+      </h1>
+      <p class="hero-subtitle">
+        L'IA transforme tous les métiers. Pendant que d'autres attendent de voir,
+        nous vous positionnons parmi les premiers. Pas avec des promesses —
+        avec des résultats concrets, visibles ici en temps réel.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-value">3</span>
+          <span class="hero-stat-label">Développeurs experts IA</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">2000+</span>
+          <span class="hero-stat-label">Heures sur Claude Code</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">24/7</span>
+          <span class="hero-stat-label">Veille marché IA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTE DE TRANSPARENCE -->
+  <section class="transparency-section">
+    <div class="transparency-card" id="transparency-card">
+      <div class="transparency-header" onclick="toggleTransparency()">
+        <span class="new-message-badge">Nouveau message</span>
+        <div class="transparency-icon">✉️</div>
+        <div class="transparency-header-text">
+          <h3>Un mot sur cette dernière année</h3>
+          <p>De Antoine · Cohorte</p>
+        </div>
+        <div class="transparency-toggle">↓</div>
+      </div>
+      <div class="transparency-content">
+        <div class="transparency-body">
+          <p>
+            On ne va pas tourner autour du pot : <strong>on a pris du retard</strong>. La V2 promise a mis du temps à arriver. Ce n'était pas de la négligence — c'était un choix.
+          </p>
+          <p>
+            En 18 mois, le marché de l'IA a tout bouleversé. On a vu notre métier se transformer sous nos yeux. On avait deux options : continuer comme avant et vous livrer des solutions qui seraient obsolètes dans 6 mois, ou <strong>prendre le temps de comprendre ce nouveau monde</strong>.
+          </p>
+          <p>
+            On a choisi la deuxième option. On a investi des centaines d'heures à tester les outils, comprendre ce qui marche vraiment, éliminer les fausses promesses. Aujourd'hui, on revient avec des méthodes éprouvées, une vision claire, et une seule ambition : <strong>rattraper le temps perdu — et vous donner une longueur d'avance</strong>.
+          </p>
+          <p>
+            Ce que vous voyez sur cette page, c'est notre façon de vous montrer qu'on est prêts. Transparence totale, roadmap visible, propositions concrètes. On avance ensemble.
+          </p>
+          <div class="transparency-signature">
+            <div class="signature-avatar">A</div>
+            <div class="signature-text">
+              <strong>Antoine</strong>
+              Cohorte Agency
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE HORIZONTALE -->
+  <section class="timeline-section">
+    <div class="timeline-header">
+      <h2>Roadmap <span id="timeline-year">2026</span></h2>
+      <p>Scrollez horizontalement pour voir l'avancement</p>
     </div>
 
-    <div class="message-card">
-      <div class="icon-container">🚀</div>
+    <div class="timeline-scroll-container" id="timeline-scroll">
+      <div class="timeline-track">
+        <!-- Ligne de temps avec les mois (générée dynamiquement) -->
+        <div class="timeline-months" id="timeline-months"></div>
 
-      <h1>On prépare quelque chose pour vous</h1>
+        <!-- Ligne de progression -->
+        <div class="timeline-line">
+          <div class="timeline-progress" id="timeline-progress"></div>
+          <div class="timeline-now" id="timeline-now"></div>
+        </div>
 
-      <p class="subtitle">
-        L'équipe Cohorte travaille sur un nouvel espace dédié à SmartDuck.
-        Suivi de projet, propositions, roadmap... tout sera bientôt accessible ici.
-        <br><br>
-        On vous envoie un mail dès que c'est prêt.
-      </p>
+        <!-- Chantiers positionnés sur la timeline -->
+        <div class="timeline-items" id="timeline-items">
 
-      <div class="convention-card">
-        <span class="convention-icon">🎯</span>
-        <div class="convention-text">
-          <h3>Bonne convention à toute l'équipe !</h3>
-          <p>
-            On sait que la semaine prochaine est importante pour SmartDuck.
-            Première convention, premiers franchisés réunis... c'est un grand moment.
-            On vous souhaite plein de réussite et d'énergie pour ces journées.
-            À très vite après ça !
-          </p>
+          <!-- Chantier en cours : Booker -->
+          <div class="timeline-item current" data-month="2" data-day="1" id="item-booker">
+            <div class="item-connector"></div>
+            <div class="item-card">
+              <div class="item-badge current">En cours</div>
+              <h4>Intégration Booker</h4>
+              <p>Système de réservation connecté à votre site</p>
+
+              <div class="item-progress">
+                <div class="progress-step done">
+                  <span class="step-dot"></span>
+                  <span>Credentials ✓</span>
+                </div>
+                <div class="progress-step active">
+                  <span class="step-dot"></span>
+                  <span>Choix option</span>
+                </div>
+                <div class="progress-step">
+                  <span class="step-dot"></span>
+                  <span>Dev</span>
+                </div>
+                <div class="progress-step">
+                  <span class="step-dot"></span>
+                  <span>Go live</span>
+                </div>
+              </div>
+
+              <div class="item-options">
+                <div class="opt">
+                  <span class="opt-name">Standard</span>
+                  <span class="opt-price">1 200 €</span>
+                </div>
+                <div class="opt recommended">
+                  <span class="opt-name">Tunnel Optimisé</span>
+                  <span class="opt-price">1 800 €</span>
+                  <span class="opt-tag">Reco</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Placeholder pour propositions validées -->
+          <div class="timeline-item upcoming" id="item-next" data-month="3" data-day="15">
+            <div class="item-connector dashed"></div>
+            <div class="item-card placeholder" id="next-card">
+              <div class="item-badge upcoming">À définir</div>
+              <h4>Prochain chantier</h4>
+              <p>Validez une proposition ci-dessous pour l'ajouter ici</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <div class="footer-note">
-      <p>
-        <strong>Antoine · Cohorte Agency</strong><br>
-        Développeurs augmentés par l'IA
-      </p>
+    <div class="timeline-hint">
+      <span>← Swipez →</span>
     </div>
+  </section>
+
+  <!-- SECTION NOTRE APPROCHE -->
+  <section class="vision-section">
+    <div class="vision-header">
+      <h2>Comment on travaille différemment</h2>
+      <p>On ne code pas plus vite pour coder plus. On code plus vite pour réfléchir plus. Le temps gagné, on l'investit dans ce qui compte : comprendre votre métier et anticiper vos besoins.</p>
+    </div>
+
+    <div class="vision-grid">
+      <div class="vision-card">
+        <div class="vision-icon">🎯</div>
+        <h3>Des use cases ciblés, pas de l'IA partout</h3>
+        <p>On a passé 2 ans à tester l'IA dans tous les sens. Résultat : elle excelle sur des tâches précises, bien bornées, avec un humain qui valide. C'est comme ça qu'on l'utilise pour vous.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon">🔭</div>
+        <h3>Toujours un coup d'avance</h3>
+        <p>Les pubs arrivent sur ChatGPT. Le GIO (SEO pour l'IA) se met en place. On s'y prépare aujourd'hui pour que vous soyez positionné demain. Premier arrivé, premier servi.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon">🤝</div>
+        <h3>On monte en compétence ensemble</h3>
+        <p>Notre rôle n'est pas de vous rendre dépendant. C'est de vous montrer comment l'IA peut libérer vos équipes des tâches répétitives pour qu'elles se concentrent sur la valeur ajoutée.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROPOSITIONS - Section avec système de vote -->
+  <section class="proposals-section">
+    <div class="proposals-header">
+      <h2>Propositions</h2>
+      <p>Des idées qu'on a explorées pour vous. Dites-nous ce qui vous intéresse, on l'ajoute à la roadmap.</p>
+      <div class="proposals-legend">
+        <span class="legend-item"><span class="legend-dot no"></span> Pas intéressé</span>
+        <span class="legend-item"><span class="legend-dot unclear"></span> Intéressant mais pas clair</span>
+        <span class="legend-item"><span class="legend-dot later"></span> Intéressant, plus tard</span>
+        <span class="legend-item"><span class="legend-dot go"></span> Go, on lance !</span>
+      </div>
+    </div>
+
+    <!-- PROPOSITION 1 : Pack Ads Centre -->
+    <div class="proposal-card collapsed" id="meta-ads">
+      <div class="proposal-header">
+        <div class="proposal-header-compact">
+          <div class="proposal-header-content">
+            <span class="proposal-badge">R&D</span>
+            <h3>Pack Ads Centre — Création Meta Ads</h3>
+            <p class="proposal-desc-short">On a créé des prototypes de pubs vidéo pour vos campagnes Instagram/Facebook. Un pack complet pour chaque centre.</p>
+          </div>
+          <button class="btn-expand" onclick="toggleProposal('meta-ads')">
+            En savoir plus <span class="arrow">↓</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Vote rapide (visible en mode compact) -->
+      <div class="proposal-vote-quick" data-proposal="pack-ads">
+        <button class="vote-btn" data-vote="no">
+          <span class="vote-icon">✗</span>
+          <span class="vote-label">Pas intéressé</span>
+        </button>
+        <button class="vote-btn" data-vote="unclear">
+          <span class="vote-icon">?</span>
+          <span class="vote-label">Pas clair</span>
+        </button>
+        <button class="vote-btn" data-vote="later">
+          <span class="vote-icon">◷</span>
+          <span class="vote-label">Plus tard</span>
+        </button>
+        <button class="vote-btn go" data-vote="go">
+          <span class="vote-icon">→</span>
+          <span class="vote-label">Go !</span>
+        </button>
+      </div>
+
+      <!-- Stepper Container -->
+      <div class="stepper-container">
+        <!-- Stepper Navigation -->
+        <div class="stepper-nav">
+          <div class="stepper-step active" data-step="1" onclick="goToStep('meta-ads', 1)">
+            <span class="step-num">1</span>
+            <span>Pourquoi maintenant</span>
+          </div>
+          <div class="stepper-step" data-step="2" onclick="goToStep('meta-ads', 2)">
+            <span class="step-num">2</span>
+            <span>Exemples créés</span>
+          </div>
+          <div class="stepper-step" data-step="3" onclick="goToStep('meta-ads', 3)">
+            <span class="step-num">3</span>
+            <span>Pourquoi SmartDuck</span>
+          </div>
+          <div class="stepper-step" data-step="4" onclick="goToStep('meta-ads', 4)">
+            <span class="step-num">4</span>
+            <span>A/B Testing</span>
+          </div>
+          <div class="stepper-step" data-step="5" onclick="goToStep('meta-ads', 5)">
+            <span class="step-num">5</span>
+            <span>Prix & Livrables</span>
+          </div>
+        </div>
+
+        <!-- Step Content -->
+        <div class="stepper-content">
+          <!-- ÉTAPE 1 : Pourquoi maintenant -->
+          <div class="step-panel active" data-step="1">
+            <div class="proposal-details">
+
+        <!-- EXPLICATION PÉDAGOGIQUE : Pourquoi vous aurez besoin de ça -->
+        <div class="pedagogy-section">
+          <h4>Pourquoi on prépare ça maintenant ?</h4>
+
+          <div class="journey-explainer">
+            <div class="journey-step">
+              <div class="journey-number">1</div>
+              <div class="journey-content">
+                <h5>Aujourd'hui : Google Search</h5>
+                <p>Vous lancez des campagnes Google Search. Vous ciblez des mots-clés comme "épilation laser Paris". Les gens qui cherchent activement vous trouvent. C'est votre priorité actuelle, et c'est bien.</p>
+              </div>
+            </div>
+
+            <div class="journey-arrow">↓</div>
+
+            <div class="journey-step">
+              <div class="journey-number">2</div>
+              <div class="journey-content">
+                <h5>Demain : Performance Max</h5>
+                <p>Quand vous voudrez scaler, vous passerez sur <strong>Google Performance Max</strong>. C'est là que Google diffuse vos pubs partout : YouTube, Gmail, Discover, Display... Pour que ça marche, Google a besoin de <strong>contenus visuels</strong> : images et vidéos.</p>
+              </div>
+            </div>
+
+            <div class="journey-arrow">↓</div>
+
+            <div class="journey-step highlight">
+              <div class="journey-number">3</div>
+              <div class="journey-content">
+                <h5>Ce qu'il vous faudra : des Ad Sets</h5>
+                <p>Un Ad Set, c'est un <strong>pack de vidéos courtes</strong> déclinées dans tous les formats (carré, vertical, horizontal). Sans ça, vos pubs Performance Max tournent avec des visuels génériques ou mal cadrés. Avec, vous contrôlez votre image et vos conversions.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pedagogy-summary">
+            <span class="summary-icon">💡</span>
+            <p><strong>On prépare l'après.</strong> Pendant que vous êtes sur Google Search, on crée les assets vidéo dont vous aurez besoin pour Performance Max. Comme ça, le jour où vous voulez scaler, tout est prêt.</p>
+          </div>
+        </div>
+            </div><!-- /proposal-details -->
+
+            <!-- Navigation étape 1 -->
+            <div class="step-navigation">
+              <button class="btn-step prev" disabled>← Précédent</button>
+              <span class="step-indicator">Étape 1 sur 5 <span class="reading-time">⏱ ~2 min</span></span>
+              <button class="btn-step next" onclick="goToStep('meta-ads', 2)">Suivant →</button>
+            </div>
+          </div><!-- /step-panel 1 -->
+
+          <!-- ÉTAPE 2 : Exemples créés -->
+          <div class="step-panel" data-step="2">
+            <div class="proposal-details">
+        <!-- Exemples créés -->
+        <div class="examples-section">
+          <h4>Exemples qu'on a créés pour SmartDuck</h4>
+          <p class="examples-intro">Voici des prototypes de vidéos publicitaires. Chaque angle teste un message différent pour voir ce qui résonne avec votre audience.</p>
+        </div>
+
+        <div class="proposal-preview">
+          <div class="phone-mockup-container">
+            <div class="demo-label">
+              <span class="demo-label-text">Exemple : angle "calculette"</span>
+              <span class="demo-label-arrow"></span>
+            </div>
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <div class="insta-feed">
+              <div class="insta-header">
+                <span class="insta-logo">Instagram</span>
+                <div class="insta-icons">
+                  <span>♡</span>
+                  <span>✈</span>
+                </div>
+              </div>
+
+              <div class="insta-feed-scroll">
+                <div class="insta-feed-content">
+                  <!-- Fake post 1 -->
+                  <div class="insta-post-fake">
+                    <div class="insta-post-fake-header">
+                      <div class="fake-avatar"></div>
+                      <div class="fake-username"></div>
+                    </div>
+                    <div class="fake-image"></div>
+                    <div class="fake-text"></div>
+                    <div class="fake-text short"></div>
+                  </div>
+
+                  <!-- Fake post 2 -->
+                  <div class="insta-post-fake">
+                    <div class="insta-post-fake-header">
+                      <div class="fake-avatar" style="background: linear-gradient(135deg, #d0d0d0, #b0b0b0);"></div>
+                      <div class="fake-username" style="width: 100px;"></div>
+                    </div>
+                    <div class="fake-image" style="height: 120px;"></div>
+                    <div class="fake-text"></div>
+                    <div class="fake-text" style="width: 75%;"></div>
+                    <div class="fake-text short"></div>
+                  </div>
+
+                  <!-- Fake post 3 -->
+                  <div class="insta-post-fake">
+                    <div class="insta-post-fake-header">
+                      <div class="fake-avatar" style="background: linear-gradient(135deg, #c8c8c8, #a8a8a8);"></div>
+                      <div class="fake-username" style="width: 70px;"></div>
+                    </div>
+                    <div class="fake-image" style="height: 90px;"></div>
+                    <div class="fake-text" style="width: 85%;"></div>
+                    <div class="fake-text short"></div>
+                  </div>
+
+                  <!-- ACTUAL AD -->
+                  <div class="insta-post-ad">
+                    <div class="insta-post-ad-header">
+                      <div class="insta-post-ad-user">
+                        <div class="ad-avatar">SD</div>
+                        <div class="ad-user-info">
+                          <span class="ad-username">smartduck.fr</span>
+                          <span class="ad-sponsored">Sponsorisé</span>
+                        </div>
+                      </div>
+                      <span class="ad-more">•••</span>
+                    </div>
+                    <div class="insta-post-ad-video">
+                      <video id="ad-video" loop muted playsinline>
+                        <source src="SmartDuck-Calculator.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="insta-post-ad-actions">
+                      <div class="ad-actions-left">
+                        <span>♡</span>
+                        <span>💬</span>
+                        <span>✈</span>
+                      </div>
+                      <div class="ad-action-save">
+                        <span>⚑</span>
+                      </div>
+                    </div>
+                    <div class="insta-post-ad-cta">
+                      <span class="cta-text">Réserver maintenant</span>
+                      <span class="cta-arrow">→</span>
+                    </div>
+                  </div>
+
+                  <!-- Fake post below 1 -->
+                  <div class="insta-post-fake">
+                    <div class="insta-post-fake-header">
+                      <div class="fake-avatar" style="background: linear-gradient(135deg, #d8d8d8, #b8b8b8);"></div>
+                      <div class="fake-username" style="width: 90px;"></div>
+                    </div>
+                    <div class="fake-image" style="height: 110px;"></div>
+                    <div class="fake-text"></div>
+                    <div class="fake-text short"></div>
+                  </div>
+
+                  <!-- Fake post below 2 -->
+                  <div class="insta-post-fake">
+                    <div class="insta-post-fake-header">
+                      <div class="fake-avatar" style="background: linear-gradient(135deg, #e0e0e0, #c0c0c0);"></div>
+                      <div class="fake-username" style="width: 75px;"></div>
+                    </div>
+                    <div class="fake-image" style="height: 95px;"></div>
+                    <div class="fake-text" style="width: 80%;"></div>
+                    <div class="fake-text short"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="insta-nav">
+                <span>🏠</span>
+                <span>🔍</span>
+                <span>➕</span>
+                <span>🎬</span>
+                <span>👤</span>
+              </div>
+            </div>
+          </div>
+        </div>
+          </div>
+        </div><!-- /proposal-preview -->
+            </div><!-- /proposal-details -->
+
+            <!-- Navigation étape 2 -->
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('meta-ads', 1)">← Précédent</button>
+              <span class="step-indicator">Étape 2 sur 5 <span class="reading-time">⏱ ~1 min</span></span>
+              <button class="btn-step next" onclick="goToStep('meta-ads', 3)">Suivant →</button>
+            </div>
+          </div><!-- /step-panel 2 -->
+
+          <!-- ÉTAPE 3 : Pourquoi SmartDuck -->
+          <div class="step-panel" data-step="3">
+            <div class="proposal-details">
+        <!-- SECTION PÉDAGOGIQUE -->
+    <div class="edu-section">
+      <div class="edu-header">
+        <h3>Pourquoi cette offre est faite pour SmartDuck</h3>
+        <p>Votre cible est sur Instagram et Facebook. Pour les atteindre efficacement, il faut le bon message, au bon format, au bon endroit.</p>
+      </div>
+
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-icon">📱</div>
+          <h4>Votre cible scrolle sur Instagram</h4>
+          <p>Les 20-45 ans intéressés par l'épilation laser passent en moyenne 30 min/jour sur Instagram. C'est là qu'il faut être visible.</p>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">🎞️</div>
+          <h4>Qu'est-ce qu'un Ad Set ?</h4>
+          <p>Un ensemble de publicités déclinées dans tous les formats nécessaires : Feed carré, Story verticale, Reels... Une seule création, tous les placements couverts.</p>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">🎯</div>
+          <h4>Pourquoi tous ces formats ?</h4>
+          <p>Chaque emplacement a ses dimensions. Sans les bons formats, vos pubs sont coupées ou mal affichées. Avec un pack complet, vous êtes pro partout.</p>
+        </div>
+      </div>
+    </div>
+            </div><!-- /proposal-details -->
+
+            <!-- Navigation étape 3 -->
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('meta-ads', 2)">← Précédent</button>
+              <span class="step-indicator">Étape 3 sur 5 <span class="reading-time">⏱ ~1 min</span></span>
+              <button class="btn-step next" onclick="goToStep('meta-ads', 4)">Suivant →</button>
+            </div>
+          </div><!-- /step-panel 3 -->
+
+          <!-- ÉTAPE 4 : A/B Testing -->
+          <div class="step-panel" data-step="4">
+            <div class="proposal-details">
+    <!-- A/B TESTING EXPLAINER -->
+    <div class="ab-section">
+      <div class="ab-header">
+        <h3>L'A/B Testing : pourquoi c'est essentiel</h3>
+        <p>En publicité, personne ne sait à l'avance ce qui va marcher. Le seul moyen de savoir, c'est de tester.</p>
+      </div>
+
+      <!-- Explication pédagogique -->
+      <div class="ab-explainer">
+        <div class="ab-explainer-card">
+          <div class="ab-explainer-icon">🤔</div>
+          <h4>Le problème</h4>
+          <p>Vous avez un budget pub. Vous créez UNE pub. Elle marche... ou pas. Si elle ne marche pas, vous avez dépensé votre budget pour rien.</p>
+        </div>
+        <div class="ab-explainer-card">
+          <div class="ab-explainer-icon">💡</div>
+          <h4>La solution</h4>
+          <p>Vous créez PLUSIEURS pubs avec des messages différents. Vous divisez votre budget entre elles. Après quelques jours, vous voyez laquelle performe le mieux.</p>
+        </div>
+        <div class="ab-explainer-card">
+          <div class="ab-explainer-icon">📈</div>
+          <h4>Le résultat</h4>
+          <p>Vous coupez les pubs qui ne marchent pas. Vous mettez tout le budget sur la gagnante. <strong>Moins de gaspillage, plus de conversions.</strong></p>
+        </div>
+      </div>
+
+      <!-- Les 3 angles testés -->
+      <div class="ab-angles">
+        <h4>3 angles qu'on a créés pour SmartDuck</h4>
+        <p class="ab-angles-subtitle">Chaque angle parle à un type de client différent. En testant les 3, on découvre ce qui résonne le plus avec votre audience.</p>
+
+        <div class="ab-variants-grid">
+          <div class="ab-variant-card">
+            <div class="ab-variant-badge emotional">Émotionnel</div>
+            <div class="ab-variant-video">
+              <video autoplay loop muted playsinline>
+                <source src="SmartDuckAcquisition.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="ab-variant-info">
+              <h5>L'approche feel-good</h5>
+              <p>On mise sur le ressenti : confiance en soi, bien-être, transformation personnelle. Parle aux personnes qui achètent à l'émotion.</p>
+              <div class="ab-variant-audience">
+                <span class="audience-label">Cible type :</span>
+                <span>Personnes sensibles au lifestyle, à l'image de soi</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ab-variant-card">
+            <div class="ab-variant-badge rational">Rationnel</div>
+            <div class="ab-variant-video">
+              <video autoplay loop muted playsinline>
+                <source src="SmartDuck-Calculator.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="ab-variant-info">
+              <h5>L'approche calculette</h5>
+              <p>On mise sur les chiffres : économies vs rasoir/cire, nombre de séances, résultat durable. Parle aux personnes qui comparent avant d'acheter.</p>
+              <div class="ab-variant-audience">
+                <span class="audience-label">Cible type :</span>
+                <span>Personnes analytiques, sensibles au ROI</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ab-variant-card">
+            <div class="ab-variant-badge mythbuster">Mythbuster</div>
+            <div class="ab-variant-video">
+              <video autoplay loop muted playsinline>
+                <source src="SmartDuckMythbuster.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="ab-variant-info">
+              <h5>L'approche anti-objections</h5>
+              <p>On casse les idées reçues : "c'est douloureux", "c'est pas pour moi", "c'est trop cher". Parle aux personnes qui hésitent encore.</p>
+              <div class="ab-variant-audience">
+                <span class="audience-label">Cible type :</span>
+                <span>Personnes intéressées mais freinées par des doutes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ce que ça apprend -->
+      <div class="ab-learnings">
+        <h4>Ce que l'A/B testing vous apprend sur votre audience</h4>
+        <div class="ab-learnings-grid">
+          <div class="ab-learning-item">
+            <span class="learning-icon">🎯</span>
+            <div>
+              <strong>Quel message résonne</strong>
+              <p>Si le "Mythbuster" gagne, vos clients ont besoin d'être rassurés. Si le "Rationnel" gagne, ils veulent des preuves chiffrées.</p>
+            </div>
+          </div>
+          <div class="ab-learning-item">
+            <span class="learning-icon">👥</span>
+            <div>
+              <strong>Qui est vraiment votre client</strong>
+              <p>Les résultats révèlent le profil psychologique de ceux qui convertissent. Ça guide toute votre com' future.</p>
+            </div>
+          </div>
+          <div class="ab-learning-item">
+            <span class="learning-icon">💰</span>
+            <div>
+              <strong>Où mettre votre argent</strong>
+              <p>En moyenne, l'A/B testing permet de réduire le coût par acquisition de 20 à 40%. C'est du budget récupéré pour scaler.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schéma simplifié -->
+      <div class="ab-schema-simple">
+        <div class="schema-step">
+          <div class="schema-number">1</div>
+          <span>On lance les 3 pubs</span>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-step">
+          <div class="schema-number">2</div>
+          <span>On mesure (clics, réservations)</span>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-step">
+          <div class="schema-number">3</div>
+          <span>On garde la meilleure</span>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-step winner">
+          <div class="schema-number">✓</div>
+          <span>Budget optimisé</span>
+        </div>
+      </div>
+    </div>
+            </div><!-- /proposal-details -->
+
+            <!-- Navigation étape 4 -->
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('meta-ads', 3)">← Précédent</button>
+              <span class="step-indicator">Étape 4 sur 5 <span class="reading-time">⏱ ~2 min</span></span>
+              <button class="btn-step next" onclick="goToStep('meta-ads', 5)">Suivant →</button>
+            </div>
+          </div><!-- /step-panel 4 -->
+
+          <!-- ÉTAPE 5 : Prix & Livrables -->
+          <div class="step-panel" data-step="5">
+            <div class="proposal-details">
+    <!-- PROCESS -->
+    <div class="offer-section">
+      <div class="offer-header">
+        <span class="offer-badge">Pack Ads Centre</span>
+        <h3>Comment ça marche</h3>
+        <p>Un process simple en 3 étapes pour créer vos campagnes.</p>
+      </div>
+
+      <div class="process-offer">
+        <div class="process-offer-step">
+          <div class="step-circle">1</div>
+          <div class="step-info">
+            <h4>Brief avec Elia</h4>
+            <p>Notre chatbot utilise la méthode BMAD pour extraire votre message, votre cible, et le ton de votre campagne. En 15 minutes, on a tout ce qu'il faut.</p>
+            <span class="step-tag">Vous gardez le contrôle sur le message</span>
+          </div>
+        </div>
+        <div class="process-offer-step">
+          <div class="step-circle">2</div>
+          <div class="step-info">
+            <h4>Création des Ads</h4>
+            <p>L'IA génère, un humain review et itère jusqu'à obtenir le meilleur résultat. Vidéo motion design + toutes les déclinaisons (Feed, Story, Reels).</p>
+            <span class="step-tag">IA + contrôle humain à chaque étape</span>
+          </div>
+        </div>
+        <div class="process-offer-step">
+          <div class="step-circle">3</div>
+          <div class="step-info">
+            <h4>2 allers-retours</h4>
+            <p>Vous validez, on ajuste. Deux rounds d'amélioration inclus pour que le rendu soit exactement ce que vous voulez.</p>
+            <span class="step-tag">Livraison finale prête à diffuser</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="handover-note">
+        <div class="handover-icon">📦</div>
+        <div class="handover-text">
+          <strong>On livre, Aurélien diffuse.</strong>
+          <p>Vous recevez tous les fichiers. Aurélien garde la main sur Meta Ads, le ciblage et le budget. On fournit la matière créative, vous gérez la diffusion.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CE QUE VOUS RECEVEZ -->
+    <div class="deliverable-section">
+      <h3>Ce que vous recevez</h3>
+      <p>Un pack complet prêt à être uploadé dans Meta Ads Manager.</p>
+
+      <div class="formats-grid">
+        <div class="format-item">
+          <div class="format-preview feed">
+            <span>1:1</span>
+          </div>
+          <span class="format-name">Feed Instagram</span>
+        </div>
+        <div class="format-item">
+          <div class="format-preview story">
+            <span>9:16</span>
+          </div>
+          <span class="format-name">Story / Reels</span>
+        </div>
+        <div class="format-item">
+          <div class="format-preview landscape">
+            <span>16:9</span>
+          </div>
+          <span class="format-name">Feed Facebook</span>
+        </div>
+        <div class="format-item">
+          <div class="format-preview square">
+            <span>4:5</span>
+          </div>
+          <span class="format-name">Portrait Feed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="pricing-section">
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <span class="pricing-label">Pack Ads Centre</span>
+          <div class="pricing-price">
+            <span class="price-amount">290 €</span>
+            <span class="price-ht">HT</span>
+          </div>
+          <span class="pricing-subtitle">par centre / par campagne</span>
+        </div>
+
+        <div class="pricing-includes">
+          <h4>Ce qui est inclus</h4>
+          <ul>
+            <li><span class="check-icon">✓</span> Brief guidé via Elia (chatbot BMAD)</li>
+            <li><span class="check-icon">✓</span> Vidéo motion design principale</li>
+            <li><span class="check-icon">✓</span> Déclinaisons tous formats (Feed, Story, Reels, etc.)</li>
+            <li><span class="check-icon">✓</span> 2 allers-retours d'ajustement</li>
+            <li><span class="check-icon">✓</span> Fichiers sources livrés</li>
+            <li><span class="check-icon">✓</span> Livraison sous 48h</li>
+          </ul>
+        </div>
+
+        <div class="pricing-divider"></div>
+
+        <div class="pricing-future">
+          <h4>Par la suite</h4>
+          <p><strong>A/B Testing & itérations</strong> — Besoin de tester de nouvelles versions ? De nouveaux messages ? On établit un devis selon vos besoins pour optimiser vos campagnes en continu.</p>
+        </div>
+      </div>
+
+      <div class="pricing-comparison">
+        <div class="comparison-item old">
+          <span class="comparison-label">Agence classique</span>
+          <span class="comparison-price">2 000 – 5 000 €</span>
+          <span class="comparison-detail">2-4 semaines</span>
+        </div>
+        <div class="comparison-vs">→</div>
+        <div class="comparison-item new">
+          <span class="comparison-label">Pack Ads Centre</span>
+          <span class="comparison-price">290 €</span>
+          <span class="comparison-detail">48h</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Système de vote final -->
+    <div class="proposal-vote" data-proposal="pack-ads">
+      <button class="vote-btn" data-vote="no">
+        <span class="vote-icon">✗</span>
+        <span class="vote-label">Pas intéressé</span>
+      </button>
+      <button class="vote-btn" data-vote="unclear">
+        <span class="vote-icon">?</span>
+        <span class="vote-label">Pas clair</span>
+      </button>
+      <button class="vote-btn" data-vote="later">
+        <span class="vote-icon">◷</span>
+        <span class="vote-label">Plus tard</span>
+      </button>
+      <button class="vote-btn go" data-vote="go">
+        <span class="vote-icon">→</span>
+        <span class="vote-label">Go !</span>
+      </button>
+    </div>
+
+            </div><!-- /proposal-details -->
+
+            <!-- Navigation étape 5 -->
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('meta-ads', 4)">← Précédent</button>
+              <span class="step-indicator">Étape 5 sur 5 <span class="reading-time">⏱ ~1 min</span></span>
+              <button class="btn-step next" onclick="toggleProposal('meta-ads')" style="background: var(--gray-600);">Réduire ↑</button>
+            </div>
+          </div><!-- /step-panel 5 -->
+
+        </div><!-- /stepper-content -->
+      </div><!-- /stepper-container -->
+    </div><!-- /proposal-card -->
+
+    <!-- PROPOSITION 2 : Campagnes d'Affiliation Locale -->
+    <div class="proposal-card collapsed" id="affiliation-locale">
+      <div class="proposal-header">
+        <div class="proposal-header-compact">
+          <div class="proposal-header-content">
+            <span class="proposal-badge" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%);">Acquisition</span>
+            <h3>Campagnes d'Affiliation Locale</h3>
+            <p class="proposal-desc-short">Partenariats avec des influenceurs beauté locaux qui documentent leur expérience SmartDuck en échange d'une commission sur les leads générés.</p>
+          </div>
+          <button class="btn-expand" onclick="toggleProposal('affiliation-locale')">
+            En savoir plus <span class="arrow">↓</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Vote rapide (visible en mode compact) -->
+      <div class="proposal-vote-quick" data-proposal="affiliation-locale">
+        <button class="vote-btn" data-vote="no">
+          <span class="vote-icon">✗</span>
+          <span class="vote-label">Pas intéressé</span>
+        </button>
+        <button class="vote-btn" data-vote="unclear">
+          <span class="vote-icon">?</span>
+          <span class="vote-label">Pas clair</span>
+        </button>
+        <button class="vote-btn" data-vote="later">
+          <span class="vote-icon">◷</span>
+          <span class="vote-label">Plus tard</span>
+        </button>
+        <button class="vote-btn go" data-vote="go">
+          <span class="vote-icon">→</span>
+          <span class="vote-label">Go !</span>
+        </button>
+      </div>
+
+      <!-- Stepper Container -->
+      <div class="stepper-container">
+        <!-- Stepper Navigation -->
+        <div class="stepper-nav">
+          <div class="stepper-step active" data-step="1" onclick="goToStep('affiliation-locale', 1)">
+            <span class="step-num">1</span>
+            <span>Le concept</span>
+          </div>
+          <div class="stepper-step" data-step="2" onclick="goToStep('affiliation-locale', 2)">
+            <span class="step-num">2</span>
+            <span>Comment ça marche</span>
+          </div>
+          <div class="stepper-step" data-step="3" onclick="goToStep('affiliation-locale', 3)">
+            <span class="step-num">3</span>
+            <span>Le tracking</span>
+          </div>
+          <div class="stepper-step" data-step="4" onclick="goToStep('affiliation-locale', 4)">
+            <span class="step-num">4</span>
+            <span>Prochaines étapes</span>
+          </div>
+        </div>
+
+        <!-- Step Content -->
+        <div class="stepper-content">
+          <!-- ÉTAPE 1 : Le concept -->
+          <div class="step-panel active" data-step="1">
+            <div class="proposal-details">
+              <div class="pedagogy-section">
+                <h4>L'affiliation locale : toucher votre audience via des voix de confiance</h4>
+
+                <div class="journey-explainer">
+                  <div class="journey-step">
+                    <div class="journey-number">🎯</div>
+                    <div class="journey-content">
+                      <h5>Le problème des pubs classiques</h5>
+                      <p>Les gens scrollent les pubs. Mais quand leur influenceuse beauté préférée partage son expérience d'épilation laser, ils s'arrêtent et regardent. C'est du <strong>contenu UGC authentique</strong>, pas de la pub.</p>
+                    </div>
+                  </div>
+
+                  <div class="journey-arrow">↓</div>
+
+                  <div class="journey-step highlight">
+                    <div class="journey-number">💡</div>
+                    <div class="journey-content">
+                      <h5>La solution : des ambassadeurs locaux</h5>
+                      <p>On identifie des <strong>influenceurs beauté/bien-être locaux</strong> (Paris, Toulouse...) via MeetSponsor. Ils documentent leur parcours complet chez SmartDuck : du premier devis gratuit jusqu'aux résultats finaux.</p>
+                    </div>
+                  </div>
+
+                  <div class="journey-arrow">↓</div>
+
+                  <div class="journey-step">
+                    <div class="journey-number">📈</div>
+                    <div class="journey-content">
+                      <h5>Vous ne payez que les résultats</h5>
+                      <p>Chaque influenceur a un <strong>lien d'affiliation unique</strong>. Quand quelqu'un prend rendez-vous via ce lien, l'influenceur touche une commission. Pas de lead = pas de paiement.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pedagogy-summary">
+                  <span class="summary-icon">🤝</span>
+                  <p><strong>Gagnant-gagnant.</strong> L'influenceur gagne de l'argent en partageant une vraie expérience. Vous gagnez des clients qualifiés qui arrivent déjà convaincus. Et le contenu reste sur leurs réseaux pour générer des leads dans le temps.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-navigation">
+              <button class="btn-step prev" disabled>← Précédent</button>
+              <span class="step-indicator">Étape 1 sur 4 <span class="reading-time">⏱ ~2 min</span></span>
+              <button class="btn-step next" onclick="goToStep('affiliation-locale', 2)">Suivant →</button>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 2 : Comment ça marche -->
+          <div class="step-panel" data-step="2">
+            <div class="proposal-details">
+              <div class="offer-section" style="margin-top: 0; padding-top: 0; border-top: none;">
+                <div class="offer-header">
+                  <span class="offer-badge" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%);">Parcours Influenceur</span>
+                  <h3>Comment ça se passe concrètement</h3>
+                </div>
+
+                <div class="process-offer">
+                  <div class="process-offer-step">
+                    <div class="step-circle">1</div>
+                    <div class="step-info">
+                      <h4>Sourcing via MeetSponsor</h4>
+                      <p>On identifie les influenceurs beauté/bien-être les plus suivis dans vos zones (Paris, Toulouse). Critères : audience locale, engagement authentique, contenu lifestyle/beauté.</p>
+                      <span class="step-tag">Cohorte s'en charge</span>
+                    </div>
+                  </div>
+
+                  <div class="process-offer-step">
+                    <div class="step-circle">2</div>
+                    <div class="step-info">
+                      <h4>Offre : prestation offerte en échange de contenu</h4>
+                      <p>L'influenceur reçoit un <strong>parcours complet gratuit</strong> (devis + séances). En échange, il/elle documente tout : avant/après, sensations, résultats. Contenu authentique, pas scripté.</p>
+                      <span class="step-tag">Partenariat commercial déclaré</span>
+                    </div>
+                  </div>
+
+                  <div class="process-offer-step">
+                    <div class="step-circle">3</div>
+                    <div class="step-info">
+                      <h4>Publication sur leurs réseaux</h4>
+                      <p>Stories, Reels, posts... L'influenceur partage son expérience avec son audience. Chaque publication inclut un <strong>lien d'affiliation unique</strong> vers votre site.</p>
+                      <span class="step-tag">Leur audience devient vos prospects</span>
+                    </div>
+                  </div>
+
+                  <div class="process-offer-step">
+                    <div class="step-circle">4</div>
+                    <div class="step-info">
+                      <h4>Commission sur les leads convertis</h4>
+                      <p>Quand quelqu'un clique sur le lien et prend rendez-vous (via Booker), l'influenceur touche une commission fixe. Le montant est défini à l'avance par prestation.</p>
+                      <span class="step-tag">Vous payez uniquement au résultat</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('affiliation-locale', 1)">← Précédent</button>
+              <span class="step-indicator">Étape 2 sur 4 <span class="reading-time">⏱ ~2 min</span></span>
+              <button class="btn-step next" onclick="goToStep('affiliation-locale', 3)">Suivant →</button>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 3 : Le tracking -->
+          <div class="step-panel" data-step="3">
+            <div class="proposal-details">
+              <div class="edu-section" style="margin-top: 0;">
+                <div class="edu-header">
+                  <h3>Tracking & Attribution : savoir d'où viennent vos leads</h3>
+                  <p>Grâce à l'intégration Booker, on trace tout le parcours du clic jusqu'à la réservation.</p>
+                </div>
+
+                <div class="edu-grid">
+                  <div class="edu-card">
+                    <div class="edu-icon">🔗</div>
+                    <h4>Liens d'affiliation uniques</h4>
+                    <p>Chaque influenceur a son propre lien (ex: smartduck.fr/?ref=marie_paris). On sait exactement qui a envoyé chaque visiteur.</p>
+                  </div>
+                  <div class="edu-card">
+                    <div class="edu-icon">📅</div>
+                    <h4>Intégration Booker</h4>
+                    <p>Quand quelqu'un prend RDV via le site, on capture la source. Si le visiteur venait d'un lien affilié, c'est tracké automatiquement.</p>
+                  </div>
+                  <div class="edu-card">
+                    <div class="edu-icon">📊</div>
+                    <h4>Dashboard de suivi</h4>
+                    <p>Vous voyez en temps réel : clics par influenceur, RDV générés, taux de conversion, commissions dues. Transparence totale.</p>
+                  </div>
+                </div>
+
+                <div class="handover-note" style="margin-top: 32px;">
+                  <div class="handover-icon">🔒</div>
+                  <div class="handover-text">
+                    <strong>Cookies & attribution</strong>
+                    <p>On utilise un cookie de 30 jours. Si quelqu'un clique aujourd'hui et réserve dans 2 semaines, l'influenceur est quand même crédité. Juste et motivant pour eux.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('affiliation-locale', 2)">← Précédent</button>
+              <span class="step-indicator">Étape 3 sur 4 <span class="reading-time">⏱ ~1 min</span></span>
+              <button class="btn-step next" onclick="goToStep('affiliation-locale', 4)">Suivant →</button>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 4 : Prochaines étapes -->
+          <div class="step-panel" data-step="4">
+            <div class="proposal-details">
+              <div class="offer-section" style="margin-top: 0; padding-top: 0; border-top: none;">
+                <div class="offer-header">
+                  <span class="offer-badge" style="background: var(--cohorte-black);">Prochaines étapes</span>
+                  <h3>Comment on avance ensemble</h3>
+                  <p>Ce projet nécessite un cadrage précis. Voici comment on procède.</p>
+                </div>
+
+                <div class="process-offer">
+                  <div class="process-offer-step">
+                    <div class="step-circle">1</div>
+                    <div class="step-info">
+                      <h4>Brief via chatbot Elia</h4>
+                      <p>On vous envoie un lien vers notre chatbot de brief. En 15-20 min, on définit ensemble : zones géographiques prioritaires, type d'influenceurs cibles, budget commission, objectifs.</p>
+                      <span class="step-tag">Cadrage complet</span>
+                    </div>
+                  </div>
+
+                  <div class="process-offer-step">
+                    <div class="step-circle">2</div>
+                    <div class="step-info">
+                      <h4>Proposition détaillée</h4>
+                      <p>On vous revient avec : liste d'influenceurs potentiels, proposition de commission, estimation de ROI, et devis pour le développement du système de tracking.</p>
+                      <span class="step-tag">Devis sur-mesure</span>
+                    </div>
+                  </div>
+
+                  <div class="process-offer-step">
+                    <div class="step-circle">3</div>
+                    <div class="step-info">
+                      <h4>Développement & lancement</h4>
+                      <p>Si vous validez, on développe le système d'affiliation (liens, tracking, dashboard), on contacte les influenceurs, et on lance les premières campagnes.</p>
+                      <span class="step-tag">Go live</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="handover-note" style="margin-top: 32px;">
+                  <div class="handover-icon">💰</div>
+                  <div class="handover-text">
+                    <strong>Modèle économique</strong>
+                    <p>Le développement du système est facturé une fois. Ensuite, vous ne payez que les commissions aux influenceurs quand ils génèrent des leads. Cohorte prend un % de gestion sur les commissions versées.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Système de vote final -->
+              <div class="proposal-vote" data-proposal="affiliation-locale" style="margin-top: 40px;">
+                <button class="vote-btn" data-vote="no">
+                  <span class="vote-icon">✗</span>
+                  <span class="vote-label">Pas intéressé</span>
+                </button>
+                <button class="vote-btn" data-vote="unclear">
+                  <span class="vote-icon">?</span>
+                  <span class="vote-label">Pas clair</span>
+                </button>
+                <button class="vote-btn" data-vote="later">
+                  <span class="vote-icon">◷</span>
+                  <span class="vote-label">Plus tard</span>
+                </button>
+                <button class="vote-btn go" data-vote="go">
+                  <span class="vote-icon">→</span>
+                  <span class="vote-label">Go !</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="step-navigation">
+              <button class="btn-step prev" onclick="goToStep('affiliation-locale', 3)">← Précédent</button>
+              <span class="step-indicator">Étape 4 sur 4 <span class="reading-time">⏱ ~2 min</span></span>
+              <button class="btn-step next" onclick="toggleProposal('affiliation-locale')" style="background: var(--gray-600);">Réduire ↑</button>
+            </div>
+          </div>
+
+        </div><!-- /stepper-content -->
+      </div><!-- /stepper-container -->
+    </div><!-- /proposal-card affiliation-locale -->
+
+  </section><!-- /proposals-section -->
+
+  <!-- SECTION PARTENARIAT -->
+  <section class="partnership-section">
+    <div class="partnership-container">
+      <div class="partnership-header">
+        <h2>Pourquoi un partenariat mensuel plutôt qu'un devis à chaque fois</h2>
+        <p>Deux façons de travailler. Une seule qui permet vraiment d'avancer.</p>
+      </div>
+
+      <div class="partnership-comparison">
+        <div class="comparison-card old">
+          <div class="comparison-card-header">
+            <div class="comparison-card-icon">📋</div>
+            <h3>Le modèle classique</h3>
+          </div>
+          <ul class="comparison-list">
+            <li><span class="icon">→</span> Vous avez une idée, vous demandez un devis</li>
+            <li><span class="icon">→</span> On chiffre, vous validez (ou pas), on développe</li>
+            <li><span class="icon">→</span> À chaque nouveau besoin, on recommence</li>
+            <li><span class="icon">→</span> Friction permanente, vision court-terme</li>
+            <li><span class="icon">→</span> On reste des prestataires extérieurs</li>
+          </ul>
+        </div>
+
+        <div class="comparison-card new">
+          <div class="comparison-card-header">
+            <div class="comparison-card-icon">🤝</div>
+            <h3>Notre approche</h3>
+          </div>
+          <ul class="comparison-list">
+            <li><span class="icon">✓</span> On réserve du temps chaque mois pour vous</li>
+            <li><span class="icon">✓</span> On identifie ensemble où l'IA peut vous aider</li>
+            <li><span class="icon">✓</span> On avance en continu, sans friction administrative</li>
+            <li><span class="icon">✓</span> Vision long-terme, on construit avec vous</li>
+            <li><span class="icon">✓</span> On devient une extension de votre équipe</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="partnership-bottom">
+        <p>
+          <strong>Ce que vous voyez sur cette page, c'est exactement ça.</strong><br>
+          Une roadmap claire, des propositions qu'on explore pour vous, un suivi transparent.
+          Pas de surprises, pas de devis cachés. On avance ensemble vers les mêmes objectifs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITATION -->
+  <section class="philosophy-section">
+    <div class="philosophy-content">
+      <p class="philosophy-quote">
+        L'IA ne remplace pas l'humain. Elle lui donne le temps de faire ce que lui seul sait faire : décider, créer, convaincre.
+      </p>
+      <p class="philosophy-author">— L'équipe Cohorte</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <h4>Une idée ? Un pain point ?</h4>
+      <p>Partagez-le, on explore et on vous propose une solution.</p>
+    </div>
+    <div class="footer-right">
+      <p>Antoine · Cohorte Agency</p>
+      <p>Développeurs augmentés par l'IA</p>
+    </div>
+  </footer>
+
+  <!-- CHATBOT WIDGET -->
+  <div class="chatbot-widget">
+    <div class="chatbot-panel" id="chatbot-panel">
+      <div class="chatbot-header">
+        <h3>💬 Questions ?</h3>
+        <button class="chatbot-close">×</button>
+      </div>
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chat-message assistant">
+          Bonjour ! Je peux répondre à vos questions sur les chantiers en cours ou les propositions. Comment puis-je vous aider ?
+        </div>
+      </div>
+      <div class="chatbot-input">
+        <input type="text" id="chat-input" placeholder="Posez votre question...">
+        <button id="send-btn">Envoyer</button>
+      </div>
+    </div>
+    <button class="chatbot-toggle">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+      </svg>
+    </button>
   </div>
+
+  <script>
+    // ---- SESSION & UTM ----
+    const sessionId = localStorage.getItem('sessionId') || crypto.randomUUID();
+    localStorage.setItem('sessionId', sessionId);
+
+    // ---- TIMELINE DYNAMIQUE ----
+    (function initTimeline() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth(); // 0-11
+      const day = now.getDate();
+      const daysInYear = ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) ? 366 : 365;
+
+      // Calculer le jour de l'année (1-365)
+      const startOfYear = new Date(year, 0, 0);
+      const diff = now - startOfYear;
+      const oneDay = 1000 * 60 * 60 * 24;
+      const dayOfYear = Math.floor(diff / oneDay);
+
+      // Pourcentage de progression dans l'année
+      const yearProgress = (dayOfYear / daysInYear) * 100;
+
+      // Mettre à jour l'année dans le titre
+      document.getElementById('timeline-year').textContent = year;
+
+      // Calculer le nombre de jours dans le mois en cours
+      const daysInCurrentMonth = new Date(year, month + 1, 0).getDate();
+      const monthProgress = (day / daysInCurrentMonth) * 100;
+
+      // Générer les mois
+      const monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'];
+      const monthsContainer = document.getElementById('timeline-months');
+      monthsContainer.innerHTML = monthNames.map((name, i) => {
+        let cls = 'month';
+        if (i < month) cls += ' past';
+        else if (i === month) cls += ' current';
+        else cls += ' future';
+
+        // Pour le mois en cours, ajouter la progress bar interne
+        if (i === month) {
+          return `<div class="${cls}">
+            <span class="month-label">${name}</span>
+            <div class="month-progress" style="width: ${monthProgress}%"></div>
+          </div>`;
+        }
+        return `<div class="${cls}">${name}</div>`;
+      }).join('');
+
+      // Mettre à jour la ligne de progression
+      const progressBar = document.getElementById('timeline-progress');
+      const nowIndicator = document.getElementById('timeline-now');
+      progressBar.style.width = yearProgress + '%';
+      nowIndicator.style.left = yearProgress + '%';
+
+      // Positionner les items de la timeline
+      function getPositionForDate(m, d) {
+        // m = mois (1-12), d = jour (1-31)
+        const targetDate = new Date(year, m - 1, d);
+        const targetDiff = targetDate - startOfYear;
+        const targetDay = Math.floor(targetDiff / oneDay);
+        return (targetDay / daysInYear) * 100;
+      }
+
+      document.querySelectorAll('.timeline-item').forEach(item => {
+        const itemMonth = parseInt(item.dataset.month);
+        const itemDay = parseInt(item.dataset.day) || 1;
+        const position = getPositionForDate(itemMonth, itemDay);
+        item.style.left = position + '%';
+      });
+
+      // S'assurer que "À définir" est TOUJOURS positionné après le chantier en cours
+      const currentItem = document.getElementById('item-booker');
+      const nextItem = document.getElementById('item-next');
+      if (currentItem && nextItem) {
+        const currentPos = parseFloat(currentItem.style.left);
+        // Toujours positionner "next" à droite du chantier en cours (décalage de 20%)
+        // Minimum : 20% après le chantier actuel, mais pas plus de 85% (pour rester visible)
+        const nextPosition = Math.min(currentPos + 20, 85);
+        nextItem.style.left = nextPosition + '%';
+
+        // Décaler aussi verticalement pour éviter le chevauchement visuel
+        nextItem.style.top = '10px';
+      }
+
+      // Scroll automatique vers la position actuelle
+      const scrollContainer = document.getElementById('timeline-scroll');
+      if (scrollContainer) {
+        const trackWidth = scrollContainer.querySelector('.timeline-track').offsetWidth;
+        const scrollTarget = (yearProgress / 100) * trackWidth - (scrollContainer.offsetWidth / 2);
+        setTimeout(() => {
+          scrollContainer.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
+        }, 500);
+      }
+    })();
+
+    // ---- NOTE TRANSPARENCE ----
+    function toggleTransparency() {
+      const card = document.getElementById('transparency-card');
+      if (card) {
+        card.classList.toggle('open');
+      }
+    }
+
+    // Observer pour révéler la note au scroll
+    const transparencyCard = document.getElementById('transparency-card');
+    if (transparencyCard) {
+      const transparencyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('revealed');
+            }, 300);
+            transparencyObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      transparencyObserver.observe(transparencyCard);
+    }
+
+    // ---- ACCORDÉON / STEPPER ----
+    function toggleProposal(proposalId) {
+      const card = document.getElementById(proposalId);
+      if (!card) return;
+
+      card.classList.toggle('collapsed');
+
+      // Scroll vers la carte si elle s'ouvre
+      if (!card.classList.contains('collapsed')) {
+        setTimeout(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+
+    function goToStep(proposalId, stepNum) {
+      const card = document.getElementById(proposalId);
+      if (!card) return;
+
+      // S'assurer que la carte est ouverte
+      card.classList.remove('collapsed');
+
+      // Mettre à jour les steps dans la nav
+      const steps = card.querySelectorAll('.stepper-step');
+      steps.forEach((step, i) => {
+        const num = i + 1;
+        step.classList.remove('active', 'completed');
+        if (num < stepNum) step.classList.add('completed');
+        if (num === stepNum) step.classList.add('active');
+      });
+
+      // Afficher le bon panel
+      const panels = card.querySelectorAll('.step-panel');
+      panels.forEach((panel, i) => {
+        const num = i + 1;
+        panel.classList.remove('active');
+        if (num === stepNum) panel.classList.add('active');
+      });
+
+      // Scroll vers le haut de la carte
+      setTimeout(() => {
+        card.querySelector('.stepper-nav').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+
+    // ---- PROPOSAL VOTING SYSTEM ----
+    // Sélectionner à la fois .proposal-vote et .proposal-vote-quick
+    document.querySelectorAll('.proposal-vote, .proposal-vote-quick').forEach(voteContainer => {
+      const proposalId = voteContainer.dataset.proposal;
+      const buttons = voteContainer.querySelectorAll('.vote-btn');
+
+      // Charger le vote existant
+      const savedVote = localStorage.getItem(`vote-${proposalId}`);
+      if (savedVote) {
+        buttons.forEach(btn => {
+          if (btn.dataset.vote === savedVote) {
+            btn.classList.add('active');
+          }
+        });
+
+        // Si vote "go", mettre à jour le placeholder dans la timeline
+        if (savedVote === 'go') {
+          updateTimelineWithProposal(proposalId);
+        }
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const vote = btn.dataset.vote;
+
+          // Retirer active de tous les boutons dans TOUTES les zones de vote pour cette proposition
+          document.querySelectorAll(`[data-proposal="${proposalId}"] .vote-btn`).forEach(b => {
+            b.classList.remove('active');
+          });
+
+          // Ajouter active aux boutons correspondants (synchronisation)
+          document.querySelectorAll(`[data-proposal="${proposalId}"] .vote-btn[data-vote="${vote}"]`).forEach(b => {
+            b.classList.add('active');
+          });
+
+          // Sauvegarder localement
+          localStorage.setItem(`vote-${proposalId}`, vote);
+
+          // Mettre à jour la timeline si "go"
+          if (vote === 'go') {
+            updateTimelineWithProposal(proposalId);
+          } else {
+            resetTimelinePlaceholder();
+          }
+
+          // Envoyer au serveur
+          fetch('/api/vote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              sessionId,
+              proposalId,
+              vote,
+              timestamp: new Date().toISOString()
+            })
+          }).catch(console.error);
+        });
+      });
+    });
+
+    // Mettre à jour le placeholder de la timeline quand une proposition est validée
+    function updateTimelineWithProposal(proposalId) {
+      const nextCard = document.getElementById('next-card');
+      const nextItem = document.getElementById('item-next');
+      if (!nextCard) return;
+
+      const proposals = {
+        'pack-ads': {
+          title: 'Pack Ads Centre',
+          desc: 'Création Meta Ads pour vos campagnes'
+        },
+        'affiliation-locale': {
+          title: 'Affiliation Locale',
+          desc: 'Partenariats influenceurs beauté locaux'
+        }
+      };
+
+      const proposal = proposals[proposalId];
+      if (proposal) {
+        // Animation de transition
+        nextCard.style.opacity = '0';
+        nextCard.style.transform = 'scale(0.95)';
+
+        setTimeout(() => {
+          nextCard.innerHTML = `
+            <div class="item-badge validated">✓ Validé</div>
+            <h4>${proposal.title}</h4>
+            <p>${proposal.desc}</p>
+          `;
+          nextCard.classList.remove('placeholder');
+          nextCard.classList.add('validated');
+
+          // S'assurer que le connector n'est plus en pointillés
+          if (nextItem) {
+            const connector = nextItem.querySelector('.item-connector');
+            if (connector) {
+              connector.classList.remove('dashed');
+              connector.style.background = '#10b981';
+            }
+          }
+
+          // Animation d'apparition
+          nextCard.style.transition = 'all 0.3s ease';
+          nextCard.style.opacity = '1';
+          nextCard.style.transform = 'scale(1)';
+        }, 150);
+
+        // Scroll vers la timeline pour montrer le changement
+        setTimeout(() => {
+          document.querySelector('.timeline-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 500);
+      }
+    }
+
+    function resetTimelinePlaceholder() {
+      const nextCard = document.getElementById('next-card');
+      const nextItem = document.getElementById('item-next');
+      if (!nextCard) return;
+
+      nextCard.style.opacity = '0';
+
+      setTimeout(() => {
+        nextCard.innerHTML = `
+          <div class="item-badge upcoming">À définir</div>
+          <h4>Prochain chantier</h4>
+          <p>Validez une proposition ci-dessous pour l'ajouter ici</p>
+        `;
+        nextCard.classList.add('placeholder');
+        nextCard.classList.remove('validated');
+
+        // Remettre le connector en pointillés
+        if (nextItem) {
+          const connector = nextItem.querySelector('.item-connector');
+          if (connector) {
+            connector.classList.add('dashed');
+            connector.style.background = '';
+          }
+        }
+
+        nextCard.style.transition = 'all 0.3s ease';
+        nextCard.style.opacity = '1';
+      }, 150);
+    }
+
+    // Capture UTM silencieusement puis nettoyer l'URL
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get('utm_source') || params.get('src') || params.get('v') || null;
+    if (utmSource) {
+      sessionStorage.setItem('utm_source', utmSource);
+      // Nettoyer l'URL pour que le visiteur ne voie pas le tracking
+      history.replaceState(null, '', window.location.pathname);
+    }
+    const trackedSource = sessionStorage.getItem('utm_source');
+
+    // ---- TRACKING AVANCÉ ----
+    const pageLoadTime = Date.now();
+    let maxScroll = 0;
+    const sectionsViewed = new Set();
+
+    // Scroll depth tracking
+    window.addEventListener('scroll', () => {
+      const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+      if (scrollPercent > maxScroll) maxScroll = scrollPercent;
+
+      // Détecter les sections visibles
+      document.querySelectorAll('section, .header, .footer').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const name = el.className.split(' ')[0] || el.tagName.toLowerCase();
+          sectionsViewed.add(name);
+        }
+      });
+    }, { passive: true });
+
+    // Envoyer les données enrichies au unload
+    window.addEventListener('beforeunload', () => {
+      const duration = Math.round((Date.now() - pageLoadTime) / 1000);
+      navigator.sendBeacon('/api/track', JSON.stringify({
+        sessionId,
+        duration,
+        maxScroll,
+        sectionsViewed: Array.from(sectionsViewed),
+        chatUsed: document.querySelectorAll('.chat-message.user').length > 0
+      }));
+    });
+
+    // ---- PHONE MOCKUP ANIMATION ----
+    const phoneMockup = document.querySelector('.phone-mockup');
+    const feedContent = document.querySelector('.insta-feed-content');
+    const adVideo = document.getElementById('ad-video');
+    let phoneAnimationTriggered = false;
+
+    if (phoneMockup && feedContent && adVideo) {
+      const phoneObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !phoneAnimationTriggered) {
+            phoneAnimationTriggered = true;
+            // Déclencher le scroll du feed après 500ms
+            setTimeout(() => {
+              feedContent.classList.add('scrolled');
+              // Démarrer la vidéo après le scroll (1.5s de transition + petit délai)
+              setTimeout(() => {
+                adVideo.play();
+              }, 1700);
+            }, 500);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      phoneObserver.observe(phoneMockup);
+    }
+
+    // ---- CHATBOT ----
+    function toggleChat() {
+      const panel = document.getElementById('chatbot-panel');
+      panel.classList.toggle('open');
+      if (panel.classList.contains('open')) {
+        document.getElementById('chat-input').focus();
+      }
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const message = input.value.trim();
+      if (!message) return;
+
+      const messagesContainer = document.getElementById('chatbot-messages');
+      const sendBtn = document.getElementById('send-btn');
+
+      messagesContainer.innerHTML += `<div class="chat-message user">${escapeHtml(message)}</div>`;
+      input.value = '';
+      sendBtn.disabled = true;
+
+      messagesContainer.innerHTML += `<div class="typing-indicator" id="typing"><span></span><span></span><span></span></div>`;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message, sessionId })
+        });
+        const data = await res.json();
+        document.getElementById('typing')?.remove();
+        messagesContainer.innerHTML += `<div class="chat-message assistant">${renderMarkdown(data.response)}</div>`;
+      } catch (err) {
+        document.getElementById('typing')?.remove();
+        messagesContainer.innerHTML += `<div class="chat-message assistant">Désolé, une erreur s'est produite. Contactez Antoine directement.</div>`;
+      }
+
+      sendBtn.disabled = false;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function renderMarkdown(text) {
+      // Configure marked pour un rendu propre
+      marked.setOptions({
+        breaks: true,  // Convertir les sauts de ligne en <br>
+        gfm: true      // GitHub Flavored Markdown
+      });
+      return marked.parse(text);
+    }
+
+    // ---- EVENT LISTENERS (pas de onclick inline) ----
+    document.querySelector('.chatbot-toggle').addEventListener('click', toggleChat);
+    document.querySelector('.chatbot-close').addEventListener('click', toggleChat);
+    document.getElementById('chat-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+    document.getElementById('send-btn').addEventListener('click', sendMessage);
+  </script>
 
 </body>
 </html>
