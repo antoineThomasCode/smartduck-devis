@@ -1548,6 +1548,223 @@
       font-weight: 500;
     }
 
+    /* Section A/B Testing */
+    .ab-section {
+      margin-top: 50px;
+      padding: 40px;
+      background: linear-gradient(180deg, var(--cohorte-black) 0%, #1a1a2e 100%);
+      border-radius: 20px;
+    }
+
+    .ab-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .ab-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .ab-header p {
+      font-size: 14px;
+      color: var(--gray-400);
+      max-width: 450px;
+      margin: 0 auto;
+    }
+
+    .ab-demo {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      margin-bottom: 32px;
+    }
+
+    .ab-variant {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ab-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    .ab-label.a {
+      background: var(--cohorte-accent);
+    }
+
+    .ab-label.b {
+      background: var(--duck-orange);
+    }
+
+    .ab-video-container {
+      width: 160px;
+      height: 160px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .ab-variant:hover .ab-video-container {
+      transform: scale(1.03);
+    }
+
+    .ab-video-container.winner {
+      border-color: #10b981;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .ab-video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ab-message {
+      font-size: 11px;
+      color: var(--gray-500);
+      text-align: center;
+      max-width: 140px;
+    }
+
+    .ab-vs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding-top: 40px;
+    }
+
+    .ab-vs-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray-400);
+    }
+
+    /* Schéma A/B */
+    .ab-schema {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .ab-schema-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ab-schema-box {
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .ab-schema-box.budget {
+      background: var(--duck-yellow);
+      color: var(--cohorte-black);
+    }
+
+    .ab-schema-box.split {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--gray-300);
+    }
+
+    .ab-schema-box.variant-a {
+      background: var(--cohorte-accent);
+      color: var(--white);
+    }
+
+    .ab-schema-box.variant-b {
+      background: var(--duck-orange);
+      color: var(--white);
+    }
+
+    .ab-schema-box.winner-box {
+      background: #10b981;
+      color: var(--white);
+    }
+
+    .ab-schema-arrow {
+      color: var(--gray-500);
+      font-size: 16px;
+    }
+
+    .ab-schema-split {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ab-result {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .ab-result p {
+      font-size: 13px;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    .ab-result strong {
+      color: #10b981;
+    }
+
+    @media (max-width: 600px) {
+      .ab-section {
+        padding: 24px;
+      }
+
+      .ab-demo {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .ab-vs {
+        padding-top: 0;
+        flex-direction: row;
+      }
+
+      .ab-schema-row {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .ab-schema-arrow {
+        transform: rotate(90deg);
+      }
+    }
+
     /* Section pricing */
     .pricing-section {
       margin-top: 50px;
@@ -2596,6 +2813,59 @@
           <h4>Pourquoi tous ces formats ?</h4>
           <p>Chaque emplacement a ses dimensions. Sans les bons formats, vos pubs sont coupées ou mal affichées. Avec un pack complet, vous êtes pro partout.</p>
         </div>
+      </div>
+    </div>
+
+    <!-- A/B TESTING EXPLAINER -->
+    <div class="ab-section">
+      <div class="ab-header">
+        <h3>L'A/B Testing : comment optimiser votre budget pub</h3>
+        <p>Deux messages différents, un seul gagnant. On teste, on mesure, on garde le meilleur.</p>
+      </div>
+
+      <div class="ab-demo">
+        <div class="ab-variant">
+          <span class="ab-label a">Version A</span>
+          <div class="ab-video-container">
+            <video autoplay loop muted playsinline>
+              <source src="SmartDuckAcquisition.mp4" type="video/mp4">
+            </video>
+          </div>
+          <span class="ab-message">Message émotionnel</span>
+        </div>
+
+        <div class="ab-vs">
+          <div class="ab-vs-circle">VS</div>
+        </div>
+
+        <div class="ab-variant">
+          <span class="ab-label b">Version B</span>
+          <div class="ab-video-container winner">
+            <video autoplay loop muted playsinline>
+              <source src="SmartDuck-Calculator.mp4" type="video/mp4">
+            </video>
+          </div>
+          <span class="ab-message">Message rationnel</span>
+        </div>
+      </div>
+
+      <div class="ab-schema">
+        <div class="ab-schema-row">
+          <div class="ab-schema-box budget">💰 Budget campagne</div>
+          <span class="ab-schema-arrow">→</span>
+          <div class="ab-schema-box split">50% / 50%</div>
+          <span class="ab-schema-arrow">→</span>
+          <div class="ab-schema-split">
+            <div class="ab-schema-box variant-a">Pub A</div>
+            <div class="ab-schema-box variant-b">Pub B</div>
+          </div>
+          <span class="ab-schema-arrow">→</span>
+          <div class="ab-schema-box winner-box">✓ Meilleure perf</div>
+        </div>
+      </div>
+
+      <div class="ab-result">
+        <p>On identifie la pub qui <strong>convertit le mieux</strong>, puis on concentre le budget dessus.<br>Résultat : <strong>moins de dépenses inutiles</strong>, <strong>plus de réservations</strong>.</p>
       </div>
     </div>
 
