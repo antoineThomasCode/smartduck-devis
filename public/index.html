@@ -1739,28 +1739,273 @@
       color: #10b981;
     }
 
+    /* Explainer cards */
+    .ab-explainer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .ab-explainer-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .ab-explainer-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .ab-explainer-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .ab-explainer-card p {
+      font-size: 12px;
+      color: var(--gray-400);
+      line-height: 1.5;
+    }
+
+    .ab-explainer-card strong {
+      color: #10b981;
+    }
+
+    /* Angles section */
+    .ab-angles {
+      margin-bottom: 40px;
+    }
+
+    .ab-angles h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .ab-angles-subtitle {
+      font-size: 13px;
+      color: var(--gray-400);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .ab-variants-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .ab-variant-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .ab-variant-badge {
+      display: block;
+      text-align: center;
+      padding: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .ab-variant-badge.emotional {
+      background: linear-gradient(90deg, #ec4899, #f472b6);
+      color: var(--white);
+    }
+
+    .ab-variant-badge.rational {
+      background: linear-gradient(90deg, var(--cohorte-accent), var(--cohorte-accent-light));
+      color: var(--white);
+    }
+
+    .ab-variant-badge.mythbuster {
+      background: linear-gradient(90deg, var(--duck-orange), var(--duck-coral));
+      color: var(--white);
+    }
+
+    .ab-variant-video {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+    }
+
+    .ab-variant-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ab-variant-info {
+      padding: 16px;
+    }
+
+    .ab-variant-info h5 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .ab-variant-info p {
+      font-size: 12px;
+      color: var(--gray-400);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .ab-variant-audience {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      font-size: 11px;
+    }
+
+    .audience-label {
+      color: var(--gray-500);
+      font-weight: 600;
+    }
+
+    .ab-variant-audience span:last-child {
+      color: var(--gray-300);
+    }
+
+    /* Learnings section */
+    .ab-learnings {
+      margin-bottom: 32px;
+    }
+
+    .ab-learnings h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .ab-learnings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .ab-learning-item {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .learning-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .ab-learning-item strong {
+      display: block;
+      font-size: 13px;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .ab-learning-item p {
+      font-size: 11px;
+      color: var(--gray-400);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Schema simplifié */
+    .ab-schema-simple {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      flex-wrap: wrap;
+    }
+
+    .schema-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 100px;
+    }
+
+    .schema-step.winner {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+    }
+
+    .schema-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gray-700);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .schema-step.winner .schema-number {
+      background: #10b981;
+    }
+
+    .schema-step span {
+      font-size: 12px;
+      color: var(--gray-300);
+      font-weight: 500;
+    }
+
+    .schema-arrow {
+      color: var(--gray-600);
+      font-size: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .ab-explainer,
+      .ab-variants-grid,
+      .ab-learnings-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 600px) {
       .ab-section {
         padding: 24px;
       }
 
-      .ab-demo {
+      .ab-schema-simple {
         flex-direction: column;
-        align-items: center;
-        gap: 24px;
       }
 
-      .ab-vs {
-        padding-top: 0;
-        flex-direction: row;
-      }
-
-      .ab-schema-row {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .ab-schema-arrow {
+      .schema-arrow {
         transform: rotate(90deg);
       }
     }
@@ -2819,53 +3064,137 @@
     <!-- A/B TESTING EXPLAINER -->
     <div class="ab-section">
       <div class="ab-header">
-        <h3>L'A/B Testing : comment optimiser votre budget pub</h3>
-        <p>Deux messages différents, un seul gagnant. On teste, on mesure, on garde le meilleur.</p>
+        <h3>L'A/B Testing : pourquoi c'est essentiel</h3>
+        <p>En publicité, personne ne sait à l'avance ce qui va marcher. Le seul moyen de savoir, c'est de tester.</p>
       </div>
 
-      <div class="ab-demo">
-        <div class="ab-variant">
-          <span class="ab-label a">Version A</span>
-          <div class="ab-video-container">
-            <video autoplay loop muted playsinline>
-              <source src="SmartDuckAcquisition.mp4" type="video/mp4">
-            </video>
-          </div>
-          <span class="ab-message">Message émotionnel</span>
+      <!-- Explication pédagogique -->
+      <div class="ab-explainer">
+        <div class="ab-explainer-card">
+          <div class="ab-explainer-icon">🤔</div>
+          <h4>Le problème</h4>
+          <p>Vous avez un budget pub. Vous créez UNE pub. Elle marche... ou pas. Si elle ne marche pas, vous avez dépensé votre budget pour rien.</p>
         </div>
-
-        <div class="ab-vs">
-          <div class="ab-vs-circle">VS</div>
+        <div class="ab-explainer-card">
+          <div class="ab-explainer-icon">💡</div>
+          <h4>La solution</h4>
+          <p>Vous créez PLUSIEURS pubs avec des messages différents. Vous divisez votre budget entre elles. Après quelques jours, vous voyez laquelle performe le mieux.</p>
         </div>
-
-        <div class="ab-variant">
-          <span class="ab-label b">Version B</span>
-          <div class="ab-video-container winner">
-            <video autoplay loop muted playsinline>
-              <source src="SmartDuck-Calculator.mp4" type="video/mp4">
-            </video>
-          </div>
-          <span class="ab-message">Message rationnel</span>
+        <div class="ab-explainer-card">
+          <div class="ab-explainer-icon">📈</div>
+          <h4>Le résultat</h4>
+          <p>Vous coupez les pubs qui ne marchent pas. Vous mettez tout le budget sur la gagnante. <strong>Moins de gaspillage, plus de conversions.</strong></p>
         </div>
       </div>
 
-      <div class="ab-schema">
-        <div class="ab-schema-row">
-          <div class="ab-schema-box budget">💰 Budget campagne</div>
-          <span class="ab-schema-arrow">→</span>
-          <div class="ab-schema-box split">50% / 50%</div>
-          <span class="ab-schema-arrow">→</span>
-          <div class="ab-schema-split">
-            <div class="ab-schema-box variant-a">Pub A</div>
-            <div class="ab-schema-box variant-b">Pub B</div>
+      <!-- Les 3 angles testés -->
+      <div class="ab-angles">
+        <h4>3 angles qu'on a créés pour SmartDuck</h4>
+        <p class="ab-angles-subtitle">Chaque angle parle à un type de client différent. En testant les 3, on découvre ce qui résonne le plus avec votre audience.</p>
+
+        <div class="ab-variants-grid">
+          <div class="ab-variant-card">
+            <div class="ab-variant-badge emotional">Émotionnel</div>
+            <div class="ab-variant-video">
+              <video autoplay loop muted playsinline>
+                <source src="SmartDuckAcquisition.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="ab-variant-info">
+              <h5>L'approche feel-good</h5>
+              <p>On mise sur le ressenti : confiance en soi, bien-être, transformation personnelle. Parle aux personnes qui achètent à l'émotion.</p>
+              <div class="ab-variant-audience">
+                <span class="audience-label">Cible type :</span>
+                <span>Personnes sensibles au lifestyle, à l'image de soi</span>
+              </div>
+            </div>
           </div>
-          <span class="ab-schema-arrow">→</span>
-          <div class="ab-schema-box winner-box">✓ Meilleure perf</div>
+
+          <div class="ab-variant-card">
+            <div class="ab-variant-badge rational">Rationnel</div>
+            <div class="ab-variant-video">
+              <video autoplay loop muted playsinline>
+                <source src="SmartDuck-Calculator.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="ab-variant-info">
+              <h5>L'approche calculette</h5>
+              <p>On mise sur les chiffres : économies vs rasoir/cire, nombre de séances, résultat durable. Parle aux personnes qui comparent avant d'acheter.</p>
+              <div class="ab-variant-audience">
+                <span class="audience-label">Cible type :</span>
+                <span>Personnes analytiques, sensibles au ROI</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ab-variant-card">
+            <div class="ab-variant-badge mythbuster">Mythbuster</div>
+            <div class="ab-variant-video">
+              <video autoplay loop muted playsinline>
+                <source src="SmartDuckMythbuster.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="ab-variant-info">
+              <h5>L'approche anti-objections</h5>
+              <p>On casse les idées reçues : "c'est douloureux", "c'est pas pour moi", "c'est trop cher". Parle aux personnes qui hésitent encore.</p>
+              <div class="ab-variant-audience">
+                <span class="audience-label">Cible type :</span>
+                <span>Personnes intéressées mais freinées par des doutes</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="ab-result">
-        <p>On identifie la pub qui <strong>convertit le mieux</strong>, puis on concentre le budget dessus.<br>Résultat : <strong>moins de dépenses inutiles</strong>, <strong>plus de réservations</strong>.</p>
+      <!-- Ce que ça apprend -->
+      <div class="ab-learnings">
+        <h4>Ce que l'A/B testing vous apprend sur votre audience</h4>
+        <div class="ab-learnings-grid">
+          <div class="ab-learning-item">
+            <span class="learning-icon">🎯</span>
+            <div>
+              <strong>Quel message résonne</strong>
+              <p>Si le "Mythbuster" gagne, vos clients ont besoin d'être rassurés. Si le "Rationnel" gagne, ils veulent des preuves chiffrées.</p>
+            </div>
+          </div>
+          <div class="ab-learning-item">
+            <span class="learning-icon">👥</span>
+            <div>
+              <strong>Qui est vraiment votre client</strong>
+              <p>Les résultats révèlent le profil psychologique de ceux qui convertissent. Ça guide toute votre com' future.</p>
+            </div>
+          </div>
+          <div class="ab-learning-item">
+            <span class="learning-icon">💰</span>
+            <div>
+              <strong>Où mettre votre argent</strong>
+              <p>En moyenne, l'A/B testing permet de réduire le coût par acquisition de 20 à 40%. C'est du budget récupéré pour scaler.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schéma simplifié -->
+      <div class="ab-schema-simple">
+        <div class="schema-step">
+          <div class="schema-number">1</div>
+          <span>On lance les 3 pubs</span>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-step">
+          <div class="schema-number">2</div>
+          <span>On mesure (clics, réservations)</span>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-step">
+          <div class="schema-number">3</div>
+          <span>On garde la meilleure</span>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-step winner">
+          <div class="schema-number">✓</div>
+          <span>Budget optimisé</span>
+        </div>
       </div>
     </div>
 
