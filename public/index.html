@@ -778,12 +778,12 @@
     }
 
     .insta-feed-content {
-      animation: feed-scroll 6s ease-out forwards;
+      transform: translateY(0);
+      transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    @keyframes feed-scroll {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-480px); }
+    .insta-feed-content.scrolled {
+      transform: translateY(-520px);
     }
 
     .insta-post-fake {
@@ -1704,7 +1704,7 @@
                       <span class="ad-more">•••</span>
                     </div>
                     <div class="insta-post-ad-video">
-                      <video autoplay loop muted playsinline>
+                      <video id="ad-video" loop muted playsinline>
                         <source src="SmartDuckAcquisition.mp4" type="video/mp4">
                       </video>
                     </div>
@@ -1822,6 +1822,32 @@
         chatUsed: document.querySelectorAll('.chat-message.user').length > 0
       }));
     });
+
+    // ---- PHONE MOCKUP ANIMATION ----
+    const phoneMockup = document.querySelector('.phone-mockup');
+    const feedContent = document.querySelector('.insta-feed-content');
+    const adVideo = document.getElementById('ad-video');
+    let phoneAnimationTriggered = false;
+
+    if (phoneMockup && feedContent && adVideo) {
+      const phoneObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !phoneAnimationTriggered) {
+            phoneAnimationTriggered = true;
+            // Déclencher le scroll du feed après 500ms
+            setTimeout(() => {
+              feedContent.classList.add('scrolled');
+              // Démarrer la vidéo après le scroll (1.5s de transition + petit délai)
+              setTimeout(() => {
+                adVideo.play();
+              }, 1700);
+            }, 500);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      phoneObserver.observe(phoneMockup);
+    }
 
     // ---- CHATBOT ----
     function toggleChat() {
