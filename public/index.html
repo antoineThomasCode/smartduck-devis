@@ -57,92 +57,69 @@
       line-height: 1.6;
     }
 
-    /* HEADER COMPACT */
-    .header-compact {
-      background: linear-gradient(135deg, var(--cohorte-black) 0%, #1a1a2e 100%);
-      padding: 30px 40px;
-      border-bottom: 3px solid var(--duck-red);
+    /* TOP BANNER */
+    .top-banner {
+      background: var(--cohorte-black);
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid var(--duck-red);
     }
 
-    .header-compact-inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .header-brands {
+    .banner-inner {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 12px;
-      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
-    .brand-cohorte {
+    .banner-brands {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 13px;
       color: var(--white);
-      letter-spacing: 3px;
+      letter-spacing: 1px;
     }
 
-    .brand-separator {
-      color: var(--gray-500);
-      font-size: 16px;
-    }
-
-    .brand-client {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--duck-coral);
+    .banner-brands strong {
       letter-spacing: 2px;
     }
 
-    .header-intro {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .banner-separator {
+      color: var(--gray-600);
     }
 
-    .intro-main {
-      font-size: 14px;
-      color: var(--gray-300);
-      line-height: 1.6;
-      max-width: 700px;
-    }
-
-    .intro-sub {
-      font-size: 13px;
+    .banner-text {
+      font-size: 12px;
       color: var(--gray-400);
-      line-height: 1.6;
-      max-width: 700px;
     }
 
-    .intro-sub strong {
-      color: var(--cohorte-accent-light);
+    @media (max-width: 600px) {
+      .banner-separator,
+      .banner-text {
+        display: none;
+      }
     }
 
     /* ROADMAP SECTION */
     .roadmap-section {
-      padding: 50px 40px;
-      background: var(--white);
+      padding: 30px 20px 60px;
+      background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+      min-height: 100vh;
     }
 
-    .roadmap-header {
+    .roadmap-intro {
       text-align: center;
-      margin-bottom: 40px;
+      padding: 20px;
+      margin-bottom: 30px;
     }
 
-    .roadmap-header h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--cohorte-black);
-      margin-bottom: 8px;
-    }
-
-    .roadmap-header p {
-      font-size: 15px;
+    .roadmap-intro p {
+      font-size: 14px;
       color: var(--gray-500);
+      max-width: 400px;
+      margin: 0 auto;
     }
 
     .roadmap-timeline {
@@ -531,32 +508,146 @@
       padding: 24px;
     }
 
-    .proposal-preview {
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 40px;
-      align-items: start;
-      margin-bottom: 30px;
+    /* PEDAGOGY SECTION - Explication du parcours */
+    .pedagogy-section {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 16px;
+      border: 1px solid var(--gray-200);
     }
 
-    .preview-text h4 {
+    .pedagogy-section h4 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 16px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cohorte-black);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .journey-explainer {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .journey-step {
+      display: flex;
+      gap: 16px;
+      padding: 20px;
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--gray-200);
+      margin-bottom: 8px;
+    }
+
+    .journey-step.highlight {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-color: var(--duck-orange);
+    }
+
+    .journey-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--cohorte-black);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .journey-step.highlight .journey-number {
+      background: var(--duck-orange);
+    }
+
+    .journey-content h5 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
       font-weight: 600;
       color: var(--cohorte-black);
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
 
-    .preview-text p {
+    .journey-content p {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .journey-content strong {
+      color: var(--cohorte-black);
+    }
+
+    .journey-arrow {
+      text-align: center;
+      color: var(--gray-400);
+      font-size: 20px;
+      padding: 4px 0;
+    }
+
+    .pedagogy-summary {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-top: 24px;
+      padding: 16px;
+      background: var(--cohorte-black);
+      border-radius: 12px;
+    }
+
+    .summary-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .pedagogy-summary p {
+      font-size: 13px;
+      color: var(--gray-300);
+      line-height: 1.6;
+    }
+
+    .pedagogy-summary strong {
+      color: var(--white);
+    }
+
+    /* EXAMPLES SECTION */
+    .examples-section {
+      margin-bottom: 24px;
+    }
+
+    .examples-section h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--cohorte-black);
+      margin-bottom: 8px;
+    }
+
+    .examples-intro {
       font-size: 14px;
       color: var(--gray-600);
       line-height: 1.6;
-      margin-bottom: 16px;
+    }
+
+    .proposal-preview {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
     }
 
     @media (max-width: 768px) {
-      .proposal-preview {
-        grid-template-columns: 1fr;
+      .pedagogy-section {
+        padding: 20px;
+      }
+
+      .journey-step {
+        flex-direction: column;
+        gap: 12px;
       }
 
       .roadmap-options {
@@ -2722,26 +2813,19 @@
 </head>
 <body>
 
-  <!-- HEADER COMPACT -->
-  <header class="header-compact">
-    <div class="header-compact-inner">
-      <div class="header-brands">
-        <span class="brand-cohorte">COHORTE</span>
-        <span class="brand-separator">×</span>
-        <span class="brand-client">SMARTDUCK</span>
-      </div>
-      <div class="header-intro">
-        <p class="intro-main">Votre espace de suivi projet. Ici, vous voyez l'avancée des développements en cours, les prochaines fonctionnalités, et vous pouvez nous faire part de vos priorités.</p>
-        <p class="intro-sub">Nous sommes des <strong>développeurs augmentés par l'IA</strong> : nos outils nous permettent d'avancer vite, d'itérer rapidement, et de vous proposer des solutions sur-mesure. On est là pour accompagner votre croissance, à votre rythme.</p>
-      </div>
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <div class="banner-inner">
+      <span class="banner-brands"><strong>COHORTE</strong> × <strong>SMARTDUCK</strong></span>
+      <span class="banner-separator">|</span>
+      <span class="banner-text">Espace de suivi projet — Développeurs augmentés par l'IA</span>
     </div>
-  </header>
+  </div>
 
   <!-- ROADMAP VERTICALE -->
   <section class="roadmap-section">
-    <div class="roadmap-header">
-      <h2>Roadmap</h2>
-      <p>Les chantiers en cours et à venir</p>
+    <div class="roadmap-intro">
+      <p>Scrollez pour voir l'avancée de vos chantiers et découvrir nos propositions en bas de page.</p>
     </div>
 
     <div class="roadmap-timeline">
@@ -2756,7 +2840,7 @@
           <h3>Intégration Système de Réservation Booker</h3>
           <p class="roadmap-desc">Connecter Booker directement à votre site pour une expérience client fluide et des données centralisées.</p>
 
-          <!-- Mini process horizontal -->
+          <!-- Mini process vertical pour mobile -->
           <div class="roadmap-process">
             <div class="mini-step current">
               <span class="mini-dot"></span>
@@ -2862,22 +2946,59 @@
       </div>
 
       <div class="proposal-details">
-        <div class="proposal-preview">
-          <div class="preview-text">
-            <h4>Aperçu de ce qu'on a créé</h4>
-            <p>Pub vidéo motion design créée avec Kling AI et Raymotion. Prête à tourner sur Instagram et Facebook.</p>
-            <ul class="bonus-features">
-              <li>
-                <span class="icon">🎬</span>
-                <span>Format 1:1 · 15 sec · Feed optimisé</span>
-              </li>
-            </ul>
+
+        <!-- EXPLICATION PÉDAGOGIQUE : Pourquoi vous aurez besoin de ça -->
+        <div class="pedagogy-section">
+          <h4>Pourquoi on prépare ça maintenant ?</h4>
+
+          <div class="journey-explainer">
+            <div class="journey-step">
+              <div class="journey-number">1</div>
+              <div class="journey-content">
+                <h5>Aujourd'hui : Google Search</h5>
+                <p>Vous lancez des campagnes Google Search. Vous ciblez des mots-clés comme "épilation laser Paris". Les gens qui cherchent activement vous trouvent. C'est votre priorité actuelle, et c'est bien.</p>
+              </div>
+            </div>
+
+            <div class="journey-arrow">↓</div>
+
+            <div class="journey-step">
+              <div class="journey-number">2</div>
+              <div class="journey-content">
+                <h5>Demain : Performance Max</h5>
+                <p>Quand vous voudrez scaler, vous passerez sur <strong>Google Performance Max</strong>. C'est là que Google diffuse vos pubs partout : YouTube, Gmail, Discover, Display... Pour que ça marche, Google a besoin de <strong>contenus visuels</strong> : images et vidéos.</p>
+              </div>
+            </div>
+
+            <div class="journey-arrow">↓</div>
+
+            <div class="journey-step highlight">
+              <div class="journey-number">3</div>
+              <div class="journey-content">
+                <h5>Ce qu'il vous faudra : des Ad Sets</h5>
+                <p>Un Ad Set, c'est un <strong>pack de vidéos courtes</strong> déclinées dans tous les formats (carré, vertical, horizontal). Sans ça, vos pubs Performance Max tournent avec des visuels génériques ou mal cadrés. Avec, vous contrôlez votre image et vos conversions.</p>
+              </div>
+            </div>
           </div>
-          <div class="phone-mockup-container">
-        <div class="demo-label">
-          <span class="demo-label-text">Exemple créé pour vous</span>
-          <span class="demo-label-arrow"></span>
+
+          <div class="pedagogy-summary">
+            <span class="summary-icon">💡</span>
+            <p><strong>On prépare l'après.</strong> Pendant que vous êtes sur Google Search, on crée les assets vidéo dont vous aurez besoin pour Performance Max. Comme ça, le jour où vous voulez scaler, tout est prêt.</p>
+          </div>
         </div>
+
+        <!-- Exemples créés -->
+        <div class="examples-section">
+          <h4>Exemples qu'on a créés pour SmartDuck</h4>
+          <p class="examples-intro">Voici des prototypes de vidéos publicitaires. Chaque angle teste un message différent pour voir ce qui résonne avec votre audience.</p>
+        </div>
+
+        <div class="proposal-preview">
+          <div class="phone-mockup-container">
+            <div class="demo-label">
+              <span class="demo-label-text">Exemple : angle "calculette"</span>
+              <span class="demo-label-arrow"></span>
+            </div>
         <div class="phone-mockup">
           <div class="phone-screen">
             <div class="insta-feed">
