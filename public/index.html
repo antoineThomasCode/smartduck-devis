@@ -466,16 +466,7 @@
     }
 
     .process-timeline::after {
-      content: '';
-      position: absolute;
-      top: 28px;
-      left: 12%;
-      width: 76%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--cohorte-accent) 0%, var(--duck-red) 100%);
-      transform: scaleX(0);
-      transform-origin: left;
-      animation: timeline-fill 2s ease-out 0.5s forwards;
+      display: none;
     }
 
     @keyframes timeline-fill {
@@ -516,8 +507,26 @@
       color: var(--white);
     }
 
+    /* Étape validée */
+    .process-step.completed .step-number {
+      background: linear-gradient(135deg, var(--cohorte-accent) 0%, var(--cohorte-accent-light) 100%);
+      border-color: var(--cohorte-accent);
+      color: var(--white);
+    }
+
+    .process-step.completed .step-number::after {
+      content: '✓';
+      position: absolute;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .process-step.completed .step-number span {
+      display: none;
+    }
+
     .step-content {
-      max-width: 120px;
+      max-width: 140px;
     }
 
     .step-title {
@@ -527,9 +536,42 @@
       margin-bottom: 4px;
     }
 
+    .process-step.completed .step-title {
+      color: var(--cohorte-accent);
+    }
+
     .step-actor {
       font-size: 11px;
       color: var(--gray-500);
+    }
+
+    .step-date {
+      font-size: 10px;
+      color: var(--cohorte-accent);
+      font-weight: 600;
+      margin-top: 4px;
+      background: rgba(99, 102, 241, 0.1);
+      padding: 3px 8px;
+      border-radius: 100px;
+      display: inline-block;
+    }
+
+    /* Étape en cours */
+    .process-step.current .step-number {
+      background: var(--white);
+      border: 3px solid var(--duck-red);
+      color: var(--duck-red);
+      animation: pulse-current 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-current {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(230, 57, 70, 0); }
+    }
+
+    .process-step.current .step-title {
+      color: var(--duck-red);
+      font-weight: 700;
     }
 
     /* FOOTER */
@@ -706,14 +748,31 @@
         text-align: left;
         gap: 16px;
       }
-      
+
       .step-number {
         margin-bottom: 0;
         flex-shrink: 0;
       }
-      
+
       .step-content {
         max-width: none;
+      }
+
+      .step-date {
+        margin-left: 8px;
+      }
+
+      .process-step.completed .step-content,
+      .process-step.current .step-content {
+        padding: 8px 12px;
+        background: var(--gray-50);
+        border-radius: 8px;
+        border-left: 3px solid var(--cohorte-accent);
+      }
+
+      .process-step.current .step-content {
+        border-left-color: var(--duck-red);
+        background: rgba(230, 57, 70, 0.05);
       }
       
       .footer {
@@ -1089,18 +1148,19 @@
     </div>
 
     <div class="process-timeline">
-      <div class="process-step">
+      <div class="process-step current">
         <div class="step-number">01</div>
         <div class="step-content">
           <div class="step-title">Choix option</div>
           <div class="step-actor">Vous</div>
         </div>
       </div>
-      <div class="process-step">
-        <div class="step-number">02</div>
+      <div class="process-step completed">
+        <div class="step-number"><span>02</span></div>
         <div class="step-content">
           <div class="step-title">Credentials API</div>
           <div class="step-actor">Pure Informatique</div>
+          <div class="step-date">4 fév. 2026 ✓</div>
         </div>
       </div>
       <div class="process-step">
